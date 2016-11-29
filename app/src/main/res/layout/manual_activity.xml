@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_purple">
+
+    <TextView
+        android:text="วิธีใช้"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textStyle="bold|italic"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/background_light" />
+
+    <Button
+        android:text="ข้อความอธิบาย"
+        android:layout_width="match_parent"
+        android:layout_marginTop="19dp"
+        android:id="@+id/button11"
+        android:layout_height="60dp"
+        android:layout_below="@+id/button25"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="วีดีโอแนะนำ"
+        android:layout_width="match_parent"
+        android:layout_marginTop="71dp"
+        android:id="@+id/button25"
+        android:layout_height="60dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

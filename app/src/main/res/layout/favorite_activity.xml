@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_purple">
+
+    <TextView
+        android:text="คนโปรด"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textStyle="bold|italic"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/background_light" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/button8"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:background="@android:color/background_light"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:text="ค้นหา"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button8"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_toRightOf="@+id/editText2"
+        android:layout_toEndOf="@+id/editText2"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:gravity="center"
+        android:hint="กรุณาใส่คำค้นหา"
+        android:ems="10"
+        android:layout_marginTop="30dp"
+        android:id="@+id/editText2"
+        android:background="@android:color/background_light"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/listView3"
+        android:layout_alignStart="@+id/listView3"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp" />
+</RelativeLayout>
