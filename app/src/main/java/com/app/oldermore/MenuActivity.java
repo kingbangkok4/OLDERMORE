@@ -2,23 +2,20 @@ package com.app.oldermore;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
+
 public class MenuActivity extends Activity{
     private Button btService, btReceive, btnExit, btnUpStatus;
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
-    private DecimalFormat decimalFormat = new DecimalFormat("#,###,###.##");
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();

@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
-    private Button btLogin;
+    private Button btnLogin, btnRegister;
     private EditText txtUsername, txtPassword;
     private Http http = new Http();
     /*    private String strUsername = "";
@@ -45,12 +45,13 @@ public class MainActivity extends Activity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        btLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnRegister = (Button)findViewById(R.id.btnRegister);
         txtUsername = (EditText) findViewById(R.id.txtUserName);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
 
 
-        btLogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -75,7 +76,13 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), RegisterActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private boolean OnLogin() {
