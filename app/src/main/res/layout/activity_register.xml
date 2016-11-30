@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_purple">
+    android:background="@drawable/bg2">
 
     <TextView
         android:text="ยืนยันรหัสผ่าน"
@@ -48,28 +49,21 @@
         android:background="@color/colorAccent"
         android:textColor="@android:color/background_light" />
 
-    <Button
-        android:text="ลงทะเบียน"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:id="@+id/button50" />
-
     <EditText
         android:layout_height="30dp"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:gravity=""
         android:text=""
         android:ems="10"
         android:layout_marginTop="18dp"
         android:id="@+id/txtRePassword"
-        android:background="@android:color/background_light"
+        android:background="?attr/colorButtonNormal"
         android:layout_width="200dp"
         android:layout_below="@+id/txtPassword"
         android:layout_alignLeft="@+id/txtPassword"
-        android:layout_alignStart="@+id/txtPassword" />
+        android:layout_alignStart="@+id/txtPassword"
+        android:layout_alignRight="@+id/txtPass"
+        android:layout_alignEnd="@+id/txtPass" />
 
     <EditText
         android:layout_height="30dp"
@@ -87,17 +81,20 @@
 
     <EditText
         android:layout_height="30dp"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:gravity=""
         android:text=""
         android:ems="10"
         android:layout_marginTop="18dp"
-        android:id="@+id/editText17"
-        android:background="@android:color/background_light"
-        android:layout_width="200dp"
+        android:id="@+id/txtPass"
+        android:background="?attr/colorButtonNormal"
+        android:layout_width="match_parent"
         android:layout_below="@+id/txtUsername"
         android:layout_alignLeft="@+id/txtUsername"
-        android:layout_alignStart="@+id/txtUsername" />
+        android:layout_alignStart="@+id/txtUsername"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:text="ชื่อผู้ใช้งาน"
@@ -133,17 +130,19 @@
 
     <EditText
         android:layout_height="30dp"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:gravity=""
         android:text=""
         android:ems="10"
         android:id="@+id/txtEmail"
-        android:background="@android:color/background_light"
+        android:background="?attr/colorButtonNormal"
         android:layout_width="200dp"
         android:layout_alignLeft="@+id/txtMobile"
         android:layout_alignStart="@+id/txtMobile"
         android:layout_below="@+id/txtName"
-        android:layout_marginTop="18dp" />
+        android:layout_marginTop="18dp"
+        android:layout_alignRight="@+id/txtName"
+        android:layout_alignEnd="@+id/txtName" />
 
     <EditText
         android:layout_height="30dp"
@@ -152,12 +151,14 @@
         android:text=""
         android:ems="10"
         android:id="@+id/txtName"
-        android:background="@android:color/background_light"
+        android:background="?attr/colorButtonNormal"
         android:layout_width="200dp"
         android:layout_marginTop="18dp"
         android:layout_below="@+id/txtRePassword"
         android:layout_alignLeft="@+id/txtRePassword"
-        android:layout_alignStart="@+id/txtRePassword" />
+        android:layout_alignStart="@+id/txtRePassword"
+        android:layout_alignRight="@+id/txtRePassword"
+        android:layout_alignEnd="@+id/txtRePassword" />
 
     <TextView
         android:text="ชื่อ - นามสกุล"
@@ -171,33 +172,19 @@
 
     <EditText
         android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="16dp"
-        android:id="@+id/txtUsername"
-        android:background="@android:color/background_light"
-        android:layout_width="200dp"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/textView18"
-        android:layout_toEndOf="@+id/textView18"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
-
-    <EditText
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
+        android:inputType="textPhonetic"
         android:gravity=""
         android:text=""
         android:ems="10"
         android:id="@+id/txtMobile"
-        android:background="@android:color/background_light"
+        android:background="?attr/colorButtonNormal"
         android:layout_width="200dp"
         android:layout_marginTop="18dp"
         android:layout_below="@+id/txtEmail"
         android:layout_alignLeft="@+id/txtName"
-        android:layout_alignStart="@+id/txtName" />
+        android:layout_alignStart="@+id/txtName"
+        android:layout_alignRight="@+id/txtName"
+        android:layout_alignEnd="@+id/txtName" />
 
     <TextView
         android:text="เบอร์โทร"
@@ -215,11 +202,46 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/txtAddress"
-        android:background="@android:color/background_light"
+        android:background="?attr/colorButtonNormal"
         android:layout_marginTop="17dp"
         android:layout_below="@+id/txtMobile"
         android:layout_alignLeft="@+id/txtMobile"
         android:layout_alignStart="@+id/txtMobile"
-        android:layout_alignRight="@+id/txtMobile"
-        android:layout_alignEnd="@+id/txtMobile" />
+        android:layout_alignRight="@+id/txtPass"
+        android:layout_alignEnd="@+id/txtPass" />
+
+    <EditText
+        android:layout_height="30dp"
+        android:inputType="textPersonName"
+        android:gravity=""
+        android:text=""
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/txtUsername"
+        android:background="?attr/colorButtonNormal"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_marginRight="10dp" />
+
+    <Button
+        android:text="ลงทะเบียน"
+        android:layout_width="match_parent"
+        android:id="@+id/btnSubmit"
+        android:layout_below="@+id/txtAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button01"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:text="กลับ"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/btnBackToLogin"
+        android:background="@drawable/button08"
+        android:layout_below="@+id/btnSubmit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

@@ -18,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class RegisterActivity extends Activity {
@@ -40,7 +39,7 @@ public class RegisterActivity extends Activity {
 
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         txtUsername = (EditText) findViewById(R.id.txtUsername);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
+        txtPassword = (EditText) findViewById(R.id.txtPass);
         txtRePassword = (EditText) findViewById(R.id.txtRePassword);
         txtName = (EditText) findViewById(R.id.txtName);
         txtMobile = (EditText) findViewById(R.id.txtMobile);
@@ -50,12 +49,12 @@ public class RegisterActivity extends Activity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ValidateData();
             }
         });
     }
 
-    public void ValidateData() {
+    private void ValidateData() {
         username = txtUsername.getText().toString().trim();
         password = txtPassword.getText().toString().trim();
         rePassword = txtRePassword.getText().toString().trim();
@@ -65,12 +64,12 @@ public class RegisterActivity extends Activity {
         address = txtAddress.getText().toString().trim();
 
         if (!"".equals(username)
-                || !"".equals(password)
-                || !"".equals(rePassword)
-                || !"".equals(name)
-                || !"".equals(mobile)
-                || !"".equals(email)
-                || !"".equals(address)
+                && !"".equals(password)
+                && !"".equals(rePassword)
+                && !"".equals(name)
+                && !"".equals(mobile)
+                && !"".equals(email)
+                && !"".equals(address)
                 ) {
             if ((password).equals(rePassword)) {
                 String status = this.SaveData();
@@ -103,6 +102,12 @@ public class RegisterActivity extends Activity {
                 JSONObject c1 = data_user.getJSONObject(0);
                 status = c1.getString("status");
                 if ("0".equals(status)) {
+                    url = getString(R.string.url) + "saveUser.php";
+                    JSONArray data_save_user = new JSONArray(http.getJSONUrl(url, params));
+                    JSONObject cc = data_save_user.getJSONObject(0);
+                    String user_id = cc.getString("user_id");
+                    params.add(new BasicNameValuePair("user_id", user_id));
+
                     url = getString(R.string.url) + "saveMember.php";
                     JSONArray data_member = new JSONArray(http.getJSONUrl(url, params));
                     JSONObject c2 = data_member.getJSONObject(0);
@@ -110,7 +115,7 @@ public class RegisterActivity extends Activity {
                     strStatus = status;
                 }
                 else {
-                    strStatus = "User นี้มีอยู่ในระบบแล้ว !";
+                    strStatus = "ผู้ใช้งานนี้มีอยู่ในระบบแล้ว !";
                 }
             }
         } catch (JSONException e) {

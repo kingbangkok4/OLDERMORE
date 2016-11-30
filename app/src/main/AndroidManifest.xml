@@ -35,6 +35,19 @@
         </activity>
         <activity android:name=".MenuActivity" />
         <activity android:name=".RegisterActivity" />
+
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".HealthActivity" />
+        <activity android:name=".MsgCallActivity" />
+        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".EmergencyActivity" />
+        <activity android:name=".PostActivity" />
+        <activity android:name=".NontificationActivity" />
+        <activity android:name=".PhotoRetouchActivity" />
+        <activity android:name=".BoardActivity" />
+        <activity android:name=".KnowledgeActivity" />
+        <activity android:name=".ManualActivity" />
+        <activity android:name=".SettingActivity" />
     </application>
 
 </manifest>

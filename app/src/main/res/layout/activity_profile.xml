@@ -21,7 +21,7 @@
         android:id="@+id/textView23"
         android:layout_marginLeft="35dp"
         android:layout_marginStart="35dp"
-        android:layout_alignTop="@+id/editText11"
+        android:layout_alignTop="@+id/txtName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -38,8 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView22"
-        android:layout_alignBaseline="@+id/editText6"
-        android:layout_alignBottom="@+id/editText6"
+        android:layout_alignBaseline="@+id/txtMobile"
+        android:layout_alignBottom="@+id/txtMobile"
         android:layout_alignLeft="@+id/textView20"
         android:layout_alignStart="@+id/textView20" />
 
@@ -47,26 +47,27 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="25dp"
-        android:id="@+id/button36"
+        android:id="@+id/btnImageProfile"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/ic_launcher" />
 
     <TextView
         android:text="รูปโปรไฟล์/ชื่อ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button36"
+        android:layout_below="@+id/btnImageProfile"
         android:layout_centerHorizontal="true"
         android:id="@+id/textView13" />
 
     <EditText
         android:layout_height="30dp"
         android:inputType="textPersonName"
-        android:gravity=""
+        android:gravity="center"
         android:text=""
         android:ems="10"
         android:layout_marginTop="24dp"
-        android:id="@+id/editText11"
+        android:id="@+id/txtName"
         android:background="@android:color/background_light"
         android:layout_width="200dp"
         android:layout_below="@+id/textView13"
@@ -96,46 +97,31 @@
         android:id="@+id/textView20"
         android:layout_marginLeft="35dp"
         android:layout_marginStart="35dp"
-        android:layout_alignTop="@+id/editText11"
+        android:layout_alignTop="@+id/txtName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="24dp"
-        android:id="@+id/editText6"
-        android:background="@android:color/background_light"
-        android:layout_width="200dp"
-        android:layout_below="@+id/editText11"
-        android:layout_alignLeft="@+id/editText11"
-        android:layout_alignStart="@+id/editText11" />
 
     <TextView
         android:text="ผู้ติดต่อกรณีฉมีเหตุุกเฉิน"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView21"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/txtMobile"
         android:layout_alignLeft="@+id/textView22"
         android:layout_alignStart="@+id/textView22"
         android:layout_marginTop="38dp" />
 
     <Button
-        android:text="Button"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@+id/textView21"
         android:layout_alignLeft="@+id/textView21"
         android:layout_alignStart="@+id/textView21"
         android:layout_marginTop="27dp"
-        android:id="@+id/button44" />
+        android:id="@+id/button44"
+        android:background="@android:drawable/sym_def_app_icon" />
 
     <Button
-        android:text="Button"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:id="@+id/button46"
@@ -144,17 +130,18 @@
         android:layout_alignBottom="@+id/button45"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/button45" />
+        android:layout_alignTop="@+id/button45"
+        android:background="@android:drawable/sym_def_app_icon" />
 
     <Button
-        android:text="Button"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:id="@+id/button45"
         android:layout_alignBottom="@+id/button44"
         android:layout_alignRight="@+id/textView13"
         android:layout_alignEnd="@+id/textView13"
-        android:layout_alignTop="@+id/button44" />
+        android:layout_alignTop="@+id/button44"
+        android:background="@android:drawable/sym_def_app_icon" />
 
     <TextView
         android:text="ชื่อ"
@@ -170,9 +157,23 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView25"
         android:layout_below="@+id/button46"
-        android:layout_toRightOf="@+id/editText6"
-        android:layout_toEndOf="@+id/editText6"
+        android:layout_toRightOf="@+id/txtMobile"
+        android:layout_toEndOf="@+id/txtMobile"
         android:layout_marginLeft="17dp"
         android:layout_marginStart="17dp" />
+
+    <EditText
+        android:layout_height="30dp"
+        android:inputType="textPersonName"
+        android:gravity="center"
+        android:text=""
+        android:ems="10"
+        android:layout_marginTop="26dp"
+        android:id="@+id/txtMobile"
+        android:background="@android:color/background_light"
+        android:layout_width="200dp"
+        android:layout_below="@+id/txtName"
+        android:layout_alignLeft="@+id/txtName"
+        android:layout_alignStart="@+id/txtName" />
 
 </RelativeLayout>
