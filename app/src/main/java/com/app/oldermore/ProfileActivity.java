@@ -16,6 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +34,8 @@ public class ProfileActivity extends Activity{
     private Http http = new Http();
     private  Button btnImageProfile;
     private EditText txtName, txtMobile;
+    private String strURLUpload = getString(R.string.url_upload);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +102,88 @@ public class ProfileActivity extends Activity{
     private void ShowProfile() {
         txtName.setText(MyArrProfile.get(0).get("member_name"));
         txtMobile.setText(MyArrProfile.get(0).get("member_mobile"));
+    }
+
+    public static boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
+
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 10 * 1024 * 1024;
+        int resCode = 0;
+        String resMessage = "";
+
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+
+        try {
+            File file = new File(strSDPath);
+            if (!file.exists()) {
+                return false;
+            }
+
+            /*FileInputStream fileInputStream = new FileInputStream(new File(strSDPath));
+
+            URL url = new URL(strUrlServer);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setRequestMethod("POST");
+
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+            DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
+            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+            outputStream.writeBytes(
+                    "Content-Disposition: form-data; name=\"filUpload\";filename=\"" + strSDPath + "\"" + lineEnd);
+            outputStream.writeBytes(lineEnd);
+
+            bytesAvailable = fileInputStream.available();
+            bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            buffer = new byte[bufferSize];
+
+            // Read file
+            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+            while (bytesRead > 0) {
+                outputStream.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            }
+
+            outputStream.writeBytes(lineEnd);
+            outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+            // Response Code and Message
+            resCode = conn.getResponseCode();
+            if (resCode == HttpURLConnection.HTTP_OK) {
+                InputStream is = conn.getInputStream();
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                int read = 0;
+                while ((read = is.read()) != -1) {
+                    bos.write(read);
+                }
+                byte[] result = bos.toByteArray();
+                bos.close();
+
+                resMessage = new String(result);
+
+            }
+
+            fileInputStream.close();
+            outputStream.flush();
+            outputStream.close();*/
+
+            return true;
+
+        } catch (Exception ex) {
+            // Exception handling
+            return false;
+        }
     }
 
     private void MessageDialog(String msg) {
