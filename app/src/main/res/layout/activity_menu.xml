@@ -9,20 +9,20 @@
         android:text="คนโปรด"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button17"
-        android:layout_alignBaseline="@+id/button14"
-        android:layout_alignBottom="@+id/button14"
-        android:layout_alignLeft="@+id/button16"
-        android:layout_alignStart="@+id/button16"
-        android:layout_alignRight="@+id/button16"
-        android:layout_alignEnd="@+id/button16" />
+        android:id="@+id/btnFavorite"
+        android:layout_alignBaseline="@+id/btnMsgCall"
+        android:layout_alignBottom="@+id/btnMsgCall"
+        android:layout_alignLeft="@+id/btnProfile"
+        android:layout_alignStart="@+id/btnProfile"
+        android:layout_alignRight="@+id/btnProfile"
+        android:layout_alignEnd="@+id/btnProfile" />
 
     <Button
         android:text="ข้อมูลสุขภาพ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
-        android:id="@+id/button13"
+        android:id="@+id/btnHealth"
         android:layout_below="@+id/button7"
         android:layout_centerHorizontal="true" />
 
@@ -54,43 +54,33 @@
         android:text="ข้อความ/โทร"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button14"
-        android:layout_below="@+id/button13"
-        android:layout_alignLeft="@+id/button13"
-        android:layout_alignStart="@+id/button13"
+        android:id="@+id/btnMsgCall"
+        android:layout_below="@+id/btnHealth"
+        android:layout_alignLeft="@+id/btnHealth"
+        android:layout_alignStart="@+id/btnHealth"
         android:layout_marginTop="23dp"
-        android:layout_alignRight="@+id/button13"
-        android:layout_alignEnd="@+id/button13" />
-
-    <Button
-        android:text="วิธีใช้"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button12"
-        android:layout_marginTop="29dp"
-        android:layout_below="@+id/button15"
-        android:layout_alignLeft="@+id/button15"
-        android:layout_alignStart="@+id/button15" />
+        android:layout_alignRight="@+id/btnHealth"
+        android:layout_alignEnd="@+id/btnHealth" />
 
     <Button
         android:text="สาระน่ารู้"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button9"
-        android:layout_alignBaseline="@+id/button12"
-        android:layout_alignBottom="@+id/button12"
-        android:layout_alignLeft="@+id/button18"
-        android:layout_alignStart="@+id/button18" />
+        android:id="@+id/btnKnowledge"
+        android:layout_alignBaseline="@+id/btnManual"
+        android:layout_alignBottom="@+id/btnManual"
+        android:layout_alignLeft="@+id/btnNontifiction"
+        android:layout_alignStart="@+id/btnNontifiction" />
 
     <Button
         android:text="ตั้งค่า"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button10"
-        android:layout_alignBaseline="@+id/button12"
-        android:layout_alignBottom="@+id/button12"
-        android:layout_alignLeft="@+id/button21"
-        android:layout_alignStart="@+id/button21"
+        android:id="@+id/btnSetting"
+        android:layout_alignBaseline="@+id/btnManual"
+        android:layout_alignBottom="@+id/btnManual"
+        android:layout_alignLeft="@+id/btnBoard"
+        android:layout_alignStart="@+id/btnBoard"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -98,18 +88,18 @@
         android:text="ข้อมูลส่วนตัว"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button16"
-        android:layout_alignBaseline="@+id/button13"
-        android:layout_alignBottom="@+id/button13" />
+        android:id="@+id/btnProfile"
+        android:layout_alignBaseline="@+id/btnHealth"
+        android:layout_alignBottom="@+id/btnHealth" />
 
     <Button
         android:text="โพสต์"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button19"
-        android:layout_alignBaseline="@+id/button13"
-        android:layout_alignBottom="@+id/button13"
-        android:layout_toRightOf="@+id/button13"
+        android:id="@+id/btnPost"
+        android:layout_alignBaseline="@+id/btnHealth"
+        android:layout_alignBottom="@+id/btnHealth"
+        android:layout_toRightOf="@+id/btnHealth"
         android:layout_marginLeft="21dp"
         android:layout_marginStart="21dp"
         android:layout_alignParentRight="true"
@@ -118,42 +108,58 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button20"
+        android:id="@+id/btnEmergency"
         android:text="ข้อมูลการติดต่อกรณีฉุกเฉิน"
-        android:layout_alignTop="@+id/button14"
-        android:layout_alignLeft="@+id/button19"
-        android:layout_alignStart="@+id/button19" />
+        android:layout_alignTop="@+id/btnMsgCall"
+        android:layout_alignLeft="@+id/btnPost"
+        android:layout_alignStart="@+id/btnPost" />
 
     <Button
         android:text="แต่งรูป"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button15"
-        android:layout_below="@+id/button20"
-        android:layout_alignLeft="@+id/button14"
-        android:layout_alignStart="@+id/button14"
-        android:layout_marginTop="21dp" />
-
-    <Button
-        android:text="แจ้งเตือน"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button18"
-        android:layout_alignBaseline="@+id/button15"
-        android:layout_alignBottom="@+id/button15"
-        android:layout_alignLeft="@+id/button17"
-        android:layout_alignStart="@+id/button17" />
+        android:id="@+id/btnPhotoRetouch"
+        android:layout_below="@+id/btnEmergency"
+        android:layout_alignLeft="@+id/btnMsgCall"
+        android:layout_alignStart="@+id/btnMsgCall"
+        android:layout_marginTop="21dp"
+        android:layout_alignRight="@+id/btnMsgCall"
+        android:layout_alignEnd="@+id/btnMsgCall" />
 
     <Button
         android:text="กระทู้"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button21"
-        android:layout_alignBaseline="@+id/button15"
-        android:layout_alignBottom="@+id/button15"
-        android:layout_alignLeft="@+id/button20"
-        android:layout_alignStart="@+id/button20"
+        android:id="@+id/btnBoard"
+        android:layout_alignBaseline="@+id/btnPhotoRetouch"
+        android:layout_alignBottom="@+id/btnPhotoRetouch"
+        android:layout_alignLeft="@+id/btnEmergency"
+        android:layout_alignStart="@+id/btnEmergency"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="แจ้งเตือน"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnNontifiction"
+        android:layout_alignBaseline="@+id/btnPhotoRetouch"
+        android:layout_alignBottom="@+id/btnPhotoRetouch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btnFavorite"
+        android:layout_alignEnd="@+id/btnFavorite" />
+
+    <Button
+        android:text="วิธีใช้"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnManual"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/btnPhotoRetouch"
+        android:layout_alignLeft="@+id/btnPhotoRetouch"
+        android:layout_alignStart="@+id/btnPhotoRetouch"
+        android:layout_alignRight="@+id/btnPhotoRetouch"
+        android:layout_alignEnd="@+id/btnPhotoRetouch" />
 
 </RelativeLayout>
