@@ -43,7 +43,7 @@
         android:layout_alignLeft="@+id/textView20"
         android:layout_alignStart="@+id/textView20" />
 
-    <Button
+    <ImageButton
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="25dp"
