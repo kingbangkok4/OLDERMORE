@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +31,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,15 +48,18 @@ public class ProfileActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     //private DatabaseActivity myDb = new DatabaseActivity(this);
-    ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String, String>> MyArrProfile = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
-    HashMap<String, String> map;
+    private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> MyArrProfile = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    private HashMap<String, String> map;
     private Http http = new Http();
     private ImageButton btnImageProfile;
     private EditText txtName, txtMobile;
     private TextView lblName;
     private Button btnSave, btnMainMenu;
+    private String mCurrentPhotoPath, strURLUpload, strImgProfile;
+    private static final int SELECT_PICTURE = 1;
+    private String[] namePhotoSplite;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -86,12 +96,31 @@ public class ProfileActivity extends Activity {
 
         LoadData();
 
+        btnImageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // *** Upload file to Server
+                strURLUpload = getString(R.string.url_upload);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(
+                        Intent.createChooser(intent, "Select Picture"),
+                        SELECT_PICTURE);
+            }
+        });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MenuActivity.class);
-                i.putExtra("MyArrList", MyArrList);
-                startActivity(i);
+                // *** Upload file to Server
+                boolean status = uploadFiletoServer(mCurrentPhotoPath, strURLUpload);
+                if (status) {
+                    namePhotoSplite = mCurrentPhotoPath.split("/");
+                    strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
+                    MessageDialog("Upload Photo สำเร็จ");
+                } else {
+                    MessageDialog("Upload Photo ไม่สำเร็จ!!");
+                }
             }
         });
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
@@ -164,12 +193,15 @@ public class ProfileActivity extends Activity {
             e.printStackTrace();
         }
         btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
-
-
     }
 
-    public boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
-        String strURLUpload = getString(R.string.url_upload);
+
+    private void setImage() {
+        Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
+        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+    }
+    public static boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
+
         int bytesRead, bytesAvailable, bufferSize;
         byte[] buffer;
         int maxBufferSize = 10 * 1024 * 1024;
@@ -186,7 +218,7 @@ public class ProfileActivity extends Activity {
                 return false;
             }
 
-            /*FileInputStream fileInputStream = new FileInputStream(new File(strSDPath));
+            FileInputStream fileInputStream = new FileInputStream(new File(strSDPath));
 
             URL url = new URL(strUrlServer);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -240,7 +272,7 @@ public class ProfileActivity extends Activity {
 
             fileInputStream.close();
             outputStream.flush();
-            outputStream.close();*/
+            outputStream.close();
 
             return true;
 
@@ -277,6 +309,24 @@ public class ProfileActivity extends Activity {
                 .setObject(object)
                 .setActionStatus(Action.STATUS_TYPE_COMPLETED)
                 .build();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) if (requestCode == SELECT_PICTURE) {
+            Uri selectedImageUri = data.getData();
+            mCurrentPhotoPath = getPath(selectedImageUri);
+            System.out.println("Image Path : " + mCurrentPhotoPath);
+            setImage();
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
     @Override

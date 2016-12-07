@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 @SuppressLint("Instantiatable")
 public class DatabaseActivity extends SQLiteOpenHelper {
-	private static String DB_NAME = "db_oldster.sqlite";
+	private static String DB_NAME = "oldermore_mdb.sqlite";
 	private static String TABLE_LOGIN = "tb_login";
 	private static Integer BUFFER_SIZE = 128;
 	private SQLiteDatabase myDataBase;
