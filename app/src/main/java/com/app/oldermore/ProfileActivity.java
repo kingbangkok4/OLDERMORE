@@ -12,6 +12,7 @@ import android.os.StrictMode;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.app.oldermore.http.Http;
 import com.google.android.gms.appindexing.Action;
@@ -45,6 +46,7 @@ public class ProfileActivity extends Activity {
     private Http http = new Http();
     private ImageButton btnImageProfile;
     private EditText txtName, txtMobile;
+    private TextView lblName;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -75,6 +77,7 @@ public class ProfileActivity extends Activity {
         btnImageProfile = (ImageButton) findViewById(R.id.btnImageProfile);
         txtName = (EditText) findViewById(R.id.txtName);
         txtMobile = (EditText) findViewById(R.id.txtMobile);
+        lblName = (TextView)findViewById(R.id.lblName);
 
         LoadData();
 
@@ -118,9 +121,15 @@ public class ProfileActivity extends Activity {
     }
 
     private void ShowProfile() {
+        lblName.setText(MyArrProfile.get(0).get("member_name"));
         txtName.setText(MyArrProfile.get(0).get("member_name"));
         txtMobile.setText(MyArrProfile.get(0).get("member_mobile"));
-        String photo_url_str = "http://godirvanar.blog.is/users/a2/godirvanar/img/scratchcat-small.png";
+        String photo_url_str = getString(R.string.url_images);
+        if(!"".equals(MyArrList.get(0).get("user_image")) && MyArrList.get(0).get("user_image") != null){
+            photo_url_str += MyArrList.get(0).get("user_image");
+        }else {
+            photo_url_str += "no.png";
+        }
         URL newurl = null;
         try {
             newurl = new URL(photo_url_str);
