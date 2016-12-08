@@ -3,12 +3,14 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -47,6 +49,7 @@ public class ProfileActivity extends Activity {
     private ImageButton btnImageProfile;
     private EditText txtName, txtMobile;
     private TextView lblName;
+    private Button btnSave, btnMainMenu;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -78,9 +81,27 @@ public class ProfileActivity extends Activity {
         txtName = (EditText) findViewById(R.id.txtName);
         txtMobile = (EditText) findViewById(R.id.txtMobile);
         lblName = (TextView)findViewById(R.id.lblName);
+        btnSave = (Button)findViewById(R.id.btnSave);
+        btnMainMenu = (Button)findViewById(R.id.btnMainMenu);
 
         LoadData();
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btnMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
