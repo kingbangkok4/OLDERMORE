@@ -112,14 +112,17 @@ public class ProfileActivity extends Activity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // *** Upload file to Server
-                boolean status = uploadFiletoServer(mCurrentPhotoPath, strURLUpload);
-                if (status) {
-                    namePhotoSplite = mCurrentPhotoPath.split("/");
-                    strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
-                    MessageDialog("Upload Photo สำเร็จ");
-                } else {
-                    MessageDialog("Upload Photo ไม่สำเร็จ!!");
+                strImgProfile = "";
+                if(!"".equals(txtName.getText().toString().trim())&&!"".equals(txtMobile.getText().toString().trim())){
+                    // *** Upload file to Server
+                    boolean status = uploadFiletoServer(mCurrentPhotoPath, strURLUpload);
+                    if (status) {
+                        namePhotoSplite = mCurrentPhotoPath.split("/");
+                        strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
+                    }
+                    UpdateProfile();
+                }else {
+                    MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!");
                 }
             }
         });
@@ -137,6 +140,7 @@ public class ProfileActivity extends Activity {
     }
 
     private void LoadData() {
+        MyArrProfile = new ArrayList<HashMap<String, String>>();
         String status = "0";
         String error = "";
         String url = getString(R.string.url) + "getMember.php";
@@ -156,9 +160,40 @@ public class ProfileActivity extends Activity {
                     map.put("member_mobile", c.getString("member_mobile"));
                     map.put("member_address", c.getString("member_address"));
                     map.put("member_email", c.getString("member_email"));
+                    map.put("user_image", c.getString("user_image"));
                     MyArrProfile.add(map);
 
                     ShowProfile();
+                } else {
+                    MessageDialog(error);
+                }
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MessageDialog(e.getMessage());
+        }
+    }
+
+    private void UpdateProfile() {
+        String status = "0";
+        String error = "";
+        String url = getString(R.string.url) + "updateProfile.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+        params.add(new BasicNameValuePair("member_name", txtName.getText().toString().trim()));
+        params.add(new BasicNameValuePair("member_mobile", txtMobile.getText().toString().trim()));
+        params.add(new BasicNameValuePair("user_image", strImgProfile));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                status = c.getString("status");
+                error = c.getString("error");
+                if ("1".equals(status)) {
+                    LoadData();
+                    MessageDialog(error);
                 } else {
                     MessageDialog(error);
                 }
@@ -175,8 +210,8 @@ public class ProfileActivity extends Activity {
         txtName.setText(MyArrProfile.get(0).get("member_name"));
         txtMobile.setText(MyArrProfile.get(0).get("member_mobile"));
         String photo_url_str = getString(R.string.url_images);
-        if(!"".equals(MyArrList.get(0).get("user_image")) && MyArrList.get(0).get("user_image") != null){
-            photo_url_str += MyArrList.get(0).get("user_image");
+        if(!"".equals(MyArrProfile.get(0).get("user_image")) && MyArrProfile.get(0).get("user_image") != null){
+            photo_url_str += MyArrProfile.get(0).get("user_image");
         }else {
             photo_url_str += "no.png";
         }
