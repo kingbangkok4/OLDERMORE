@@ -16,7 +16,6 @@
         android:layout_alignStart="@+id/textView20" />
 
     <TextView
-        android:text="รูปโปรไฟล์/ชื่อ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnImageProfile"
@@ -51,14 +50,6 @@
         android:layout_toStartOf="@+id/txtName"
         android:layout_above="@+id/txtMobile" />
 
-    <ImageButton
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/btnImageProfile"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/lblName"
-        android:layout_alignStart="@+id/lblName" />
-
     <EditText
         android:layout_height="30dp"
         android:inputType="phone"
@@ -76,6 +67,17 @@
         android:layout_alignRight="@+id/txtName"
         android:layout_alignEnd="@+id/txtName" />
 
+    <Button
+        android:text="บันทึก"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSave"
+        android:background="@drawable/button05"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="15dp" />
+
     <EditText
         android:layout_height="30dp"
         android:inputType="textPersonName"
@@ -87,20 +89,16 @@
         android:layout_width="200dp"
         android:layout_marginTop="11dp"
         android:layout_below="@+id/lblName"
-        android:layout_alignLeft="@+id/lblName"
-        android:layout_alignStart="@+id/lblName"
-        android:layout_alignRight="@+id/button46"
-        android:layout_alignEnd="@+id/button46" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="39dp"
+        android:layout_marginEnd="39dp" />
 
-    <Button
-        android:text="บันทึก"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnSave"
-        android:background="@drawable/button05"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="15dp" />
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/btnImageProfile"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
