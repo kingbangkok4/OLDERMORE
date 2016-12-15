@@ -51,38 +51,40 @@
         android:layout_toStartOf="@+id/txtName"
         android:layout_above="@+id/txtMobile" />
 
-    <Button
+    <ImageButton
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@+id/textView21"
         android:layout_alignLeft="@+id/textView21"
         android:layout_alignStart="@+id/textView21"
         android:layout_marginTop="27dp"
-        android:id="@+id/button44"
+        android:id="@+id/ImageEmergency1"
         android:gravity="center"
-        android:background="@drawable/oldman" />
+        android:background="@android:color/holo_purple" />
 
-    <Button
+    <ImageButton
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:id="@+id/button45"
+        android:id="@+id/ImageEmergency2"
         android:layout_alignRight="@+id/lblName"
         android:layout_alignEnd="@+id/lblName"
-        android:layout_alignTop="@+id/button44"
-        android:background="@drawable/oldman"
-        android:layout_above="@+id/textView26" />
+        android:layout_alignTop="@+id/ImageEmergency1"
+        android:layout_above="@+id/txtNameEmergency1"
+        android:layout_alignLeft="@+id/txtMobile"
+        android:layout_alignStart="@+id/txtMobile"
+        android:background="@android:color/holo_purple" />
 
-    <Button
+    <ImageButton
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:id="@+id/button46"
+        android:id="@+id/ImageEmergency3"
         android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/oldman"
-        android:layout_alignBottom="@+id/button45"
+        android:layout_alignBottom="@+id/ImageEmergency2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/button45" />
+        android:layout_alignTop="@+id/ImageEmergency2"
+        android:background="@android:color/holo_purple" />
 
     <ImageButton
         android:layout_width="80dp"
@@ -124,24 +126,24 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView25"
-        android:layout_below="@+id/button46"
-        android:layout_alignLeft="@+id/button46"
-        android:layout_alignStart="@+id/button46"
-        android:layout_alignRight="@+id/button46"
-        android:layout_alignEnd="@+id/button46" />
+        android:id="@+id/txtNameEmergency3"
+        android:layout_below="@+id/ImageEmergency3"
+        android:layout_alignLeft="@+id/ImageEmergency3"
+        android:layout_alignStart="@+id/ImageEmergency3"
+        android:layout_alignRight="@+id/ImageEmergency3"
+        android:layout_alignEnd="@+id/ImageEmergency3" />
 
     <TextView
         android:text="ชื่อ"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView26"
-        android:layout_below="@+id/button44"
-        android:layout_alignLeft="@+id/button44"
-        android:layout_alignStart="@+id/button44"
-        android:layout_alignRight="@+id/button44"
-        android:layout_alignEnd="@+id/button44" />
+        android:id="@+id/txtNameEmergency1"
+        android:layout_below="@+id/ImageEmergency1"
+        android:layout_alignLeft="@+id/ImageEmergency1"
+        android:layout_alignStart="@+id/ImageEmergency1"
+        android:layout_alignRight="@+id/ImageEmergency1"
+        android:layout_alignEnd="@+id/ImageEmergency1" />
 
     <Button
         android:text="เมนูหลัก"
@@ -166,8 +168,8 @@
         android:layout_below="@+id/lblName"
         android:layout_alignLeft="@+id/lblName"
         android:layout_alignStart="@+id/lblName"
-        android:layout_alignRight="@+id/button46"
-        android:layout_alignEnd="@+id/button46" />
+        android:layout_alignRight="@+id/ImageEmergency3"
+        android:layout_alignEnd="@+id/ImageEmergency3" />
 
     <Button
         android:text="บันทึก"
@@ -184,11 +186,11 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView24"
-        android:layout_below="@+id/button45"
-        android:layout_alignRight="@+id/button45"
-        android:layout_alignEnd="@+id/button45"
-        android:layout_alignLeft="@+id/button45"
-        android:layout_alignStart="@+id/button45" />
+        android:id="@+id/txtNameEmergency2"
+        android:layout_below="@+id/ImageEmergency2"
+        android:layout_alignRight="@+id/ImageEmergency2"
+        android:layout_alignEnd="@+id/ImageEmergency2"
+        android:layout_alignLeft="@+id/ImageEmergency2"
+        android:layout_alignStart="@+id/ImageEmergency2" />
 
 </RelativeLayout>
