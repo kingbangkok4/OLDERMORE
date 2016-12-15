@@ -1,10 +1,14 @@
 package com.app.oldermore;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,15 +17,16 @@ import java.util.HashMap;
 import java.util.Set;
 
 
-public class MenuActivity extends Activity{
+public class MenuActivity extends Activity {
     private Button btnProfile, btnHealth, btnPost, btnFavorite,
             btnMsgCall, btnEmergency, btnNontifiction, btnPhotoRetouch, btnBoard,
-            btnKnowledge, btnManual, btnSetting;
+            btnKnowledge, btnManual, btnSetting, btnEmerCall, btnWhere;
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,19 +48,36 @@ public class MenuActivity extends Activity{
             }
         }
 
-        btnProfile = (Button)findViewById(R.id.btnProfile);
-        btnHealth = (Button)findViewById(R.id.btnHealth);
-        btnMsgCall = (Button)findViewById(R.id.btnMsgCall);
-        btnFavorite = (Button)findViewById(R.id.btnFavorite);
-        btnEmergency = (Button)findViewById(R.id.btnEmergency);
-        btnPost = (Button)findViewById(R.id.btnPost);
-        btnNontifiction = (Button)findViewById(R.id.btnNontifiction);
-        btnPhotoRetouch = (Button)findViewById(R.id.btnPhotoRetouch);
-        btnBoard = (Button)findViewById(R.id.btnBoard);
-        btnKnowledge = (Button)findViewById(R.id.btnKnowledge);
-        btnManual = (Button)findViewById(R.id.btnManual);
-        btnSetting = (Button)findViewById(R.id.btnSetting);
+        btnProfile = (Button) findViewById(R.id.btnProfile);
+        btnHealth = (Button) findViewById(R.id.btnHealth);
+        btnMsgCall = (Button) findViewById(R.id.btnMsgCall);
+        btnFavorite = (Button) findViewById(R.id.btnFavorite);
+        btnEmergency = (Button) findViewById(R.id.btnEmergency);
+        btnPost = (Button) findViewById(R.id.btnPost);
+        btnNontifiction = (Button) findViewById(R.id.btnNontifiction);
+        btnPhotoRetouch = (Button) findViewById(R.id.btnPhotoRetouch);
+        btnBoard = (Button) findViewById(R.id.btnBoard);
+        btnKnowledge = (Button) findViewById(R.id.btnKnowledge);
+        btnManual = (Button) findViewById(R.id.btnManual);
+        btnSetting = (Button) findViewById(R.id.btnSetting);
 
+        btnEmerCall = (Button) findViewById(R.id.btnEmerCall);
+        btnWhere = (Button) findViewById(R.id.btnWhere);
+
+
+        btnEmerCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:0899999999"));
+
+                if (ActivityCompat.checkSelfPermission(getBaseContext(),
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                startActivity(callIntent);
+            }
+        });
 
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
