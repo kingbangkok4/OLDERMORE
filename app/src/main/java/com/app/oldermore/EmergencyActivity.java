@@ -297,7 +297,8 @@ public class EmergencyActivity extends Activity {
         //String user_id = "";
 
         if(editMode){
-            emergency_id = ArrListEmergecy.get(position).get("emergency_id");
+            emergency_id = ArrListEmergecy
+                    .get(position).get("emergency_id");
             name[0] = ArrListEmergecy.get(position).get("emergency_name");
             mobile[0] = ArrListEmergecy.get(position).get("emergency_mobile");
             //user_id = MyArrList.get(0).get("user_id");
