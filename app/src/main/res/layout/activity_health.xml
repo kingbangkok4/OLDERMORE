@@ -50,7 +50,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:inputType="textPersonName"
+        android:inputType="phone"
+        android:maxLength="10"
         android:text=""
         android:ems="10"
         android:id="@+id/txtDoctorMobile"
@@ -128,7 +129,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:inputType="textPersonName"
+        android:inputType="phone"
+        android:maxLength="10"
         android:text=""
         android:ems="10"
         android:id="@+id/txtHotelMobile"
