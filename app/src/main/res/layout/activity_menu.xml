@@ -62,7 +62,7 @@
 
     <Button
         android:textStyle="bold"
-        android:id="@+id/button6"
+        android:id="@+id/btnEmerCall"
         android:background="@drawable/red"
         android:layout_height="120dp"
         android:layout_width="120dp"
@@ -72,22 +72,11 @@
         android:layout_marginLeft="50dp" />
 
     <Button
-        android:textStyle="bold"
-        android:id="@+id/button5"
-        android:background="@drawable/green"
-        android:layout_height="120dp"
-        android:layout_width="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="50dp" />
-
-    <Button
         android:layout_height="wrap_content"
         android:id="@+id/btnHealth"
         android:background="@drawable/heathly"
         android:layout_width="100dp"
-        android:layout_below="@+id/button6"
+        android:layout_below="@+id/btnEmerCall"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp" />
 
@@ -166,5 +155,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button09" />
+
+    <Button
+        android:textStyle="bold"
+        android:id="@+id/btnWhere"
+        android:background="@drawable/green"
+        android:layout_height="120dp"
+        android:layout_width="120dp"
+        android:layout_marginRight="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/btnPost"
+        android:layout_alignEnd="@+id/btnPost"
+        android:layout_marginEnd="38dp" />
 
 </RelativeLayout>
