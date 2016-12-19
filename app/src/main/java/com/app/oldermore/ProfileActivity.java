@@ -1,9 +1,11 @@
 package com.app.oldermore;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,12 +53,13 @@ public class ProfileActivity extends Activity {
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> MyArrProfile = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> MyArrEmergency = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     private HashMap<String, String> map;
     private Http http = new Http();
-    private ImageButton btnImageProfile;
+    private ImageButton btnImageProfile, ImageEmergency1, ImageEmergency2, ImageEmergency3;
     private EditText txtName, txtMobile;
-    private TextView lblName;
+    private TextView lblName, txtNameEmergency1, txtNameEmergency2, txtNameEmergency3;
     private Button btnSave, btnMainMenu;
     private String mCurrentPhotoPath, strURLUpload, strImgProfile;
     private static final int SELECT_PICTURE = 1;
@@ -88,13 +92,74 @@ public class ProfileActivity extends Activity {
         }
 
         btnImageProfile = (ImageButton) findViewById(R.id.btnImageProfile);
+        ImageEmergency1 = (ImageButton) findViewById(R.id.ImageEmergency1);
+        ImageEmergency2 = (ImageButton) findViewById(R.id.ImageEmergency2);
+        ImageEmergency3 = (ImageButton) findViewById(R.id.ImageEmergency3);
         txtName = (EditText) findViewById(R.id.txtName);
         txtMobile = (EditText) findViewById(R.id.txtMobile);
-        lblName = (TextView)findViewById(R.id.lblName);
-        btnSave = (Button)findViewById(R.id.btnSave);
-        btnMainMenu = (Button)findViewById(R.id.btnMainMenu);
+        lblName = (TextView) findViewById(R.id.lblName);
+        btnSave = (Button) findViewById(R.id.btnSave);
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        txtNameEmergency1 = (TextView) findViewById(R.id.txtNameEmergency1);
+        txtNameEmergency2 = (TextView) findViewById(R.id.txtNameEmergency2);
+        txtNameEmergency3 = (TextView) findViewById(R.id.txtNameEmergency3);
 
         LoadData();
+
+        if (MyArrEmergency.size() > 0) {
+            DisableEmergency();
+            for (int i = 0; i < MyArrEmergency.size() - 1; i++) {
+                ShowEmergencyPhoto(MyArrEmergency.get(i).get("emergency_image"), MyArrEmergency.get(i).get("emergency_name"), i);
+            }
+        } else {
+            DisableEmergency();
+        }
+
+        ImageEmergency1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyArrEmergency.get(0).get("emergency_mobile") != null) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    if (ActivityCompat.checkSelfPermission(getBaseContext(),
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callIntent);
+
+                }
+            }
+        });
+        ImageEmergency2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyArrEmergency.get(1).get("emergency_mobile") != null) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    if (ActivityCompat.checkSelfPermission(getBaseContext(),
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callIntent);
+
+                }
+            }
+        });
+        ImageEmergency3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyArrEmergency.get(2).get("emergency_mobile") != null) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    if (ActivityCompat.checkSelfPermission(getBaseContext(),
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callIntent);
+
+                }
+            }
+        });
 
         btnImageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +178,7 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View v) {
                 strImgProfile = "";
-                if(!"".equals(txtName.getText().toString().trim())&&!"".equals(txtMobile.getText().toString().trim())){
+                if (!"".equals(txtName.getText().toString().trim()) && !"".equals(txtMobile.getText().toString().trim())) {
                     // *** Upload file to Server
                     boolean status = uploadFiletoServer(mCurrentPhotoPath, strURLUpload);
                     if (status) {
@@ -121,7 +186,7 @@ public class ProfileActivity extends Activity {
                         strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
                     }
                     UpdateProfile();
-                }else {
+                } else {
                     MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!");
                 }
             }
@@ -137,6 +202,15 @@ public class ProfileActivity extends Activity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void DisableEmergency() {
+        ImageEmergency1.setEnabled(false);
+        txtNameEmergency1.setEnabled(false);
+        ImageEmergency2.setEnabled(false);
+        txtNameEmergency2.setEnabled(false);
+        ImageEmergency3.setEnabled(false);
+        txtNameEmergency3.setEnabled(false);
     }
 
     private void LoadData() {
@@ -164,6 +238,7 @@ public class ProfileActivity extends Activity {
                     MyArrProfile.add(map);
 
                     ShowProfile();
+                    LoadDataEmergency();
                 } else {
                     MessageDialog(error);
                 }
@@ -172,6 +247,34 @@ public class ProfileActivity extends Activity {
             // TODO Auto-generated catch block
             e.printStackTrace();
             MessageDialog(e.getMessage());
+        }
+    }
+
+    private void LoadDataEmergency() {
+        String url = getString(R.string.url) + "getEmergency.php";
+
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            MyArrEmergency.clear();
+            if (data.length() > 0) {
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject c = data.getJSONObject(i);
+                    map = new HashMap<String, String>();
+                    map.put("emergency_id", c.getString("emergency_id"));
+                    map.put("emergency_name", c.getString("emergency_name"));
+                    map.put("emergency_mobile", c.getString("emergency_mobile"));
+                    map.put("emergency_image", c.getString("emergency_image"));
+                    map.put("user_id", c.getString("user_id"));
+                    MyArrEmergency.add(map);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -210,9 +313,9 @@ public class ProfileActivity extends Activity {
         txtName.setText(MyArrProfile.get(0).get("member_name"));
         txtMobile.setText(MyArrProfile.get(0).get("member_mobile"));
         String photo_url_str = getString(R.string.url_images);
-        if(!"".equals(MyArrProfile.get(0).get("user_image")) && MyArrProfile.get(0).get("user_image") != null){
+        if (!"".equals(MyArrProfile.get(0).get("user_image")) && MyArrProfile.get(0).get("user_image") != null) {
             photo_url_str += MyArrProfile.get(0).get("user_image");
-        }else {
+        } else {
             photo_url_str += "no.png";
         }
         URL newurl = null;
@@ -230,11 +333,53 @@ public class ProfileActivity extends Activity {
         btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
     }
 
+    private void ShowEmergencyPhoto(String photo, String name, int index) {
+
+        String photo_url_str = getString(R.string.url_images);
+        if (!"".equals(photo) && photo != null) {
+            photo_url_str += photo;
+        } else {
+            photo_url_str += "no.png";
+        }
+        URL newurl = null;
+        try {
+            newurl = new URL(photo_url_str);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Bitmap b = null;
+        try {
+            b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        switch (index) {
+            case 0:
+                ImageEmergency1.setEnabled(true);
+                txtNameEmergency1.setEnabled(true);
+                ImageEmergency1.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+                txtNameEmergency1.setText(name);
+                break;
+            case 1:
+                ImageEmergency2.setEnabled(true);
+                txtNameEmergency2.setEnabled(true);
+                ImageEmergency2.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+                txtNameEmergency2.setText(name);
+                break;
+            case 2:
+                ImageEmergency3.setEnabled(true);
+                txtNameEmergency3.setEnabled(true);
+                ImageEmergency3.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+                txtNameEmergency3.setText(name);
+                break;
+        }
+    }
 
     private void setImage() {
         Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
         btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
     }
+
     public static boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
 
         int bytesRead, bytesAvailable, bufferSize;
@@ -356,7 +501,7 @@ public class ProfileActivity extends Activity {
     }
 
     public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
