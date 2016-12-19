@@ -3,12 +3,19 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.app.oldermore.R;
 import com.app.oldermore.http.Http;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,6 +28,8 @@ public class PostActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
+    private ImageButton btnImageProfile;
+    private TextView lblName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +52,35 @@ public class PostActivity extends Activity {
             }
         }
 
+        btnImageProfile = (ImageButton) findViewById(R.id.btnImageProfile);
+        lblName = (TextView) findViewById(R.id.lblName);
 
+       ShowProfile();
+
+    }
+
+    private void ShowProfile() {
+        String photo = MyArrList.get(0).get("user_image");
+        String photo_url_str = getString(R.string.url_images);
+        if (!"".equals(photo) && photo != null) {
+            photo_url_str += photo;
+        } else {
+            photo_url_str += "no.png";
+        }
+        URL newurl = null;
+        try {
+            newurl = new URL(photo_url_str);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Bitmap b = null;
+        try {
+            b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        lblName.setText(MyArrList.get(0).get("username"));
     }
 
     private void MessageDialog(String msg) {

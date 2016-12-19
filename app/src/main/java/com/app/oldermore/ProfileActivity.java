@@ -108,7 +108,7 @@ public class ProfileActivity extends Activity {
 
         if (MyArrEmergency.size() > 0) {
             DisableEmergency();
-            for (int i = 0; i < MyArrEmergency.size() - 1; i++) {
+            for (int i = 0; i < MyArrEmergency.size(); i++) {
                 ShowEmergencyPhoto(MyArrEmergency.get(i).get("emergency_image"), MyArrEmergency.get(i).get("emergency_name"), i);
             }
         } else {
