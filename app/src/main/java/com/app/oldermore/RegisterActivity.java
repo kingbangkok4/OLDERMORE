@@ -3,6 +3,7 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -21,11 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends Activity {
-    private Button btnSubmit;
+    private Button btnSubmit, btnBackToLogin;
     private EditText txtUsername, txtPassword, txtRePassword, txtAddress, txtName, txtMobile, txtEmail;
     private String username, password, rePassword, address, name, mobile, email;
     private Http http = new Http();
     private String status = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class RegisterActivity extends Activity {
         }
 
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        btnBackToLogin = (Button) findViewById(R.id.btnBackToLogin);
         txtUsername = (EditText) findViewById(R.id.txtUsername);
         txtPassword = (EditText) findViewById(R.id.txtPass);
         txtRePassword = (EditText) findViewById(R.id.txtRePassword);
@@ -50,6 +53,13 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View v) {
                 ValidateData();
+            }
+        });
+        btnBackToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent i = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -113,8 +123,7 @@ public class RegisterActivity extends Activity {
                     JSONObject c2 = data_member.getJSONObject(0);
                     status = c2.getString("status");
                     strStatus = status;
-                }
-                else {
+                } else {
                     strStatus = "ผู้ใช้งานนี้มีอยู่ในระบบแล้ว !";
                 }
             }
