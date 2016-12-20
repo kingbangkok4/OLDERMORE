@@ -46,19 +46,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="ชื่อ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="33dp"
-        android:layout_marginEnd="33dp"
-        android:id="@+id/textView3"
-        android:layout_alignBaseline="@+id/txtName"
-        android:layout_alignBottom="@+id/txtName"
-        android:layout_toLeftOf="@+id/txtName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -143,22 +130,6 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="14dp"
-        android:id="@+id/txtName"
-        android:background="@android:color/background_light"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="200dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
-
-    <EditText
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:inputType="textPersonName"
@@ -222,30 +193,10 @@
     <Button
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/ImageEmergency1"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_below="@+id/txtHotelMobile"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp" />
-
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="80dp"
         android:id="@+id/ImageEmergency2"
         android:layout_alignBottom="@+id/ImageEmergency1"
         android:layout_centerHorizontal="true"
         android:layout_alignTop="@+id/ImageEmergency1" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:id="@+id/btnSave"
-        android:layout_below="@+id/txtNameEmergency2"
-        android:layout_centerHorizontal="true"
-        android:text="บันทึก"
-        android:background="@drawable/button05"
-        android:layout_height="50dp" />
 
     <Button
         android:text="เมนูหลัก"
@@ -264,12 +215,31 @@
         android:text=""
         android:ems="10"
         android:id="@+id/txtConDisease"
-        android:layout_marginTop="11dp"
         android:background="@android:color/background_light"
-        android:layout_below="@+id/txtName"
+        android:layout_below="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/txtName"
-        android:layout_alignStart="@+id/txtName" />
+        android:layout_marginTop="21dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/btnSave"
+        android:text="บันทึก"
+        android:background="@drawable/button05"
+        android:layout_height="50dp"
+        android:layout_above="@+id/btnMainMenu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/ImageEmergency1"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/txtHotelMobile"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
