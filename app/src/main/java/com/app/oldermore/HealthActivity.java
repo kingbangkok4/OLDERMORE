@@ -220,7 +220,7 @@ public class HealthActivity extends Activity {
                 JSONObject c = data.getJSONObject(0);
                 status = c.getString("status");
                 error = c.getString("error");
-                if ("1".equals(status)) {
+                //if ("1".equals(status)) {
                     map = new HashMap<String, String>();
                     map.put("health_id", c.getString("health_id"));
                     map.put("con_disease", c.getString("con_disease"));
@@ -233,10 +233,10 @@ public class HealthActivity extends Activity {
                     MyArrHealthList.add(map);
 
                     ShowHealth();
-                    LoadDataEmergency();
-                } else {
-                    MessageDialog(error);
-                }
+                //} else {
+                    //MessageDialog(error);
+               // }
+                LoadDataEmergency();
             }
         } catch (JSONException e) {
             // TODO Auto-generated catch block

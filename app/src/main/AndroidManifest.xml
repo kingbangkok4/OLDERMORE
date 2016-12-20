@@ -26,28 +26,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MenuActivity" android:screenOrientation="portrait" />
+        <activity android:name=".RegisterActivity" android:screenOrientation="portrait" />
 
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".HealthActivity" />
-        <activity android:name=".MsgCallActivity" />
-        <activity android:name=".FavoriteActivity" />
-        <activity android:name=".EmergencyActivity" />
-        <activity android:name=".PostActivity" />
-        <activity android:name=".NontificationActivity" />
-        <activity android:name=".PhotoRetouchActivity" />
-        <activity android:name=".BoardActivity" />
-        <activity android:name=".KnowledgeActivity" />
-        <activity android:name=".ManualActivity" />
-        <activity android:name=".SettingActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        <activity android:name=".ProfileActivity" android:screenOrientation="portrait" />
+        <activity android:name=".HealthActivity" android:screenOrientation="portrait" />
+        <activity android:name=".MsgCallActivity" android:screenOrientation="portrait" />
+        <activity android:name=".FavoriteActivity" android:screenOrientation="portrait" />
+        <activity android:name=".EmergencyActivity" android:screenOrientation="portrait" />
+        <activity android:name=".PostActivity" android:screenOrientation="portrait" />
+        <activity android:name=".NontificationActivity" android:screenOrientation="portrait" />
+        <activity android:name=".PhotoRetouchActivity" android:screenOrientation="portrait" />
+        <activity android:name=".BoardActivity" android:screenOrientation="portrait" />
+        <activity android:name=".KnowledgeActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ManualActivity" android:screenOrientation="portrait" />
+        <activity android:name=".SettingActivity" android:screenOrientation="portrait" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"

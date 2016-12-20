@@ -227,7 +227,7 @@ public class ProfileActivity extends Activity {
                 JSONObject c = data.getJSONObject(0);
                 status = c.getString("status");
                 error = c.getString("error");
-                if ("1".equals(status)) {
+                //if ("1".equals(status)) {
                     map = new HashMap<String, String>();
                     map.put("member_id", c.getString("member_id"));
                     map.put("member_name", c.getString("member_name"));
@@ -238,10 +238,10 @@ public class ProfileActivity extends Activity {
                     MyArrProfile.add(map);
 
                     ShowProfile();
-                    LoadDataEmergency();
-                } else {
-                    MessageDialog(error);
-                }
+                //} else {
+                   // MessageDialog(error);
+               // }
+                LoadDataEmergency();
             }
         } catch (JSONException e) {
             // TODO Auto-generated catch block
