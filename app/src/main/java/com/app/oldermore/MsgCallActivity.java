@@ -3,8 +3,11 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
 
 import com.app.oldermore.http.Http;
 
@@ -20,6 +23,7 @@ public class MsgCallActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
+    private Button btnMainMenu, btnSearch, btnFriend, btnChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,38 @@ public class MsgCallActivity extends Activity {
             }
         }
 
+        //btnMainMenu, btnSearch, btnFriend, btnChat
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnFriend = (Button) findViewById(R.id.btnFriend);
+        btnChat = (Button) findViewById(R.id.btnChat);
+
+        btnMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

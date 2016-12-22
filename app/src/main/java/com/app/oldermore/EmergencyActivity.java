@@ -23,12 +23,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.oldermore.http.Http;
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 
 import org.apache.http.NameValuePair;
@@ -94,7 +92,7 @@ public class EmergencyActivity extends Activity {
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-        listViewEmergency = (ListView) findViewById(R.id.listViewEmergency);
+        listViewEmergency = (ListView) findViewById(R.id.listFriend);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

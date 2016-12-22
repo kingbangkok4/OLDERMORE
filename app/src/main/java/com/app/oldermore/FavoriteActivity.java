@@ -3,13 +3,19 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import com.app.oldermore.http.Http;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class FavoriteActivity extends Activity {
@@ -20,6 +26,9 @@ public class FavoriteActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
+    private Button btnMainMenu, btnAdd, btnSearch;
+    private EditText txtName;
+    private ListView listFriend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,34 @@ public class FavoriteActivity extends Activity {
             }
         }
 
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnSearch = (Button) findViewById(R.id.btnSearch);
+
+        txtName = (EditText) findViewById(R.id.txtName);
+        listFriend = (ListView) findViewById(R.id.listFriend);
+
+        btnMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

@@ -3,10 +3,13 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ public class PostActivity extends Activity {
     private Http http = new Http();
     private ImageButton btnImageProfile;
     private TextView lblName;
+    private Button btnMainMenu, btnPost, btnAppImage, btnImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +56,43 @@ public class PostActivity extends Activity {
             }
         }
 
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        btnPost = (Button) findViewById(R.id.btnPost);
+        btnAppImage = (Button) findViewById(R.id.btnAppImage);
+        btnImage = (Button) findViewById(R.id.btnImage);
+
         btnImageProfile = (ImageButton) findViewById(R.id.btnImageProfile);
         lblName = (TextView) findViewById(R.id.lblName);
 
-       ShowProfile();
+        ShowProfile();
 
+        btnMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnAppImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void ShowProfile() {
