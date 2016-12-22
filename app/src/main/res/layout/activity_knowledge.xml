@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_purple">
 
+    <Button
+        android:text="เมนูหลัก"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMainMenu"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button01" />
+
     <TextView
         android:text="สาระน่ารู้"
         android:layout_width="match_parent"
@@ -18,7 +28,7 @@
     <Spinner
         android:layout_height="40dp"
         android:layout_marginTop="35dp"
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerKnowledge"
         android:layout_width="200dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
@@ -28,20 +38,24 @@
 
     <Button
         android:text="ค้นหา"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner"
-        android:layout_toRightOf="@+id/spinner"
-        android:layout_toEndOf="@+id/spinner"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/spinnerKnowledge"
+        android:layout_toRightOf="@+id/spinnerKnowledge"
         android:layout_marginLeft="19dp"
         android:layout_marginStart="19dp"
-        android:id="@+id/button4" />
+        android:id="@+id/btnSearch"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/button10" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/spinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:background="@android:color/background_light" />
+        android:background="@android:color/background_light"
+        android:id="@+id/listKnowledge"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spinnerKnowledge"
+        android:layout_above="@+id/btnMainMenu" />
 </RelativeLayout>

@@ -3,8 +3,12 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.app.oldermore.http.Http;
 
@@ -20,6 +24,7 @@ public class SettingActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
+    private Button btnMainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,16 @@ public class SettingActivity extends Activity {
             }
         }
 
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+
+        btnMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
 
     }
 

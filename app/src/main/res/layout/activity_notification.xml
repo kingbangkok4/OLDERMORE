@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_purple">
 
+    <Button
+        android:text="เมนูหลัก"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMainMenu"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button01" />
+
     <TextView
         android:text="แจ้งเตือน"
         android:layout_width="match_parent"
@@ -15,26 +25,25 @@
         android:background="@color/colorAccent"
         android:textColor="@android:color/background_light" />
 
-    <Button
-        android:text="+"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:id="@+id/button39"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:textSize="40dp"
-        android:background="@android:drawable/ic_notification_overlay" />
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/background_light"
-        android:layout_marginTop="34dp"
-        android:layout_below="@+id/button39"
+        android:id="@+id/listNotification"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/listNotification"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_below="@+id/btnAdd"
+        android:layout_above="@+id/btnMainMenu"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:text="+"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btnAdd"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:textSize="40dp"
+        android:background="@android:drawable/ic_notification_overlay"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

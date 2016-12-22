@@ -3,8 +3,11 @@ package com.app.oldermore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
 
 import com.app.oldermore.R;
 import com.app.oldermore.http.Http;
@@ -42,6 +45,16 @@ public class NontificationActivity extends Activity {
                 MyArrList = tmpMyArrList;
             }
         }
+
+        Button btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        btnMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
 
 
     }

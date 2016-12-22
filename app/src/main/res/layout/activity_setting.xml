@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light">
 
+    <Button
+        android:text="เมนูหลัก"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMainMenu"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button01" />
+
     <TextView
         android:text="ขนาดตัวอักษร"
         android:layout_width="wrap_content"
