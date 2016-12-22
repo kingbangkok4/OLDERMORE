@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_purple">
+
+    <Button
+        android:text="เมนูหลัก"
+        android:layout_width="match_parent"
+        android:id="@+id/btnMainMenu"
+        android:gravity="center"
+        android:background="@drawable/button01"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/listFriend"
+        android:layout_alignStart="@+id/listFriend"
+        android:layout_height="50dp"
+        android:layout_alignRight="@+id/listMessage"
+        android:layout_alignEnd="@+id/listMessage" />
 
     <TextView
         android:text="ข้อความ / โทร"
@@ -15,57 +29,62 @@
         android:background="@color/colorAccent"
         android:textColor="@android:color/background_light" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_light"
-        android:layout_below="@+id/editText12"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:gravity="center"
-        android:hint="กรุณาใส่คำค้นหา"
-        android:ems="10"
-        android:id="@+id/editText12"
-        android:background="@android:color/background_light"
+    <Button
+        android:text="เพื่อน"
         android:layout_height="40dp"
-        android:layout_alignTop="@+id/button40"
-        android:layout_toLeftOf="@+id/button40"
-        android:layout_toStartOf="@+id/button40" />
+        android:id="@+id/btnFriend"
+        android:background="@drawable/button06"
+        android:layout_below="@+id/textView"
+        android:layout_width="180dp"
+        android:layout_alignLeft="@+id/listView"
+        android:layout_alignStart="@+id/listView" />
 
     <Button
-        android:text="ค้นหา"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button40"
-        android:layout_marginRight="43dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginTop="71dp"
+        android:text="แชท"
+        android:layout_height="40dp"
+        android:id="@+id/btnChat"
+        android:background="@drawable/button01"
+        android:layout_width="180dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:text="แชท"
-        android:layout_height="wrap_content"
-        android:id="@+id/button42"
-        android:layout_alignBaseline="@+id/button41"
-        android:layout_alignBottom="@+id/button41"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="200dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:layout_marginTop="15dp"
+        android:id="@+id/listFriend"
+        android:gravity="center"
+        android:background="@android:color/background_light"
+        android:layout_below="@+id/btnFriend"
+        android:layout_alignLeft="@+id/listMessage"
+        android:layout_alignStart="@+id/listMessage"
+        android:layout_toLeftOf="@+id/btnSearch"
+        android:layout_toStartOf="@+id/btnSearch" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@android:color/background_light"
+        android:id="@+id/listMessage"
+        android:layout_below="@+id/listFriend"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/btnMainMenu"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
 
     <Button
-        android:text="เพื่อน"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/button41"
-        android:layout_below="@+id/textView"
-        android:layout_toStartOf="@+id/button42" />
+        android:text="ค้นหา"
+        android:layout_height="40dp"
+        android:id="@+id/btnSearch"
+        android:background="@drawable/button10"
+        android:layout_alignTop="@+id/listFriend"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="100dp" />
 
 </RelativeLayout>

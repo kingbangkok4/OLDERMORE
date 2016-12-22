@@ -4,16 +4,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_purple">
 
-    <Button
-        android:text="เมนูหลัก"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnMainMenu"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/button01" />
-
     <TextView
         android:text="ข้อมูลติดต่อกรณีฉุกเฉิน"
         android:layout_width="match_parent"
@@ -35,7 +25,7 @@
         android:layout_marginRight="10dp"
         android:layout_above="@+id/btnMainMenu"
         android:layout_below="@+id/btnAdd"
-        android:id="@+id/listViewEmergency" />
+        android:id="@+id/listFriend" />
 
     <Button
         android:text="เพิ่ม"
@@ -45,4 +35,14 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button07" />
+
+    <Button
+        android:text="เมนูหลัก"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMainMenu"
+        android:background="@drawable/button01"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
