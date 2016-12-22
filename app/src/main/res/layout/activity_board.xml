@@ -27,18 +27,16 @@
 
     <Button
         android:text="+ เพิ่ม"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="51dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/button"
         android:background="@drawable/button03"
-        android:layout_toLeftOf="@+id/button2"
-        android:layout_toStartOf="@+id/button2" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,25 +44,27 @@
         android:layout_height="250dp"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:layout_marginTop="33dp"
         android:id="@+id/editText"
-        android:layout_below="@+id/button"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
         android:background="@android:color/background_light"
         android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2" />
+        android:layout_alignEnd="@+id/button2"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/btnMainMenu"
+        android:layout_below="@+id/button2" />
 
     <Button
         android:text="กระทู้ของฉัน"
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:id="@+id/button2"
-        android:layout_marginRight="38dp"
-        android:layout_marginEnd="38dp"
         android:background="@drawable/button02"
-        android:layout_above="@+id/editText"
+        android:layout_below="@+id/button"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

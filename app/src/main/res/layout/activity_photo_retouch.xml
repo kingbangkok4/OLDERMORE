@@ -27,32 +27,34 @@
 
     <Button
         android:text="กล้อง"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="38dp"
+        android:id="@+id/btnCamera"
         android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="95dp"
-        android:id="@+id/button43" />
+        android:layout_toStartOf="@+id/btnAlbum"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/button06" />
 
     <Button
         android:text="แต่งรูป"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button43"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/button47" />
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/btnPhoto"
+        android:background="@drawable/button05"
+        android:layout_above="@+id/btnAlbum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp" />
 
     <Button
         android:text="อัลบัม"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button47"
-        android:layout_toRightOf="@+id/button47"
-        android:layout_toEndOf="@+id/button47"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"
-        android:id="@+id/button48" />
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/btnAlbum"
+        android:background="@drawable/button04"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
