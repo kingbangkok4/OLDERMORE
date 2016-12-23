@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
@@ -14,7 +13,6 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 
 public class MenuActivity extends Activity {
@@ -76,6 +74,15 @@ public class MenuActivity extends Activity {
                     return;
                 }
                 startActivity(callIntent);
+            }
+        });
+
+        btnWhere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MapActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
             }
         });
 

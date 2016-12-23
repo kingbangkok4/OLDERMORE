@@ -26,9 +26,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.oldermore.http.Http;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.Thing;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -520,7 +517,7 @@ public class EmergencyActivity extends Activity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    public Action getIndexApiAction() {
+/*    public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
                 .setName("Profile Page") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
@@ -530,7 +527,7 @@ public class EmergencyActivity extends Activity {
                 .setObject(object)
                 .setActionStatus(Action.STATUS_TYPE_COMPLETED)
                 .build();
-    }
+    }*/
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) if (requestCode == SELECT_PICTURE) {
