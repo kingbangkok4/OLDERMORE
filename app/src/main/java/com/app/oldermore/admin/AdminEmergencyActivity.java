@@ -1,4 +1,4 @@
-package com.app.oldermore;
+package com.app.oldermore.admin;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.app.oldermore.MenuActivity;
+import com.app.oldermore.R;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -51,7 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class EmergencyActivity extends Activity {
+public class AdminEmergencyActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     //private DatabaseActivity myDb = new DatabaseActivity(this);
@@ -221,7 +223,7 @@ public class EmergencyActivity extends Activity {
         private Context context;
         private ArrayList<HashMap<String, String>> MyArr = new ArrayList<HashMap<String, String>>();
 
-        public ImageAdapter(EmergencyActivity c, ArrayList<HashMap<String, String>> list) {
+        public ImageAdapter(AdminEmergencyActivity c, ArrayList<HashMap<String, String>> list) {
             // TODO Auto-generated method stub
             context = c;
             MyArr = list;
@@ -320,7 +322,7 @@ public class EmergencyActivity extends Activity {
             try {
                 stream.close();
             } catch (IOException e) {
-                android.util.Log.e(TAG, "Could not close stream", e);
+                Log.e(TAG, "Could not close stream", e);
             }
         }
     }
