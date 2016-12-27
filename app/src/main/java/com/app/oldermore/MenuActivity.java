@@ -11,6 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 
+import com.app.oldermore.database.DatabaseActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,10 +20,10 @@ import java.util.HashMap;
 public class MenuActivity extends Activity {
     private Button btnProfile, btnHealth, btnPost, btnFavorite,
             btnMsgCall, btnEmergency, btnNontifiction, btnPhotoRetouch, btnBoard,
-            btnKnowledge, btnManual, btnSetting, btnEmerCall, btnWhere;
+            btnKnowledge, btnManual, btnSetting, btnEmerCall, btnWhere, btnLogout;
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
 
@@ -62,6 +64,16 @@ public class MenuActivity extends Activity {
         btnEmerCall = (Button) findViewById(R.id.btnEmerCall);
         btnWhere = (Button) findViewById(R.id.btnWhere);
 
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDb.DeleleLogin();
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         btnEmerCall.setOnClickListener(new View.OnClickListener() {
             @Override

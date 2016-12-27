@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -22,8 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends Activity {
-
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Button btnLogin, btnRegister;
@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
         private String strPassword = "";
         private String strType = "";*/
     private String strError = "Unknow Status!";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,8 @@ public class MainActivity extends Activity {
         }
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnRegister = (Button)findViewById(R.id.btnRegister);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+
         txtUsername = (EditText) findViewById(R.id.txtUserName);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
 
@@ -68,6 +70,13 @@ public class MainActivity extends Activity {
                 Boolean status = OnLogin();
                 if (status) {
                     Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
+                    // Insert ข้อมูลลง SQLite Database เพื่อครั้งต่อไปไม่ต้อง Login ใหม่
+                    myDb.InsertLogin(MyArrList.get(0).get("user_id"),
+                            MyArrList.get(0).get("username"),
+                            MyArrList.get(0).get("password"),
+                            MyArrList.get(0).get("user_image"),
+                            MyArrList.get(0).get("type"));
+
                     Intent i = new Intent(getBaseContext(), MenuActivity.class);
                     i.putExtra("MyArrList", MyArrList);
                     startActivity(i);
