@@ -100,7 +100,7 @@ public class DatabaseActivity extends SQLiteOpenHelper {
                 db.execSQL(strSQLInsert);
             }
             String strSQLInsert = "INSERT INTO " + TABLE_USER
-                    + "(username, password, type) VALUES('" + user_id + "', '" + username + "', '" + password
+                    + "(user_id, username, password, user_image, type) VALUES(" + user_id + ", '" + username + "', '" + password
                     + "', '" + user_image + "', '" + type + "') ";
             db.execSQL(strSQLInsert);
             db.close();

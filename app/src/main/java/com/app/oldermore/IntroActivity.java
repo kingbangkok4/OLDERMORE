@@ -20,7 +20,7 @@ public class IntroActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //myDb.openDatabase();
+        myDb.openDatabase();
         setContentView(R.layout.activity_intro);
         LinearLayout llProgress = (LinearLayout) findViewById(R.id.ll_progress);
         try {
