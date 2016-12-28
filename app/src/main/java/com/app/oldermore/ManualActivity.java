@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.app.oldermore.http.Http;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,15 +71,84 @@ public class ManualActivity extends Activity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DialogVideo();
             }
         });
         btnWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DialogWord();
             }
         });
+    }
+
+    private void DialogVideo() {
+        String video = "question_video";
+        View dialogBoxView = View.inflate(this, R.layout.dialog_video, null);
+        final VideoView myVideoV = (VideoView) dialogBoxView.findViewById(R.id.videoView1);
+        myVideoV.setVideoURI(Uri.parse(getString(R.string.str_url_video) + video+".mp4"));
+        myVideoV.setMediaController(new MediaController(this));
+        myVideoV.start();
+        myVideoV.requestFocus();
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("วิธีใช้ (วีดีโอ)");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+       /*         .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })*/
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+    }
+
+    private void DialogWord() {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_word, null);
+        final Button layout = (Button) dialogBoxView.findViewById(R.id.vDialogWord);
+       //messageImage.jpg
+        String photo_url_str = getString(R.string.url_images) + "messageImage.jpg";
+        URL newurl = null;
+        try {
+            newurl = new URL(photo_url_str);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Bitmap b = null;
+        try {
+            b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(android.os.Build.VERSION.SDK_INT < 16) {
+            layout.setBackgroundDrawable(new BitmapDrawable(getResources(), b));
+        }
+        else {
+            layout.setBackground(new BitmapDrawable(getResources(),b));
+        }
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("วิธีใช้");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+       /*         .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })*/
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
     }
 
     private void MessageDialog(String msg) {
