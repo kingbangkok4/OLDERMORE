@@ -17,11 +17,18 @@ import android.widget.VideoView;
 
 import com.app.oldermore.http.Http;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class ManualActivity extends Activity {
@@ -30,9 +37,12 @@ public class ManualActivity extends Activity {
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> MyArrManualList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
     private Button btnMainMenu, btnVideo, btnWord;
+    private String manual_video;
+    private String manual_word;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +69,8 @@ public class ManualActivity extends Activity {
         btnVideo = (Button) findViewById(R.id.btnVideo);
         btnWord = (Button) findViewById(R.id.btnWord);
 
+        LoadData();
+
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,10 +95,10 @@ public class ManualActivity extends Activity {
     }
 
     private void DialogVideo() {
-        String video = "question_video";
+        String video = manual_video;
         View dialogBoxView = View.inflate(this, R.layout.dialog_video, null);
         final VideoView myVideoV = (VideoView) dialogBoxView.findViewById(R.id.videoView1);
-        myVideoV.setVideoURI(Uri.parse(getString(R.string.str_url_video) + video+".mp4"));
+        myVideoV.setVideoURI(Uri.parse(getString(R.string.str_url_video) + video));
         myVideoV.setMediaController(new MediaController(this));
         myVideoV.start();
         myVideoV.requestFocus();
@@ -112,8 +124,8 @@ public class ManualActivity extends Activity {
     private void DialogWord() {
         View dialogBoxView = View.inflate(this, R.layout.dialog_word, null);
         final Button layout = (Button) dialogBoxView.findViewById(R.id.vDialogWord);
-       //messageImage.jpg
-        String photo_url_str = getString(R.string.url_images) + "messageImage.jpg";
+        //messageImage.jpg
+        String photo_url_str = getString(R.string.url_images) + manual_word;
         URL newurl = null;
         try {
             newurl = new URL(photo_url_str);
@@ -126,11 +138,10 @@ public class ManualActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(android.os.Build.VERSION.SDK_INT < 16) {
+        if (android.os.Build.VERSION.SDK_INT < 16) {
             layout.setBackgroundDrawable(new BitmapDrawable(getResources(), b));
-        }
-        else {
-            layout.setBackground(new BitmapDrawable(getResources(),b));
+        } else {
+            layout.setBackground(new BitmapDrawable(getResources(), b));
         }
 
         AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
@@ -150,6 +161,41 @@ public class ManualActivity extends Activity {
                             }
                         }).show();
     }
+
+    private void LoadData() {
+        MyArrManualList = new ArrayList<HashMap<String, String>>();
+        String status = "0";
+        String error = "";
+        String url = getString(R.string.url) + "getManual.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("xxx", MyArrList.get(0).get("xxx")));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                status = c.getString("status");
+                error = c.getString("error");
+                //if ("1".equals(status)) {
+                map = new HashMap<String, String>();
+                map.put("manual_id", c.getString("manual_id"));
+                map.put("manual_video", c.getString("manual_video"));
+                map.put("manual_word", c.getString("manual_word"));
+                MyArrManualList.add(map);
+            }
+            if ("1".equals(status)) {
+                manual_video = MyArrManualList.get(0).get("manual_video");
+                manual_word = MyArrManualList.get(0).get("manual_word");
+            } else {
+
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MessageDialog(e.getMessage());
+        }
+    }
+
 
     private void MessageDialog(String msg) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
