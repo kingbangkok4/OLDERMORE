@@ -31,4 +31,5 @@ dependencies {
     //compile 'com.google.android.gms:play-services:8.4.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/google-play-services.jar')
+    compile files('libs/volley.jar')
 }
