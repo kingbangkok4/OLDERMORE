@@ -74,7 +74,8 @@ public class PostActivity extends Activity {
     private ListView listView;
     private FeedListAdapter listAdapter;
     private List<FeedItem> feedItems;
-    private String URL_FEED = "http://api.androidhive.info/feed/feed.json";
+    //private String URL_FEED = "http://api.androidhive.info/feed/feed.json";
+    private String URL_FEED = "";
 
     @SuppressLint("NewApi")
     @Override
@@ -107,8 +108,11 @@ public class PostActivity extends Activity {
         lblName = (TextView) findViewById(R.id.lblName);
         listView = (ListView) findViewById(R.id.listPost);
 
+        URL_FEED = getString(R.string.url) + "getPost.php";
+
         LoadData();
         LoadDataPost();
+        parseJsonFeed();
 
         // These two lines not needed,
         // just to get the look of facebook (changing background color & hiding the icon)
@@ -116,7 +120,7 @@ public class PostActivity extends Activity {
         getActionBar().setIcon(
                 new ColorDrawable(getResources().getColor(android.R.color.transparent)));*/
 
-        // We first check for cached request
+       /* // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Entry entry = cache.get(URL_FEED);
         if (entry != null) {
@@ -154,7 +158,7 @@ public class PostActivity extends Activity {
 
             // Adding request to volley request queue
             AppController.getInstance().addToRequestQueue(jsonReq);
-        }
+        }*/
 
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +169,7 @@ public class PostActivity extends Activity {
             }
         });
 
-        btnPost.setOnClickListener(new View.OnClickListener() {
+/*        btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -182,7 +186,7 @@ public class PostActivity extends Activity {
             public void onClick(View v) {
 
             }
-        });
+        });*/
     }
 
     private void LoadData() {
@@ -250,11 +254,15 @@ public class PostActivity extends Activity {
 
     /**
      * Parsing json reponse and passing the data to feed view list adapter
-     * */
-    private void parseJsonFeed(JSONObject response) {
+     */
+    /*private void parseJsonFeed(JSONObject response) {*/
+    private void parseJsonFeed() {
         try {
-            JSONArray feedArray = response.getJSONArray("feed");
-
+            // Paste Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+            //JSONArray feedArray = response.getJSONArray("feed");
+            JSONArray feedArray = new JSONArray(http.getJSONUrl(URL_FEED, params));
             for (int i = 0; i < feedArray.length(); i++) {
                 JSONObject feedObj = (JSONObject) feedArray.get(i);
 
@@ -263,11 +271,11 @@ public class PostActivity extends Activity {
                 item.setName(feedObj.getString("name"));
 
                 // Image might be null sometimes
-                String image = feedObj.isNull("image") ? null : feedObj
+                String image = feedObj.isNull("image") ? null : getString(R.string.url_images) + feedObj
                         .getString("image");
                 item.setImge(image);
                 item.setStatus(feedObj.getString("status"));
-                item.setProfilePic(feedObj.getString("profilePic"));
+                item.setProfilePic(getString(R.string.url_images) + feedObj.getString("profilePic"));
                 item.setTimeStamp(feedObj.getString("timeStamp"));
 
                 // url might be null sometimes

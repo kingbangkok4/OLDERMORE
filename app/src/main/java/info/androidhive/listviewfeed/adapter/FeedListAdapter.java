@@ -76,10 +76,11 @@ public class FeedListAdapter extends BaseAdapter {
         name.setText(item.getName());
 
         // Converting timestamp into x ago format
-        CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
+     /*   CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
                 Long.parseLong(item.getTimeStamp()),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
-        timestamp.setText(timeAgo);
+        timestamp.setText(timeAgo);*/
+        timestamp.setText(item.getTimeStamp());
 
         // Chcek for empty status message
         if (!TextUtils.isEmpty(item.getStatus())) {
