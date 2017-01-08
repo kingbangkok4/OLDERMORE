@@ -1,10 +1,12 @@
 package com.app.oldermore;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,11 +60,12 @@ public class EmergencyActivity extends Activity {
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> ArrListFreind = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> ArrListEmergecy = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
     private Button btnAdd, btnMainMenu;
-    private ListView listViewEmergency;
+    private ListView listFriend, listEmergency;
     private String[] namePhotoSplite;
     private String mCurrentPhotoPath, strURLUpload, strImgProfile;
     private static final int SELECT_PICTURE = 1;
@@ -90,7 +94,9 @@ public class EmergencyActivity extends Activity {
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-        listViewEmergency = (ListView) findViewById(R.id.listFriend);
+
+        listFriend = (ListView) findViewById(R.id.listFriend);
+        listEmergency = (ListView) findViewById(R.id.listEmergency);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,13 +114,14 @@ public class EmergencyActivity extends Activity {
         });
 
         LoadData();
+        LoadDataEmergecy();
 
         final AlertDialog.Builder viewDetail = new AlertDialog.Builder(this);
-        listViewEmergency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listFriend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 try {
-                    //int emId = Integer.parseInt(ArrListEmergecy.get(position).get("emergency_id"));
+                    //int emId = Integer.parseInt(ArrListFreind.get(position).get("emergency_id"));
                     DialogAddEmergency(true, position);
                 } catch (Exception e) {
                     // When Error
@@ -123,11 +130,29 @@ public class EmergencyActivity extends Activity {
             }
         });
 
-        listViewEmergency.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listEmergency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                try {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + ArrListEmergecy.get(position).get("mobile")));
+                    if (ActivityCompat.checkSelfPermission(getBaseContext(),
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callIntent);
+                } catch (Exception e) {
+                    // When Error
+                    MessageDialog(e.getMessage());
+                }
+            }
+        });
+
+        listFriend.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final String emergency_id = ArrListEmergecy.get(position).get("emergency_id");
-                String emergency_name = ArrListEmergecy.get(position).get("emergency_name");
+                final String emergency_id = ArrListFreind.get(position).get("emergency_id");
+                String emergency_name = ArrListFreind.get(position).get("emergency_name");
 
                 viewDetail.setTitle("คุณต้องการลบผู้ติดต่อฉุกเฉินนี้?");
                 viewDetail.setMessage("ชื่อ : " + emergency_name)
@@ -169,7 +194,7 @@ public class EmergencyActivity extends Activity {
 
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-            ArrListEmergecy.clear();
+            ArrListFreind.clear();
             if (data.length() > 0) {
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject c = data.getJSONObject(i);
@@ -179,6 +204,34 @@ public class EmergencyActivity extends Activity {
                     map.put("emergency_mobile", c.getString("emergency_mobile"));
                     map.put("emergency_image", c.getString("emergency_image"));
                     map.put("user_id", c.getString("user_id"));
+                    ArrListFreind.add(map);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        listFriend.setAdapter(new ImageAdapter(this, ArrListFreind));
+    }
+
+    private void LoadDataEmergecy() {
+        String url = getString(R.string.url) + "getEmergencyPhone.php";
+
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            ArrListEmergecy.clear();
+            if (data.length() > 0) {
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject c = data.getJSONObject(i);
+                    map = new HashMap<String, String>();
+                    map.put("id", c.getString("id"));
+                    map.put("image", c.getString("image"));
+                    map.put("mobile", c.getString("mobile"));
+                    map.put("timestamp", c.getString("timestamp"));
                     ArrListEmergecy.add(map);
                 }
             }
@@ -186,7 +239,7 @@ public class EmergencyActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        listViewEmergency.setAdapter(new ImageAdapter(this, ArrListEmergecy));
+        listEmergency.setAdapter(new ImageAdapterEmergencyPhone(this, ArrListEmergecy));
     }
 
     private void DeleteEmergency(String emergency_id) {
@@ -280,6 +333,58 @@ public class EmergencyActivity extends Activity {
 
     }
 
+    public class ImageAdapterEmergencyPhone extends BaseAdapter {
+        private Context context;
+        private ArrayList<HashMap<String, String>> MyArr = new ArrayList<HashMap<String, String>>();
+
+        public ImageAdapterEmergencyPhone(EmergencyActivity c, ArrayList<HashMap<String, String>> list) {
+            // TODO Auto-generated method stub
+            context = c;
+            MyArr = list;
+        }
+
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return MyArr.size();
+        }
+
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.activity_image_column, null);
+            }
+
+            // ColImage
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.ColImgPath);
+            imageView.getLayoutParams().height = 160;
+            imageView.getLayoutParams().width = 550;
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            try {
+                imageView.setImageBitmap(loadBitmap(getString(R.string.url_images)+ "/emergency_phone/" + MyArr.get(position).get("image")));
+            } catch (Exception e) {
+                // When Error
+                imageView.setImageResource(android.R.drawable.ic_menu_report_image);
+            }
+
+            return convertView;
+
+        }
+
+    }
 
     /*****
      * Get Image Resource from URL (Start)
@@ -341,6 +446,7 @@ public class EmergencyActivity extends Activity {
         View dialogBoxView = View.inflate(this, R.layout.dialog_add_emergency, null);
         strImgProfile = "";
         final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnSave);
+        final Button btnCall = (Button) dialogBoxView.findViewById(R.id.btnCall);
         btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
         final EditText txtName = (EditText) dialogBoxView.findViewById(R.id.txtName);
         final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtMobile);
@@ -350,14 +456,14 @@ public class EmergencyActivity extends Activity {
         //String user_id = "";
 
         if (editMode) {
-            emergency_id = ArrListEmergecy.get(position).get("emergency_id");
-            name[0] = ArrListEmergecy.get(position).get("emergency_name");
-            mobile[0] = ArrListEmergecy.get(position).get("emergency_mobile");
+            emergency_id = ArrListFreind.get(position).get("emergency_id");
+            name[0] = ArrListFreind.get(position).get("emergency_name");
+            mobile[0] = ArrListFreind.get(position).get("emergency_mobile");
             //user_id = MyArrList.get(0).get("user_id");
 
             String photo_url_str = getString(R.string.url_images);
-            if (!"".equals(ArrListEmergecy.get(position).get("emergency_image")) && ArrListEmergecy.get(position).get("emergency_image") != null) {
-                photo_url_str += ArrListEmergecy.get(position).get("emergency_image");
+            if (!"".equals(ArrListFreind.get(position).get("emergency_image")) && ArrListFreind.get(position).get("emergency_image") != null) {
+                photo_url_str += ArrListFreind.get(position).get("emergency_image");
             } else {
                 photo_url_str += "no.png";
             }
@@ -386,6 +492,22 @@ public class EmergencyActivity extends Activity {
 
 
         final String finalEmergency_id = emergency_id;
+
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!"".equals(txtMobile.getText().toString().trim())) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + txtMobile.getText().toString().trim()));
+
+                    if (ActivityCompat.checkSelfPermission(getBaseContext(),
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callIntent);
+                }
+            }
+        });
         //final String finalUser_id = user_id;
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

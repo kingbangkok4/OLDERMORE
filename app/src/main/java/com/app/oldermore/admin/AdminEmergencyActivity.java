@@ -63,7 +63,7 @@ public class AdminEmergencyActivity extends Activity {
     HashMap<String, String> map;
     private Http http = new Http();
     private Button btnAdd, btnMainMenu;
-    private ListView listViewEmergency;
+    private ListView listFriend;
     private String[] namePhotoSplite;
     private String mCurrentPhotoPath, strURLUpload, strImgProfile;
     private static final int SELECT_PICTURE = 1;
@@ -92,7 +92,7 @@ public class AdminEmergencyActivity extends Activity {
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-        listViewEmergency = (ListView) findViewById(R.id.listFriend);
+        listFriend = (ListView) findViewById(R.id.listFriend);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +112,7 @@ public class AdminEmergencyActivity extends Activity {
         LoadData();
 
         final AlertDialog.Builder viewDetail = new AlertDialog.Builder(this);
-        listViewEmergency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listFriend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 try {
@@ -125,7 +125,7 @@ public class AdminEmergencyActivity extends Activity {
             }
         });
 
-        listViewEmergency.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listFriend.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final String emergency_id = ArrListEmergecy.get(position).get("emergency_id");
@@ -188,7 +188,7 @@ public class AdminEmergencyActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        listViewEmergency.setAdapter(new ImageAdapter(this, ArrListEmergecy));
+        listFriend.setAdapter(new ImageAdapter(this, ArrListEmergecy));
     }
 
     private void DeleteEmergency(String emergency_id) {

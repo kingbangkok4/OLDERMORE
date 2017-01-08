@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/button01" />
+        android:background="@drawable/mmain1" />
 
     <TextView
         android:text="แจ้งเตือน"
@@ -37,13 +37,12 @@
         android:layout_marginTop="10dp" />
 
     <Button
-        android:text="+"
         android:layout_marginTop="10dp"
         android:id="@+id/btnAdd"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:textSize="40dp"
-        android:background="@android:drawable/ic_notification_overlay"
+        android:background="@drawable/pluss"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

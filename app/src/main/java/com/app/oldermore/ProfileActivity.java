@@ -362,6 +362,19 @@ public class ProfileActivity extends Activity {
         }
     }
 
+    private void MessageDialog(String msg) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     private void setImage() {
         Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
         btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
@@ -448,20 +461,6 @@ public class ProfileActivity extends Activity {
             return false;
         }
     }
-
-    private void MessageDialog(String msg) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) if (requestCode == SELECT_PICTURE) {

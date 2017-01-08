@@ -7,12 +7,12 @@
     <Button
         android:text="เมนูหลัก"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/btnMainMenu"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/button01" />
+        android:background="@drawable/mmain1"
+        android:layout_height="40dp" />
 
     <TextView
         android:text="โพสต์"
@@ -33,10 +33,10 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_below="@+id/txtPost"
-        android:layout_marginTop="50dp"
         android:layout_above="@+id/btnMainMenu"
-        android:id="@+id/listPost" />
+        android:id="@+id/listPost"
+        android:layout_below="@+id/btnPostImage"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:text="รูปโปรไฟล์/ชื่อ"
@@ -54,63 +54,7 @@
         android:layout_width="80dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
-
-    <Button
-        android:text="Button"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@+id/btnAppImage"
-        android:layout_alignLeft="@+id/txtPost"
-        android:layout_alignStart="@+id/txtPost"
-        android:id="@+id/button6"
-        android:layout_width="120dp"
-        android:background="@drawable/button05" />
-
-    <Button
-        android:text="รูป"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@+id/btnAppImage"
-        android:layout_alignRight="@+id/txtPost"
-        android:layout_alignEnd="@+id/txtPost"
-        android:id="@+id/btnImage"
-        android:background="@drawable/button06" />
-
-    <Button
-        android:text="Button"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:id="@+id/button15"
-        android:layout_below="@+id/txtPost"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button02" />
-
-    <Button
-        android:text="Button"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:id="@+id/button14"
-        android:layout_below="@+id/txtPost"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button02" />
-
-    <Button
-        android:text="Button"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:id="@+id/button13"
-        android:layout_below="@+id/txtPost"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button02" />
-
-    <Button
-        android:text="Button"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:id="@+id/button12"
-        android:layout_below="@+id/txtPost"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button02" />
+        android:layout_marginTop="5dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -120,30 +64,52 @@
         android:textSize="12dp"
         android:id="@+id/txtPost"
         android:background="@android:color/white"
-        android:layout_height="60dp"
         android:layout_below="@+id/lblName"
-        android:layout_alignLeft="@+id/listView2"
-        android:layout_alignStart="@+id/listView2"
-        android:layout_alignRight="@+id/listView2"
-        android:layout_alignEnd="@+id/listView2" />
+        android:layout_height="40dp"
+        android:layout_alignRight="@+id/listPost"
+        android:layout_alignEnd="@+id/listPost"
+        android:layout_alignLeft="@+id/listPost"
+        android:layout_alignStart="@+id/listPost" />
+
+    <Button
+        android:text="รูป"
+        android:layout_width="110dp"
+        android:id="@+id/btnImage"
+        android:background="@drawable/photo2"
+        android:layout_height="30dp"
+        android:layout_below="@+id/txtPost"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/btnAppImage"
+        android:layout_toEndOf="@+id/btnAppImage" />
 
     <Button
         android:text="โพส"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@+id/btnAppImage"
+        android:id="@+id/btnPost"
+        android:layout_width="110dp"
+        android:background="@drawable/postty"
+        android:layout_height="30dp"
+        android:layout_below="@+id/txtPost"
         android:layout_alignLeft="@+id/txtPost"
         android:layout_alignStart="@+id/txtPost"
-        android:id="@+id/btnPost"
-        android:layout_width="120dp"
-        android:background="@drawable/button05" />
+        android:layout_toStartOf="@+id/btnAppImage"
+        android:layout_toLeftOf="@+id/btnAppImage" />
 
     <Button
         android:text="คลังรูป"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
         android:id="@+id/btnAppImage"
+        android:background="@drawable/flim"
+        android:layout_height="30dp"
+        android:layout_width="120dp"
         android:layout_below="@+id/txtPost"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button02" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnPostImage"
+        android:layout_height="60dp"
+        android:layout_width="150dp"
+        android:background="@drawable/no"
+        android:layout_below="@+id/btnImage"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

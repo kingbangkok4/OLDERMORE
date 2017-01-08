@@ -144,7 +144,7 @@
         android:id="@+id/btnLogout"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button09" />
+        android:background="@drawable/exit7" />
 
     <Button
         android:textStyle="bold"

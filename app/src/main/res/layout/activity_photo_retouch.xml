@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/button01" />
+        android:background="@drawable/mmain1" />
 
     <TextView
         android:text="แต่งรูป"
@@ -35,26 +35,27 @@
         android:layout_toStartOf="@+id/btnAlbum"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/button06" />
-
-    <Button
-        android:text="แต่งรูป"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btnPhoto"
-        android:background="@drawable/button05"
-        android:layout_above="@+id/btnAlbum"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp" />
+        android:background="@drawable/photo" />
 
     <Button
         android:text="อัลบัม"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:id="@+id/btnAlbum"
-        android:background="@drawable/button04"
+        android:background="@drawable/flim"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp" />
+
+    <Button
+        android:text="แต่งรูป"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/btnPhoto"
+        android:background="@drawable/photo1"
+        android:layout_below="@+id/btnCamera"
+        android:layout_alignLeft="@+id/btnAlbum"
+        android:layout_alignStart="@+id/btnAlbum" />
 </RelativeLayout>

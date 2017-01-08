@@ -17,15 +17,14 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@android:color/background_light"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_above="@+id/btnMainMenu"
         android:layout_below="@+id/btnAdd"
-        android:id="@+id/listFriend" />
+        android:id="@+id/listFriend"
+        android:layout_height="250dp" />
 
     <Button
         android:text="เพิ่ม"
@@ -34,15 +33,28 @@
         android:id="@+id/btnAdd"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button07" />
+        android:background="@drawable/emery" />
 
     <Button
         android:text="เมนูหลัก"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnMainMenu"
-        android:background="@drawable/button01"
+        android:background="@drawable/mmain1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listEmergency"
+        android:layout_below="@+id/listFriend"
+        android:layout_alignLeft="@+id/listFriend"
+        android:layout_alignStart="@+id/listFriend"
+        android:layout_alignRight="@+id/listFriend"
+        android:layout_alignEnd="@+id/listFriend"
+        android:background="@color/white"
+        android:layout_above="@+id/btnMainMenu"
+        android:layout_marginTop="10dp" />
 </RelativeLayout>
