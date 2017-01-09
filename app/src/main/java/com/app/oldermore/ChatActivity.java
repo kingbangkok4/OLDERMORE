@@ -80,7 +80,7 @@ public class ChatActivity extends Activity {
 
     public void Loop(){
         System.out.println("Hello World");
-        chatText.setText("Test loop");
+        chatText.setText("Hello Chat");
         sendChatMessage();
     }
     private boolean sendChatMessage() {
