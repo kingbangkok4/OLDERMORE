@@ -75,7 +75,9 @@ public class MsgCallActivity extends Activity {
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(getBaseContext(), ChatActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
             }
         });
 

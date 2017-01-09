@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ChatActivity extends Activity {
     private static final String TAG = "ChatActivity";
@@ -19,10 +23,31 @@ public class ChatActivity extends Activity {
     private Button send;
     Intent intent;
     private boolean side = false;
+    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Permission StrictMode
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+        Bundle extras = getIntent().getExtras();
+        // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
+        if (extras != null) {
+            tmpMyArrList = (ArrayList<HashMap<String, String>>) extras
+                    .getSerializable("MyArrList");
+            if (tmpMyArrList != null) {
+                MyArrList = tmpMyArrList;
+            }
+        }
+
         Intent i = getIntent();
         setContentView(R.layout.activity_chat);
         send = (Button) findViewById(R.id.btn);
