@@ -95,7 +95,7 @@ public class EmergencyActivity extends Activity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
 
-        listFriend = (ListView) findViewById(R.id.listFriend);
+        listFriend = (ListView) findViewById(R.id.txtSearch);
         listEmergency = (ListView) findViewById(R.id.listEmergency);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {

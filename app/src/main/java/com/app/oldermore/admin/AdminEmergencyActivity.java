@@ -92,7 +92,7 @@ public class AdminEmergencyActivity extends Activity {
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-        listFriend = (ListView) findViewById(R.id.listFriend);
+        listFriend = (ListView) findViewById(R.id.txtSearch);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

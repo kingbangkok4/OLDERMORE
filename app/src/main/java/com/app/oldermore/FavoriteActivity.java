@@ -15,7 +15,6 @@ import com.app.oldermore.http.Http;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class FavoriteActivity extends Activity {
@@ -56,7 +55,7 @@ public class FavoriteActivity extends Activity {
         btnSearch = (Button) findViewById(R.id.btnSearch);
 
         txtName = (EditText) findViewById(R.id.txtName);
-        listFriend = (ListView) findViewById(R.id.listFriend);
+        listFriend = (ListView) findViewById(R.id.txtSearch);
 
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
