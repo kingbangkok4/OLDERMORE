@@ -10,10 +10,10 @@
         android:id="@+id/btnMainMenu"
         android:background="@drawable/mmain1"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/listFriend"
-        android:layout_alignEnd="@+id/listFriend"
-        android:layout_alignLeft="@+id/listFriend"
-        android:layout_alignStart="@+id/listFriend"
+        android:layout_alignRight="@+id/txtSearch"
+        android:layout_alignEnd="@+id/txtSearch"
+        android:layout_alignLeft="@+id/txtSearch"
+        android:layout_alignStart="@+id/txtSearch"
         android:layout_height="50dp" />
 
     <TextView

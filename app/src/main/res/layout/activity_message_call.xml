@@ -12,11 +12,11 @@
         android:gravity="center"
         android:background="@drawable/mmain1"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/listFriend"
-        android:layout_alignStart="@+id/listFriend"
+        android:layout_alignLeft="@+id/txtSearch"
+        android:layout_alignStart="@+id/txtSearch"
         android:layout_height="50dp"
-        android:layout_alignRight="@+id/listMessage"
-        android:layout_alignEnd="@+id/listMessage" />
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignEnd="@+id/listView" />
 
     <TextView
         android:text="ข้อความ / โทร"
@@ -30,7 +30,7 @@
         android:textColor="@android:color/background_light" />
 
     <Button
-        android:text="เพื่อน"
+        android:text="เพิ่มเพื่อน"
         android:layout_height="40dp"
         android:id="@+id/btnFriend"
         android:background="@drawable/friendd"
@@ -44,32 +44,10 @@
         android:layout_height="40dp"
         android:id="@+id/btnSearch"
         android:background="@drawable/search1"
-        android:layout_alignTop="@+id/listFriend"
+        android:layout_alignTop="@+id/txtSearch"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_width="100dp" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@android:color/background_light"
-        android:id="@+id/listMessage"
-        android:layout_above="@+id/btnMainMenu"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btnSearch"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
-
-    <Button
-        android:text="แชท"
-        android:layout_height="40dp"
-        android:id="@+id/btnChat"
-        android:background="@drawable/chatt"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/btnFriend"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -78,13 +56,35 @@
         android:text=""
         android:ems="10"
         android:layout_marginTop="11dp"
-        android:id="@+id/listFriend"
+        android:id="@+id/txtSearch"
         android:gravity="center"
         android:background="@android:color/background_light"
-        android:layout_below="@+id/btnChat"
+        android:layout_below="@+id/spinnerFriendChat"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/btnSearch"
         android:layout_toStartOf="@+id/btnSearch" />
+
+    <Spinner
+        android:text="แชท"
+        android:layout_height="40dp"
+        android:id="@+id/spinnerFriendChat"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/btnFriend"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@android:color/background_light"
+        android:id="@+id/listView"
+        android:layout_above="@+id/btnMainMenu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnSearch"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
 </RelativeLayout>

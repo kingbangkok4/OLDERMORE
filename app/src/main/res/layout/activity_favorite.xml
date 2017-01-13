@@ -16,8 +16,8 @@
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/btnSearch"
         android:layout_toLeftOf="@+id/btnSearch"
-        android:layout_alignLeft="@+id/listFriend"
-        android:layout_alignStart="@+id/listFriend"
+        android:layout_alignLeft="@+id/txtSearch"
+        android:layout_alignStart="@+id/txtSearch"
         android:layout_marginTop="10dp" />
 
     <Button
@@ -26,10 +26,10 @@
         android:id="@+id/btnMainMenu"
         android:background="@drawable/mmain1"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/listFriend"
-        android:layout_alignEnd="@+id/listFriend"
-        android:layout_alignLeft="@+id/listFriend"
-        android:layout_alignStart="@+id/listFriend"
+        android:layout_alignRight="@+id/txtSearch"
+        android:layout_alignEnd="@+id/txtSearch"
+        android:layout_alignLeft="@+id/txtSearch"
+        android:layout_alignStart="@+id/txtSearch"
         android:layout_height="50dp" />
 
     <Button
@@ -39,8 +39,8 @@
         android:layout_below="@+id/textView"
         android:background="@drawable/fa3"
         android:layout_height="40dp"
-        android:layout_alignRight="@+id/listFriend"
-        android:layout_alignEnd="@+id/listFriend"
+        android:layout_alignRight="@+id/txtSearch"
+        android:layout_alignEnd="@+id/txtSearch"
         android:layout_toEndOf="@+id/txtName"
         android:layout_marginTop="10dp"
         android:layout_alignLeft="@+id/txtName"
@@ -63,8 +63,8 @@
         android:id="@+id/btnSearch"
         android:background="@drawable/search1"
         android:layout_below="@+id/btnAdd"
-        android:layout_alignRight="@+id/listFriend"
-        android:layout_alignEnd="@+id/listFriend"
+        android:layout_alignRight="@+id/txtSearch"
+        android:layout_alignEnd="@+id/txtSearch"
         android:layout_marginTop="10dp"
         android:layout_width="100dp" />
 
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:background="@android:color/background_light"
-        android:id="@+id/listFriend"
+        android:id="@+id/txtSearch"
         android:layout_above="@+id/btnMainMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
