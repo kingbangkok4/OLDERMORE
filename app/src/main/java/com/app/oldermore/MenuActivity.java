@@ -92,10 +92,9 @@ public class MenuActivity extends Activity {
         btnWhere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent i = new Intent(getBaseContext(), MapActivity.class);
-              /*  Intent i = new Intent(getBaseContext(), ChatActivity.class);
+                Intent i = new Intent(getBaseContext(), MapActivity.class);
                 i.putExtra("MyArrList", MyArrList);
-                startActivity(i);*/
+                startActivity(i);
             }
         });
 

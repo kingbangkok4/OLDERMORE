@@ -1,14 +1,18 @@
 package com.app.oldermore;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -38,6 +43,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +57,7 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> ArrListFC = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> ArrListFriend = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
     private Spinner spinFriendChat;
@@ -59,6 +66,10 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
     private String selectedFC;
     private ListView listView;
     private EditText txtSearch;
+    private String friendName = "";
+    private String friendUserId = "";
+    private String nameSearch = "";
+    private ListView listFriend = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,18 +119,9 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
         btnFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DialodAddFriend();
             }
         });
-
-/*        btnChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), ChatActivity.class);
-                i.putExtra("MyArrList", MyArrList);
-                startActivity(i);
-            }
-        });*/
         ArrayAdapter<String> arrAd = new ArrayAdapter<String>(getBaseContext(),
                 android.R.layout.simple_spinner_item,
                 arrFriendChat);
@@ -129,6 +131,127 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
 
         selectedFC = arrFriendChat[0];
         LoadData("Friend");
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                String friendId = ArrListFC.get(position).get("friend_id");
+                Intent i = new Intent(getBaseContext(), ChatActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                i.putExtra("friendId",friendId);
+                startActivity(i);
+            }
+        });
+
+    }
+
+    private void DialodAddFriend() {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_add_friend, null);
+        friendName = "";
+        final Button btnAFSerch = (Button) dialogBoxView.findViewById(R.id.btnSearch);
+        final EditText txtAFSearch = (EditText) dialogBoxView.findViewById(R.id.txtSearch);
+        final TextView txtAFFriend = (TextView) dialogBoxView.findViewById(R.id.txtFriend);
+        listFriend = (ListView) dialogBoxView.findViewById(R.id.listFriend);
+        txtAFFriend.setText("");
+
+        //LoadDataFriend();
+
+        btnAFSerch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameSearch = txtAFSearch.getText().toString().trim();
+                LoadDataFriend();
+            }
+        });
+
+        listFriend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                txtAFFriend.setText(ArrListFriend.get(position).get("member_name"));
+                friendUserId = ArrListFriend.get(position).get("user_id");
+            }
+        });
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("เพิ่มเพื่อน");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+                .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        friendName = txtAFFriend.getText().toString().trim();
+                        if(!"".equals(friendName) && !"".equals(friendUserId)){
+                            SaveAddFriend();
+                        }else {
+                            MessageDialog("กรุณาเลือกเพื่อนที่ต้องการเพิ่ม");
+                        }
+                    }
+                })
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+    }
+
+    private void SaveAddFriend() {
+        String status = "0";
+        String error = "";
+        String url = getString(R.string.url) + "saveFriend.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+        params.add(new BasicNameValuePair("friend_id", friendUserId));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                status = c.getString("status");
+                error = c.getString("error");
+                if ("1".equals(status)) {
+                    spinFriendChat.setSelection(((ArrayAdapter<String>)spinFriendChat.getAdapter()).getPosition(arrFriendChat[0]));
+                    LoadData("Friend");
+                    MessageDialog(error);
+                } else {
+                    MessageDialog(error);
+                }
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MessageDialog(e.getMessage());
+        }
+    }
+
+    private void LoadDataFriend() {
+        String url = getString(R.string.url) + "getMemberAll.php";
+
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+        params.add(new BasicNameValuePair("search", nameSearch));
+
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            ArrListFriend.clear();
+            if (data.length() > 0) {
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject c = data.getJSONObject(i);
+                    map = new HashMap<String, String>();
+                    map.put("member_id", c.getString("member_id"));
+                    map.put("user_id", c.getString("user_id"));
+                    map.put("user_image", c.getString("user_image").equals("")?"user.png":c.getString("user_image"));
+                    map.put("member_name", c.getString("member_name"));
+                    map.put("member_mobile", c.getString("member_mobile"));
+                    ArrListFriend.add(map);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        listFriend.setAdapter(new ImageAdapter(this, ArrListFriend));
     }
 
     public void onItemSelected(AdapterView<?> parent, View v, int position,
@@ -159,8 +282,9 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
                     map = new HashMap<String, String>();
                     map.put("id", c.getString("id"));
                     map.put("friend_id", c.getString("friend_id"));
-                    map.put("user_image", c.getString("user_image"));
+                    map.put("user_image", c.getString("user_image").equals("")?"user.png":c.getString("user_image"));
                     map.put("member_name", c.getString("member_name"));
+                    map.put("member_mobile", c.getString("member_mobile"));
                     ArrListFC.add(map);
                 }
             }
@@ -224,9 +348,9 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
             txtPosition.setText("ชื่อ : " + MyArr.get(position).get("member_name"));
 
             // ColPicname
-           /* TextView txtPicName = (TextView) convertView.findViewById(R.id.ColMobile);
+            TextView txtPicName = (TextView) convertView.findViewById(R.id.ColMobile);
             txtPicName.setPadding(50, 0, 0, 0);
-            txtPicName.setText("เบอร์โทร : " + MyArr.get(position).get("emergency_mobile"));*/
+            txtPicName.setText("เบอร์โทร : " + MyArr.get(position).get("member_mobile"));
 
             return convertView;
 

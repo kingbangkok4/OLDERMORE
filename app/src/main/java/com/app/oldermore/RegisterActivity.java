@@ -123,6 +123,14 @@ public class RegisterActivity extends Activity {
                     JSONObject c2 = data_member.getJSONObject(0);
                     status = c2.getString("status");
                     strStatus = status;
+
+                    txtUsername.setText("");
+                    txtPassword.setText("");
+                    txtRePassword.setText("");
+                    txtName.setText("");
+                    txtMobile.setText("");
+                    txtEmail.setText("");
+                    txtAddress.setText("");
                 } else {
                     strStatus = "ผู้ใช้งานนี้มีอยู่ในระบบแล้ว !";
                 }
