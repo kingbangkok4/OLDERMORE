@@ -8,39 +8,43 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        />
-
-    <RelativeLayout
-        android:id="@+id/form"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="100dp"
         android:layout_alignParentLeft="true"
-        android:orientation="vertical"
-        >
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/btnSend" />
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/chat_text"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/btn"
-            />
+    <Button
+        android:text="กลับ"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnBack"
+        android:background="@drawable/back" />
 
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="Send"
-            android:id="@+id/btn"
-            android:layout_alignBottom="@+id/chat_text"
-            android:layout_alignParentRight="true"
-            />
+    <Button
+        android:layout_width="wrap_content"
+            android:text="ส่ง"
+            android:id="@+id/btnSend"
+        android:background="@color/colorPrimary"
+        android:layout_height="40dp"
+        android:layout_above="@+id/btnBack"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:gravity="center"
+        android:id="@+id/chat_text"
+        android:background="@color/colorAccent"
+        android:layout_height="40dp"
+        android:layout_above="@+id/btnBack"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/btnSend"
+        android:layout_toStartOf="@+id/btnSend" />
 
 </RelativeLayout>

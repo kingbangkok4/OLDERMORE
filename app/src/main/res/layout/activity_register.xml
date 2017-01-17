@@ -172,7 +172,7 @@
 
     <EditText
         android:layout_height="30dp"
-        android:inputType="textPhonetic"
+        android:inputType="phone"
         android:maxLength="10"
         android:gravity=""
         android:text=""
