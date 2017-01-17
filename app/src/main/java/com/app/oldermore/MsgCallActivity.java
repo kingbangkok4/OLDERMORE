@@ -136,9 +136,11 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 String friendId = ArrListFC.get(position).get("friend_id");
+                String friendName = ArrListFC.get(position).get("member_name");
                 Intent i = new Intent(getBaseContext(), ChatActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 i.putExtra("friendId",friendId);
+                i.putExtra("friendName",friendName);
                 startActivity(i);
             }
         });

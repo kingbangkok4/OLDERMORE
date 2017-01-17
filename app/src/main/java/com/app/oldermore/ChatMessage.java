@@ -7,11 +7,13 @@ package com.app.oldermore;
 public class ChatMessage {
     public boolean left;
     public String message;
+    public String image;
 
-    public ChatMessage(boolean left , String message) {
+    public ChatMessage(boolean left , String message, String image) {
         // TODO Auto-generated constructor stub
         super();
         this.left=left;
         this.message = message;
+        this.image = image;
     }
 }

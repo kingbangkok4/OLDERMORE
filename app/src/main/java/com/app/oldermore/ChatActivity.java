@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.app.oldermore.http.Http;
 
@@ -38,6 +39,7 @@ public class ChatActivity extends Activity {
     private boolean side = false;
     private String lastChatId = "0";
     private String friendId = "";
+    private String friendName = "";
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
@@ -61,6 +63,7 @@ public class ChatActivity extends Activity {
             tmpMyArrList = (ArrayList<HashMap<String, String>>) extras
                     .getSerializable("MyArrList");
             friendId = (String) extras.getString("friendId");
+            friendName = (String) extras.getString("friendName");
             if (tmpMyArrList != null) {
                 MyArrList = tmpMyArrList;
             }
@@ -68,9 +71,12 @@ public class ChatActivity extends Activity {
 
         Intent i = getIntent();
         setContentView(R.layout.activity_chat);
+        TextView txtNameFriend = (TextView) findViewById(R.id.txtNameFriend);
         btnSend = (Button) findViewById(R.id.btnSend);
         btnBack = (Button) findViewById(R.id.btnBack);
         list = (ListView) findViewById(R.id.listview);
+
+        txtNameFriend.setText("เพื่อน : "+friendName);
         adp = new ChatArrayAdapter(getApplicationContext(), R.layout.chat);
         list.setAdapter(adp);
         chatText = (EditText) findViewById(R.id.chat_text);
@@ -78,7 +84,10 @@ public class ChatActivity extends Activity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode ==
                         KeyEvent.KEYCODE_ENTER)) {
-                    SaveMessage(chatText.getText().toString().trim());
+                    String strMessage = chatText.getText().toString().trim();
+                    if (!"".equals(strMessage)) {
+                        SaveMessage(chatText.getText().toString().trim());
+                    }
                 }
                 return false;
             }
@@ -87,7 +96,7 @@ public class ChatActivity extends Activity {
             @Override
             public void onClick(View arg0) {
                 String strMessage = chatText.getText().toString().trim();
-                if(!"".equals(strMessage)){
+                if (!"".equals(strMessage)) {
                     SaveMessage(strMessage);
                 }
             }
@@ -187,12 +196,12 @@ public class ChatActivity extends Activity {
                 }
                 lastChatId = ArrListChat.get(ArrListChat.size() - 1).get("id");
                 for (int i = 0; i < ArrListChat.size(); i++) {
-                    if(MyArrList.get(0).get("user_id").equals(ArrListChat.get(i).get("user_id"))){
+                    if (MyArrList.get(0).get("user_id").equals(ArrListChat.get(i).get("user_id"))) {
                         side = false;
-                    }else {
+                    } else {
                         side = true;
                     }
-                    sendChatMessage(ArrListChat.get(i).get("message"));
+                    sendChatMessage(ArrListChat.get(i).get("message"), ArrListChat.get(i).get("user_image"));
                 }
             }
 
@@ -203,9 +212,9 @@ public class ChatActivity extends Activity {
         //chatText.setText("Hello Chat");
     }
 
-    private boolean sendChatMessage(String strMessage) {
+    private boolean sendChatMessage(String strMessage, String image) {
         // adp.add(new ChatMessage(side, chatText.getText().toString()));
-        adp.add(new ChatMessage(side, strMessage.trim()));
+        adp.add(new ChatMessage(side, strMessage.trim(), getString(R.string.url_images) + image));
         chatText.setText("");
         side = !side;
         return true;
