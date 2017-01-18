@@ -109,6 +109,41 @@ public class FavoriteActivity extends Activity {
         });
 
         LoadData();
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        listFriend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                String friendId = ArrListFriend.get(position).get("friend_id");
+                String friendName = ArrListFriend.get(position).get("member_name");
+                Intent i = new Intent(getBaseContext(), ChatActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                i.putExtra("friendId",friendId);
+                i.putExtra("friendName",friendName);
+                startActivity(i);
+            }
+        });
+        listFriend.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                friendId = ArrListFriend.get(position).get("id");
+                builder.setTitle("คุณต้องการลบคนพิเศษ?");
+                builder.setMessage(ArrListFriend.get(position).get("member_name"))
+                        .setCancelable(false)
+                        .setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                SaveAddFavorite("0");
+                            }
+                        })
+                        .setNegativeButton("ไม่ใช่",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                }).show();
+                return false;
+            }
+        });
     }
 
     private void LoadData() {
@@ -177,7 +212,7 @@ public class FavoriteActivity extends Activity {
                     public void onClick(DialogInterface dialog, int id) {
                         friendName = txtAFFriend.getText().toString().trim();
                         if(!"".equals(friendName) && !"".equals(friendId)){
-                            SaveAddFavorite();
+                            SaveAddFavorite("1");
                         }else {
                             MessageDialog("กรุณาเลือกเพื่อนที่ต้องการเพิ่ม");
                         }
@@ -191,7 +226,7 @@ public class FavoriteActivity extends Activity {
                         }).show();
     }
 
-    private void SaveAddFavorite() {
+    private void SaveAddFavorite(String favorite) {
         String status = "0";
         String error = "";
         String url = getString(R.string.url) + "saveFavorite.php";
@@ -199,6 +234,7 @@ public class FavoriteActivity extends Activity {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
         params.add(new BasicNameValuePair("friend_id", friendId));
+        params.add(new BasicNameValuePair("favorite", favorite));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {

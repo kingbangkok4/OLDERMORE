@@ -138,6 +138,28 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
                 startActivity(i);
             }
         });
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                friendUserId = ArrListFC.get(position).get("friend_id");
+                builder.setTitle("คุณต้องการลบเพื่อน?");
+                builder.setMessage(ArrListFC.get(position).get("member_name"))
+                        .setCancelable(false)
+                        .setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                SaveAddFriend("delete");
+                            }
+                        })
+                        .setNegativeButton("ไม่ใช่",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                }).show();
+                return false;
+            }
+        });
 
     }
 
@@ -177,7 +199,7 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
                     public void onClick(DialogInterface dialog, int id) {
                         friendName = txtAFFriend.getText().toString().trim();
                         if(!"".equals(friendName) && !"".equals(friendUserId)){
-                            SaveAddFriend();
+                            SaveAddFriend("save");
                         }else {
                             MessageDialog("กรุณาเลือกเพื่อนที่ต้องการเพิ่ม");
                         }
@@ -191,7 +213,7 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
                         }).show();
     }
 
-    private void SaveAddFriend() {
+    private void SaveAddFriend(String action) {
         String status = "0";
         String error = "";
         String url = getString(R.string.url) + "saveFriend.php";
@@ -199,6 +221,7 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
         params.add(new BasicNameValuePair("friend_id", friendUserId));
+        params.add(new BasicNameValuePair("action", action));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {
