@@ -12,9 +12,17 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.oldermore.database.DatabaseActivity;
+import com.app.oldermore.http.Http;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MenuActivity extends Activity {
@@ -24,8 +32,12 @@ public class MenuActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     private DatabaseActivity myDb = new DatabaseActivity(this);
+    /*    private ArrayList<HashMap<String, String>> MyArrEmergency = new ArrayList<HashMap<String, String>>();
+        private HashMap<String, String> map;*/
+    private Http http = new Http();
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    String strEmerCall = "191";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +72,11 @@ public class MenuActivity extends Activity {
         btnKnowledge = (Button) findViewById(R.id.btnKnowledge);
         btnManual = (Button) findViewById(R.id.btnManual);
         btnSetting = (Button) findViewById(R.id.btnSetting);
-
         btnEmerCall = (Button) findViewById(R.id.btnEmerCall);
         btnWhere = (Button) findViewById(R.id.btnWhere);
-
         btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        LoadDataEmergency();
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +91,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:0899999999"));
-
+                callIntent.setData(Uri.parse("tel:" + strEmerCall));
                 if (ActivityCompat.checkSelfPermission(getBaseContext(),
                         Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
@@ -194,5 +205,34 @@ public class MenuActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    private void LoadDataEmergency() {
+        String url = getString(R.string.url) + "getEmergency.php";
+
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            //MyArrEmergency.clear();
+            if (data.length() > 0) {
+                // for (int i = 0; i < data.length(); i++) {
+                JSONObject c = data.getJSONObject(0);
+                    /*map = new HashMap<String, String>();
+                    map.put("emergency_id", c.getString("emergency_id"));
+                    map.put("emergency_name", c.getString("emergency_name"));
+                    map.put("emergency_mobile", c.getString("emergency_mobile"));
+                    map.put("emergency_image", c.getString("emergency_image"));
+                    map.put("user_id", c.getString("user_id"));
+                    MyArrEmergency.add(map);*/
+                //}
+                strEmerCall = c.getString("emergency_mobile");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
