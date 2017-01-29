@@ -156,8 +156,8 @@
         android:layout_alignEnd="@+id/ImageEmergency3" />
 
     <ImageButton
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/ImageEmergency3"
         android:layout_alignBottom="@+id/ImageEmergency2"
         android:layout_alignParentRight="true"
@@ -180,8 +180,8 @@
         android:layout_alignEnd="@+id/ImageEmergency1" />
 
     <ImageButton
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/ImageEmergency2"
         android:layout_alignBottom="@+id/ImageEmergency1"
         android:layout_centerHorizontal="true"
@@ -248,8 +248,8 @@
         android:layout_marginTop="10dp" />
 
     <ImageButton
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/ImageEmergency1"
         android:layout_below="@+id/textView3"
         android:layout_alignRight="@+id/textView6"

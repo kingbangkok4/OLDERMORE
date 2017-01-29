@@ -317,7 +317,7 @@ public class ProfileActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 100, 100, false));
     }
 
     private void ShowEmergencyPhoto(String photo, String name, int index) {

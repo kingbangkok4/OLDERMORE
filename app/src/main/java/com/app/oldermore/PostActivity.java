@@ -1,12 +1,11 @@
 package com.app.oldermore;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,9 +14,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.oldermore.http.Http;
@@ -54,32 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import info.androidhive.listviewfeed.adapter.FeedListAdapter;
-import info.androidhive.listviewfeed.app.AppController;
 import info.androidhive.listviewfeed.data.FeedItem;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.view.Menu;
-import android.widget.ListView;
-
-import com.android.volley.Cache;
-import com.android.volley.Cache.Entry;
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 
 public class PostActivity extends Activity {
@@ -471,7 +446,7 @@ public class PostActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 100, 100, false));
     }
 
     private void LoadDataPost() {

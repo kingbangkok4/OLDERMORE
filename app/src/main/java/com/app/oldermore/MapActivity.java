@@ -13,6 +13,8 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +32,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     private static Location TODO;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
+    private Button btnMainMenu;
 
     // Google Map
     private GoogleMap googleMap;
@@ -64,6 +67,15 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 
         //*** Location
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        btnMainMenu = (Button)findViewById(R.id.btnMainMenu);
+        btnMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -117,7 +129,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         String msg="ละติจูด: " + location.getLatitude()
                 + "ลองจิจูด: " + location.getLongitude();
 
-        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
 
         //** Get Latitude & Longitude
         Latitude=location.getLatitude();

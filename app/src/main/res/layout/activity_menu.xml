@@ -136,17 +136,6 @@
         android:layout_alignStart="@+id/btnMsgCall" />
 
     <Button
-        android:text="ออกจากระบบ"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="11dp"
-        android:textStyle="bold"
-        android:id="@+id/btnLogout"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/exit7" />
-
-    <Button
         android:textStyle="bold"
         android:id="@+id/btnWhere"
         android:background="@drawable/green"
@@ -167,5 +156,15 @@
         android:layout_alignBottom="@+id/btnManual"
         android:layout_alignLeft="@+id/btnNontifiction"
         android:layout_alignStart="@+id/btnNontifiction" />
+
+    <Button
+        android:text="ออกจากระบบ"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textStyle="bold"
+        android:id="@+id/btnLogout"
+        android:background="@drawable/exit7"
+        android:layout_below="@+id/btnSetting"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
