@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">OLDERMORE</string>
+    <string name="google_maps_key">AIzaSyCj41X0XkoYkghb192ddgoL52vhzOrKiMI</string>
 
     <string name="url_network">http://192.168.56.1/OLDERMORE_SERVICE/api/</string>
     <string name="url_localhost">http://10.0.2.2:8888/OLDERMORE_SERVICE/api/</string>
-    <string name="url_web">http://www.oldermore.memidea.net/OLDERMORE_SERVICE/api/</string>
+    <string name="url_web">http://www.oldermore.memidea.net/api/</string>
 
    <!-- <string name="url">http://10.0.2.2/OLDERMORE_SERVICE/api/</string>
     <string name="url_upload">http://10.0.2.2/OLDERMORE_SERVICE/api/uploadFile.php</string>
@@ -45,14 +46,14 @@
     <string name="_8">8</string>
     <string name="_9">9</string>
     <string name="decimal_button_text">,</string>
-    <string name="clear_button_text">Clear</string>
+    <string name="clear_button_text">ล้าง</string>
     <string name="minus_button_text">-</string>
 
 
     <color name="title_background_color">#000000</color>
 
-    <string name="button_delete">Delete</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="button_delete">ลบ</string>
+    <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
 
 </resources>
