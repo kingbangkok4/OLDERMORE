@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -78,8 +79,8 @@ public class MapActivity extends FragmentActivity implements LocationListener {
         googleMap = ((SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map)).getMap();
 
-       /* Criteria criteria = new Criteria();
-/*        String mprovider;
+        Criteria criteria = new Criteria();
+        String mprovider;
 
         mprovider = locationManager.getBestProvider(criteria, false);
         if (mprovider != null && !mprovider.equals("")) {
@@ -92,18 +93,18 @@ public class MapActivity extends FragmentActivity implements LocationListener {
                 onLocationChanged(location);
             else
                 Toast.makeText(getBaseContext(), "ไม่พบสถานที่ของคุณ กรุณาเปิด GPS!", Toast.LENGTH_SHORT).show();
-        }*/
+        }
 
 
-        Location location=new Location("");
+       // Location location=new Location("");
         //*** For test Location
       /*  location.setLatitude(13.756331);
         location.setLongitude(100.501765);*/
         //*** Data Using
         // location.setLatitude(location.getLatitude());
         // location.setLongitude(location.getLongitude());
-        location = gps.getLocation();
-         onLocationChanged(location);
+       // location = gps.getLocation();
+        // onLocationChanged(location);
     }
 
     @Override
@@ -113,8 +114,8 @@ public class MapActivity extends FragmentActivity implements LocationListener {
             return;
         }
 
-        String msg="New Latitude: " + location.getLatitude()
-                + "New Longitude: " + location.getLongitude();
+        String msg="ละติจูด: " + location.getLatitude()
+                + "ลองจิจูด: " + location.getLongitude();
 
         Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
 
