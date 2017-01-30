@@ -88,7 +88,7 @@ public class ProfileActivity extends Activity {
         txtName = (EditText) findViewById(R.id.txtName);
         txtMobile = (EditText) findViewById(R.id.txtMobile);
         lblName = (TextView) findViewById(R.id.lblName);
-        btnSave = (Button) findViewById(R.id.btnSave);
+        btnSave = (Button) findViewById(R.id.btnAdd);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
         txtNameEmergency1 = (TextView) findViewById(R.id.txtNameEmergency1);
         txtNameEmergency2 = (TextView) findViewById(R.id.txtNameEmergency2);

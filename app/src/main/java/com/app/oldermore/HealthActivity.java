@@ -13,9 +13,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.oldermore.http.Http;
@@ -46,9 +49,11 @@ public class HealthActivity extends Activity {
     private Http http = new Http();
     private ImageButton ImageEmergency1, ImageEmergency2, ImageEmergency3;
     private TextView lblName, txtNameEmergency1, txtNameEmergency2, txtNameEmergency3;
-    private Button btnSave, btnMainMenu;
-    private EditText txtConDisease, txtDrugAllergy, txtDoctor, txtDoctorMobile, txtHotel, txtHotelMobile;
-    private String conDisease, drugAllergy, doctor, doctorMobile, hotel, hotelMobile;
+    private ListView listHelth;
+    private Button btnAdd, btnMainMenu;
+    // private EditText txtConDisease, txtDrugAllergy, txtDoctor, txtDoctorMobile, txtHotel, txtHotelMobile;
+    private String conDisease, drugAllergy, doctor, doctorMobile, hotel, hotelMobile, healthId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +75,8 @@ public class HealthActivity extends Activity {
             }
         }
 
-        btnSave = (Button)findViewById(R.id.btnSave);
-        btnMainMenu = (Button)findViewById(R.id.btnMainMenu);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
 
         ImageEmergency1 = (ImageButton) findViewById(R.id.ImageEmergency1);
         ImageEmergency2 = (ImageButton) findViewById(R.id.ImageEmergency2);
@@ -81,12 +86,7 @@ public class HealthActivity extends Activity {
         txtNameEmergency2 = (TextView) findViewById(R.id.txtNameEmergency2);
         txtNameEmergency3 = (TextView) findViewById(R.id.txtNameEmergency3);
 
-        txtConDisease = (EditText)findViewById(R.id.txtConDisease);
-        txtDrugAllergy = (EditText)findViewById(R.id.txtDrugAllergy);
-        txtDoctor = (EditText)findViewById(R.id.txtDoctor);
-        txtDoctorMobile = (EditText)findViewById(R.id.txtDoctorMobile);
-        txtHotel = (EditText)findViewById(R.id.txtHotel);
-        txtHotelMobile = (EditText)findViewById(R.id.txtHotelMobile);
+        listHelth = (ListView) findViewById(R.id.listHelth);
 
         LoadData();
 
@@ -99,12 +99,75 @@ public class HealthActivity extends Activity {
             DisableEmergency();
         }
 
+        final AlertDialog.Builder viewDetail = new AlertDialog.Builder(this);
+        listHelth.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                try {
+                    //int emId = Integer.parseInt(ArrListFreind.get(position).get("emergency_id"));
+                    conDisease = MyArrHealthList.get(position).get("con_disease");
+                    drugAllergy = MyArrHealthList.get(position).get("drug_allergy");
+                    doctor = MyArrHealthList.get(position).get("doctor");
+                    doctorMobile = MyArrHealthList.get(position).get("doctor_mobile");
+                    hotel = MyArrHealthList.get(position).get("hotel");
+                    hotelMobile = MyArrHealthList.get(position).get("hotel_mobile");
+
+                    DialogShowHealth(MyArrHealthList.get(position).get("health_id"));
+                } catch (Exception e) {
+                    // When Error
+                    MessageDialog(e.getMessage());
+                }
+            }
+        });
+        listHelth.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final String health_id = MyArrHealthList.get(position).get("health_id");
+                String con_disease = MyArrHealthList.get(position).get("con_disease");
+
+                viewDetail.setTitle("คุณต้องการลบ?");
+                viewDetail.setMessage("โรคประจำตัว : " + con_disease)
+                        .setCancelable(false)
+                        .setPositiveButton(
+                                "ยืนยัน",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int id) {
+                                        DeleteHelth(health_id);
+                                        dialog.dismiss();
+                                        LoadData();
+                                    }
+                                })
+                        .setNegativeButton(
+                                "ยกเลิก",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = viewDetail.create();
+                alert.show();
+
+                return false;
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogAddHelth();
+            }
+        });
+
         ImageEmergency1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MyArrEmergency.get(0).get("emergency_mobile") != null) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    callIntent.setData(Uri.parse("tel:" + MyArrEmergency.get(0).get("emergency_mobile")));
                     if (ActivityCompat.checkSelfPermission(getBaseContext(),
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -119,7 +182,7 @@ public class HealthActivity extends Activity {
             public void onClick(View v) {
                 if (MyArrEmergency.get(1).get("emergency_mobile") != null) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    callIntent.setData(Uri.parse("tel:" + MyArrEmergency.get(0).get("emergency_mobile")));
                     if (ActivityCompat.checkSelfPermission(getBaseContext(),
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -134,7 +197,7 @@ public class HealthActivity extends Activity {
             public void onClick(View v) {
                 if (MyArrEmergency.get(2).get("emergency_mobile") != null) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    callIntent.setData(Uri.parse("tel:" + MyArrEmergency.get(0).get("emergency_mobile")));
                     if (ActivityCompat.checkSelfPermission(getBaseContext(),
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -145,25 +208,6 @@ public class HealthActivity extends Activity {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // conDisease, drugAllergy, doctor, doctorMobile, hotel, hotelMobile;
-                conDisease = txtConDisease.getText().toString().trim();
-                drugAllergy = txtDrugAllergy.getText().toString().trim();
-                doctor = txtDoctor.getText().toString().trim();
-                doctorMobile = txtDoctorMobile.getText().toString().trim();
-                hotel = txtHotel.getText().toString().trim();
-                hotelMobile = txtHotelMobile.getText().toString().trim();
-              /*  if (!"".equals(name)&&!"".equals(conDisease)&&!"".equals(drugAllergy)&&!"".equals(doctor)
-                        &&!"".equals(doctorMobile)&&!"".equals(hotel)&&!"".equals(hotelMobile))
-                {*/
-                    SaveData();
-                /*} else {
-                    MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!");
-                }*/
-            }
-        });
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +219,87 @@ public class HealthActivity extends Activity {
 
     }
 
+    private void DialogAddHelth() {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_health, null);
+        final EditText txtConDisease = (EditText)dialogBoxView.findViewById(R.id.txtConDisease);
+        final EditText txtDrugAllergy = (EditText)dialogBoxView.findViewById(R.id.txtDrugAllergy);
+        final EditText txtDoctor = (EditText)dialogBoxView.findViewById(R.id.txtDoctor);
+        final EditText txtDoctorMobile = (EditText)dialogBoxView.findViewById(R.id.txtDoctorMobile);
+        final EditText txtHotel = (EditText)dialogBoxView.findViewById(R.id.txtHotel);
+        final EditText txtHotelMobile = (EditText)dialogBoxView.findViewById(R.id.txtHotelMobile);
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("เพิ่มข้อมูลสุขภาพ");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+               .setPositiveButton("บันทึก", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        healthId = "";
+                        conDisease = txtConDisease.getText().toString().trim();
+                        drugAllergy = txtDrugAllergy.getText().toString().trim();
+                        doctor = txtDoctor.getText().toString().trim();
+                        doctorMobile = txtDoctorMobile.getText().toString().trim();
+                        hotel = txtHotel.getText().toString().trim();
+                        hotelMobile = txtHotelMobile.getText().toString().trim();
+
+                        SaveData();
+
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+    }
+
+    private void DialogShowHealth(String health_id) {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_health, null);
+        final EditText txtConDisease = (EditText)dialogBoxView.findViewById(R.id.txtConDisease);
+        final EditText txtDrugAllergy = (EditText)dialogBoxView.findViewById(R.id.txtDrugAllergy);
+        final EditText txtDoctor = (EditText)dialogBoxView.findViewById(R.id.txtDoctor);
+        final EditText txtDoctorMobile = (EditText)dialogBoxView.findViewById(R.id.txtDoctorMobile);
+        final EditText txtHotel = (EditText)dialogBoxView.findViewById(R.id.txtHotel);
+        final EditText txtHotelMobile = (EditText)dialogBoxView.findViewById(R.id.txtHotelMobile);
+
+        healthId = health_id;
+        txtConDisease.setText(conDisease);
+        txtDrugAllergy.setText(drugAllergy);
+        txtDoctor.setText(doctor);
+        txtDoctorMobile.setText(doctorMobile);
+        txtHotel.setText(hotel);
+        txtHotelMobile.setText(hotelMobile);
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("แก้ไขข้อมูลสุขภาพ");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+                .setPositiveButton("บันทึก", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        conDisease = txtConDisease.getText().toString().trim();
+                        drugAllergy = txtDrugAllergy.getText().toString().trim();
+                        doctor = txtDoctor.getText().toString().trim();
+                        doctorMobile = txtDoctorMobile.getText().toString().trim();
+                        hotel = txtHotel.getText().toString().trim();
+                        hotelMobile = txtHotelMobile.getText().toString().trim();
+
+                        SaveData();
+
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+    }
+
     private void SaveData() {
         String status = "0";
         String error = "";
@@ -182,13 +307,13 @@ public class HealthActivity extends Activity {
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
-        params.add(new BasicNameValuePair("health_id", MyArrHealthList.get(0).get("health_id")));
-        params.add(new BasicNameValuePair("con_disease", txtConDisease.getText().toString().trim()));
-        params.add(new BasicNameValuePair("drug_allergy", txtDrugAllergy.getText().toString().trim()));
-        params.add(new BasicNameValuePair("doctor", txtDoctor.getText().toString().trim()));
-        params.add(new BasicNameValuePair("doctor_mobile", txtDoctorMobile.getText().toString().trim()));
-        params.add(new BasicNameValuePair("hotel", txtHotel.getText().toString().trim()));
-        params.add(new BasicNameValuePair("hotel_mobile", txtHotelMobile.getText().toString().trim()));
+        params.add(new BasicNameValuePair("health_id", healthId));
+        params.add(new BasicNameValuePair("con_disease", conDisease));
+        params.add(new BasicNameValuePair("drug_allergy", drugAllergy));
+        params.add(new BasicNameValuePair("doctor", doctor));
+        params.add(new BasicNameValuePair("doctor_mobile", doctorMobile));
+        params.add(new BasicNameValuePair("hotel", hotel));
+        params.add(new BasicNameValuePair("hotel_mobile", hotelMobile));
 
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
@@ -208,13 +333,13 @@ public class HealthActivity extends Activity {
         }
     }
 
-    private void LoadData() {
-        MyArrHealthList = new ArrayList<HashMap<String, String>>();
+    private void DeleteHelth(String health_id) {
         String status = "0";
         String error = "";
-        String url = getString(R.string.url) + "getHealth.php";
+        String url = getString(R.string.url) + "deleteHelth.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("health_id", health_id));
         params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
@@ -222,7 +347,32 @@ public class HealthActivity extends Activity {
                 JSONObject c = data.getJSONObject(0);
                 status = c.getString("status");
                 error = c.getString("error");
-                //if ("1".equals(status)) {
+                if ("1".equals(status)) {
+                    LoadData();
+                    MessageDialog(error);
+                } else {
+                    MessageDialog(error);
+                }
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MessageDialog(e.getMessage());
+        }
+    }
+
+    private void LoadData() {
+        String url = getString(R.string.url) + "getHealth.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            MyArrHealthList.clear();
+            if (data.length() > 0) {
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject c = data.getJSONObject(i);
                     map = new HashMap<String, String>();
                     map.put("health_id", c.getString("health_id"));
                     map.put("con_disease", c.getString("con_disease"));
@@ -233,27 +383,19 @@ public class HealthActivity extends Activity {
                     map.put("hotel_mobile", c.getString("hotel_mobile"));
                     map.put("user_id", c.getString("user_id"));
                     MyArrHealthList.add(map);
-
-                    ShowHealth();
-                //} else {
-                    //MessageDialog(error);
-               // }
-                LoadDataEmergency();
+                }
             }
+            SimpleAdapter sAdap;
+            sAdap = new SimpleAdapter(getBaseContext(), MyArrHealthList, R.layout.activity_one_column,
+                    new String[] {"con_disease"}, new int[] {R.id.ColName});
+            listHelth.setAdapter(sAdap);
+
+            LoadDataEmergency();
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             MessageDialog(e.getMessage());
         }
-    }
-
-    private void ShowHealth() {
-        txtConDisease.setText(MyArrHealthList.get(0).get("con_disease"));
-        txtDrugAllergy.setText(MyArrHealthList.get(0).get("drug_allergy"));
-        txtDoctor.setText(MyArrHealthList.get(0).get("doctor"));
-        txtDoctorMobile.setText(MyArrHealthList.get(0).get("doctor_mobile"));
-        txtHotel.setText(MyArrHealthList.get(0).get("hotel"));
-        txtHotelMobile.setText(MyArrHealthList.get(0).get("hotel_mobile"));
     }
 
     private void LoadDataEmergency() {

@@ -342,7 +342,7 @@ public class AdminEmergencyActivity extends Activity {
     private void DialogAddEmergency(Boolean editMode, int position) {
         View dialogBoxView = View.inflate(this, R.layout.dialog_add_emergency, null);
         strImgProfile = "";
-        final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnSave);
+        final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
         btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
         final EditText txtName = (EditText) dialogBoxView.findViewById(R.id.txtName);
         final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtMobile);
