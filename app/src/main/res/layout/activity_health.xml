@@ -17,133 +17,6 @@
         android:layout_alignEnd="@+id/ImageEmergency2" />
 
     <TextView
-        android:text="โรงพยาบาล/คลีนิคประจำ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView8"
-        android:layout_alignBaseline="@+id/txtHotel"
-        android:layout_alignBottom="@+id/txtHotel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp" />
-
-    <TextView
-        android:text="ชื่อหมอประจำ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView6"
-        android:layout_alignBaseline="@+id/txtDoctor"
-        android:layout_alignBottom="@+id/txtDoctor"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp" />
-
-    <TextView
-        android:text="โรคประจำตัว"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_alignBaseline="@+id/txtConDisease"
-        android:layout_alignBottom="@+id/txtConDisease"
-        android:layout_marginLeft="5dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:inputType="phone"
-        android:maxLength="10"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/txtDoctorMobile"
-        android:layout_below="@+id/txtDoctor"
-        android:layout_alignLeft="@+id/txtDoctor"
-        android:layout_alignStart="@+id/txtDoctor"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/background_light"
-        android:layout_alignRight="@+id/txtDoctor"
-        android:layout_alignEnd="@+id/txtDoctor" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/txtDrugAllergy"
-        android:layout_below="@+id/txtConDisease"
-        android:layout_alignLeft="@+id/txtConDisease"
-        android:layout_alignStart="@+id/txtConDisease"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/background_light"
-        android:layout_alignRight="@+id/txtConDisease"
-        android:layout_alignEnd="@+id/txtConDisease" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/txtHotel"
-        android:layout_below="@+id/txtDoctorMobile"
-        android:layout_alignLeft="@+id/txtDoctorMobile"
-        android:layout_alignStart="@+id/txtDoctorMobile"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/background_light"
-        android:layout_alignRight="@+id/txtDoctorMobile"
-        android:layout_alignEnd="@+id/txtDoctorMobile" />
-
-    <TextView
-        android:text="ยาที่แพ้"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:layout_alignBaseline="@+id/txtDrugAllergy"
-        android:layout_alignBottom="@+id/txtDrugAllergy"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp" />
-
-    <TextView
-        android:text="เบอร์โทรหมอประจำ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView7"
-        android:layout_alignBaseline="@+id/txtDoctorMobile"
-        android:layout_alignBottom="@+id/txtDoctorMobile"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:inputType="phone"
-        android:maxLength="10"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/txtHotelMobile"
-        android:background="@android:color/background_light"
-        android:layout_below="@+id/txtHotel"
-        android:layout_alignLeft="@+id/txtHotel"
-        android:layout_alignStart="@+id/txtHotel"
-        android:layout_marginTop="10dp"
-        android:layout_alignRight="@+id/txtHotel"
-        android:layout_alignEnd="@+id/txtHotel" />
-
-    <TextView
-        android:text="เบอร์โทรพยาบาล/คลีนิคประจำ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textView2"
-        android:layout_alignBaseline="@+id/txtHotelMobile"
-        android:layout_alignBottom="@+id/txtHotelMobile"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp" />
-
-    <TextView
         android:text="ชื่อ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -198,54 +71,15 @@
         android:background="@drawable/mmain1"
         android:layout_height="50dp" />
 
-    <EditText
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/txtConDisease"
-        android:background="@android:color/background_light"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="21dp"
-        android:layout_alignRight="@+id/ImageEmergency3"
-        android:layout_alignEnd="@+id/ImageEmergency3" />
-
     <Button
         android:layout_width="match_parent"
-        android:id="@+id/btnSave"
-        android:text="บันทึก"
-        android:background="@drawable/save"
+        android:id="@+id/btnAdd"
+        android:text="เพิ่ม"
+        android:background="@drawable/emery"
         android:layout_height="50dp"
         android:layout_above="@+id/btnMainMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/txtDoctor"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/background_light"
-        android:layout_below="@+id/txtDrugAllergy"
-        android:layout_alignRight="@+id/txtDrugAllergy"
-        android:layout_alignEnd="@+id/txtDrugAllergy"
-        android:layout_alignLeft="@+id/txtDrugAllergy"
-        android:layout_alignStart="@+id/txtDrugAllergy" />
-
-    <TextView
-        android:text="ผู้ติดต่อกรณีฉมีเหตุฉุกเฉิน"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/txtHotelMobile"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp" />
 
     <ImageButton
         android:layout_width="60dp"
@@ -269,5 +103,23 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="ผู้ติดต่อกรณีฉมีเหตุฉุกเฉิน"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/listHelth"
+        android:layout_toEndOf="@+id/ImageEmergency2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/listHelth"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView"
+        android:layout_height="250dp"/>
 
 </RelativeLayout>

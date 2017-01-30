@@ -175,7 +175,7 @@
         android:text="บันทึก"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnSave"
+        android:id="@+id/btnAdd"
         android:layout_above="@+id/btnMainMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

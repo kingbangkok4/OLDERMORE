@@ -71,7 +71,7 @@
         android:text="บันทึก"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/btnSave"
+        android:id="@+id/btnAdd"
         android:background="@drawable/save"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -106,7 +106,7 @@
         android:background="@drawable/call"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_above="@+id/btnSave"
+        android:layout_above="@+id/btnAdd"
         android:layout_alignLeft="@+id/btnImageProfile"
         android:layout_alignStart="@+id/btnImageProfile"
         android:layout_marginBottom="20dp" />

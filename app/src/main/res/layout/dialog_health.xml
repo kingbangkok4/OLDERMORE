@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d6f7f9">
+
+    <TextView
+        android:text="โรงพยาบาล/คลีนิคประจำ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/txtDoctorMobile"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/txtDoctorMobile"
+        android:layout_alignStart="@+id/txtDoctorMobile"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/txtHotel"
+        android:background="?android:attr/colorForegroundInverse"
+        android:layout_below="@+id/textView8"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_alignRight="@+id/txtDoctorMobile"
+        android:layout_alignEnd="@+id/txtDoctorMobile"/>
+
+    <TextView
+        android:text="เบอร์โทรพยาบาล/คลีนิคประจำ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/txtHotel"
+        android:layout_alignLeft="@+id/txtHotel"
+        android:layout_alignStart="@+id/txtHotel"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/txtHotelMobile"
+        android:background="?android:attr/colorForegroundInverse"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignRight="@+id/txtDoctorMobile"
+        android:layout_alignEnd="@+id/txtDoctorMobile"/>
+
+    <TextView
+        android:text="โรคประจำตัว"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/txtConDisease"
+        android:layout_alignStart="@+id/txtConDisease"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/txtConDisease"
+        android:background="?android:attr/colorForegroundInverse"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:text="ยาที่แพ้"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/txtConDisease"
+        android:layout_alignLeft="@+id/txtDrugAllergy"
+        android:layout_alignStart="@+id/txtDrugAllergy"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/txtDrugAllergy"
+        android:background="?android:attr/colorForegroundInverse"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:text="ชื่อหมอประจำ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/txtDrugAllergy"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/txtDoctor"
+        android:background="?android:attr/colorForegroundInverse"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="เบอร์โทรหมอประจำ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/txtDoctor"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/txtDoctorMobile"
+        android:background="?android:attr/colorForegroundInverse"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+</RelativeLayout>
