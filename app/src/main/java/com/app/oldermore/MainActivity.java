@@ -1,12 +1,15 @@
 package com.app.oldermore;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.oldermore.database.DatabaseActivity;
@@ -28,6 +31,7 @@ public class MainActivity extends Activity {
     HashMap<String, String> map;
     private Button btnLogin, btnRegister;
     private EditText txtUsername, txtPassword;
+    private TextView lblFogotPassword;
     private Http http = new Http();
     /*    private String strUsername = "";
         private String strPassword = "";
@@ -52,6 +56,7 @@ public class MainActivity extends Activity {
         txtUsername = (EditText) findViewById(R.id.txtUserName);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
 
+        lblFogotPassword = (TextView) findViewById(R.id.lblFogotPassword);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +97,70 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+        lblFogotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFogotPassword();
+            }
+        });
+    }
+
+    private void DialogFogotPassword() {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_get_password, null);
+        final Button btnGetPassword = (Button) dialogBoxView.findViewById(R.id.btnGetPassword);
+        final EditText txtUsername = (EditText) dialogBoxView.findViewById(R.id.txtUsername);
+
+        btnGetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String strPassword = "";
+                String status = "0";
+                String error = "";
+                String url = getString(R.string.url) + "getPassword.php";
+                // Paste Parameters
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("username", txtUsername.getText()
+                        .toString().trim()));
+                try {
+                    JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+                    if (data.length() > 0) {
+                        JSONObject c = data.getJSONObject(0);
+                        status = c.getString("status");
+                        error = c.getString("error");
+                        if ("1".equals(status)) {
+                            strPassword = c.getString("password");
+                        }
+                    }
+                    if ("1".equals(status)) {
+                        MessageDialog("รหัสผ่าน : "+ strPassword);
+                    } else {
+                        MessageDialog(error);
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    MessageDialog(e.getMessage());
+                }
+
+            }
+        });
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("ลืมรหัสผ่าน");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+       /*         .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })*/
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
     }
 
     private boolean OnLogin() {
@@ -139,5 +208,19 @@ public class MainActivity extends Activity {
         }
         return ststusLogin;
     }
+
+    private void MessageDialog(String msg) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }
 
