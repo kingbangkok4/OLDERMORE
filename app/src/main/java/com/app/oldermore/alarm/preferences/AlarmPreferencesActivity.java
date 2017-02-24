@@ -1,15 +1,5 @@
 package com.app.oldermore.alarm.preferences;
 
-import java.util.Calendar;
-
-import com.app.oldermore.alarm.Alarm;
-import com.app.oldermore.alarm.BaseActivity;
-import com.app.oldermore.alarm.database.Database;
-import com.app.oldermore.alarm.preferences.AlarmPreference.Key;
-import com.app.oldermore.alarm.service.AlarmServiceBroadcastReciever;
-import com.app.oldermore.R;
-
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
@@ -17,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -38,6 +27,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.app.oldermore.R;
+import com.app.oldermore.alarm.Alarm;
+import com.app.oldermore.alarm.BaseActivity;
+import com.app.oldermore.alarm.database.Database;
+import com.app.oldermore.alarm.preferences.AlarmPreference.Key;
+
+import java.util.Calendar;
 
 public class AlarmPreferencesActivity extends BaseActivity {
 
@@ -299,9 +296,9 @@ public class AlarmPreferencesActivity extends BaseActivity {
 				break;
 			case R.id.menu_item_delete:
 				AlertDialog.Builder dialog = new AlertDialog.Builder(AlarmPreferencesActivity.this);
-				dialog.setTitle("Delete");
-				dialog.setMessage("Delete this alarm?");
-				dialog.setPositiveButton("Ok", new OnClickListener() {
+				dialog.setTitle("ลบการแจ้งเตือน");
+				dialog.setMessage("คุณต้องการลบการแจ้งเตือนนี้?");
+				dialog.setPositiveButton("ตกลง", new OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -316,7 +313,7 @@ public class AlarmPreferencesActivity extends BaseActivity {
 						finish();
 					}
 				});
-				dialog.setNegativeButton("Cancel", new OnClickListener() {
+				dialog.setNegativeButton("ยกเลิก", new OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
