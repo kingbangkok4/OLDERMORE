@@ -150,22 +150,22 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 	public void setMathAlarm(Alarm alarm) {
 		this.alarm = alarm;
 		preferences.clear();
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_ACTIVE,"Active", null, null, alarm.getAlarmActive(),Type.BOOLEAN));
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_NAME, "Label",alarm.getAlarmName(), null, alarm.getAlarmName(), Type.STRING));
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TIME, "Set time",alarm.getAlarmTimeString(), null, alarm.getAlarmTime(), Type.TIME));
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_REPEAT, "Repeat",alarm.getRepeatDaysString(), repeatDays, alarm.getDays(),Type.MULTIPLE_LIST));
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_DIFFICULTY,"Difficulty", alarm.getDifficulty().toString(), alarmDifficulties, alarm.getDifficulty(), Type.LIST));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_ACTIVE,"แจ้งเตือน", null, null, alarm.getAlarmActive(),Type.BOOLEAN));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_NAME, "ชื่อเรื่อง",alarm.getAlarmName(), null, alarm.getAlarmName(), Type.STRING));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TIME, "ตั้งเวลา",alarm.getAlarmTimeString(), null, alarm.getAlarmTime(), Type.TIME));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_REPEAT, "เตือนซ้ำ",alarm.getRepeatDaysString(), repeatDays, alarm.getDays(),Type.MULTIPLE_LIST));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_DIFFICULTY,"ความสำคัญ", alarm.getDifficulty().toString(), alarmDifficulties, alarm.getDifficulty(), Type.LIST));
 
 		Uri alarmToneUri = Uri.parse(alarm.getAlarmTonePath());
 		Ringtone alarmTone = RingtoneManager.getRingtone(getContext(), alarmToneUri);
 
 		if(alarmTone instanceof Ringtone && !alarm.getAlarmTonePath().equalsIgnoreCase("")){
-			preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TONE, "Ringtone", alarmTone.getTitle(getContext()),alarmTones, alarm.getAlarmTonePath(), Type.LIST));
+			preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TONE, "เสียงเตือน", alarmTone.getTitle(getContext()),alarmTones, alarm.getAlarmTonePath(), Type.LIST));
 		}else{
-			preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TONE, "Ringtone", getAlarmTones()[0],alarmTones, null, Type.LIST));
+			preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TONE, "เสียงเตือน", getAlarmTones()[0],alarmTones, null, Type.LIST));
 		}
 
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_VIBRATE, "Vibrate",null, null, alarm.getVibrate(), Type.BOOLEAN));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_VIBRATE, "สั่น",null, null, alarm.getVibrate(), Type.BOOLEAN));
 	}
 
 

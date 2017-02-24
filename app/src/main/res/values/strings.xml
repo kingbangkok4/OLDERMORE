@@ -19,20 +19,20 @@
 
     <string name="title_activity_maps">Map</string>
 
-    <string name="title_activity_set_alarms">Set Alarm</string>
-    <string name="no_alarms">No alarms have been set</string>
+    <string name="title_activity_set_alarms">ตั้งเวลาแจ้งเตือน</string>
+    <string name="no_alarms">ยังไม่มีการตั้งการแจ้งตือนใดๆ</string>
 
-    <string name="button_new">New</string>
+    <string name="button_new">ใหม่</string>
 
     <!-- Application -->
     <color name="holo_blue_light">#ff33b5e5</color>
     <!-- Menu -->
-    <string name="menu_item_new">New</string>
-    <string name="menu_item_save">Save</string>
-    <string name="menu_item_delete">Cancel</string>
-    <string name="menu_item_rate">Rate on Google Play</string>
-    <string name="menu_item_website">Website</string>
-    <string name="menu_item_report">Report a Bug</string>
+    <string name="menu_item_new">ใหม่</string>
+    <string name="menu_item_save">บันทึก</string>
+    <string name="menu_item_delete">ยกเลิก</string>
+    <string name="menu_item_rate"></string>
+    <string name="menu_item_website"></string>
+    <string name="menu_item_report"></string>
 
     <!-- Alert -->
     <string name="_0">0</string>

@@ -17,11 +17,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import com.app.oldermore.R;
 import com.app.oldermore.alarm.database.Database;
 import com.app.oldermore.alarm.preferences.AlarmPreferencesActivity;
+
+import java.util.List;
 
 public class AlarmActivity extends BaseActivity {
 
@@ -43,9 +43,9 @@ public class AlarmActivity extends BaseActivity {
 				view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 				final Alarm alarm = (Alarm) alarmListAdapter.getItem(position);
 				Builder dialog = new AlertDialog.Builder(AlarmActivity.this);
-				dialog.setTitle("Delete");
-				dialog.setMessage("Delete this alarm?");
-				dialog.setPositiveButton("Ok", new OnClickListener() {
+				dialog.setTitle("ลบการแจ้งเตือน");
+				dialog.setMessage("คุณต้องการลบการแจ้งเตือนนี้ ?");
+				dialog.setPositiveButton("ตกลง", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
@@ -56,7 +56,7 @@ public class AlarmActivity extends BaseActivity {
 						updateAlarmList();
 					}
 				});
-				dialog.setNegativeButton("Cancel", new OnClickListener() {
+				dialog.setNegativeButton("ยกเลิก", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
