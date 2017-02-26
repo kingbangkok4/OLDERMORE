@@ -101,38 +101,22 @@ public class MapActivity extends FragmentActivity implements LocationListener {
             }
             locationManager.requestLocationUpdates(mprovider, 15000, 1, this);
             Location location = locationManager.getLastKnownLocation(mprovider);
-            //if (location != null)
-                //onLocationChanged(location);
-           // else
-                //Toast.makeText(getBaseContext(), "ไม่พบสถานที่ของคุณ กรุณาเปิด GPS!", Toast.LENGTH_SHORT).show();
-            }
-
-
-        Location location=new Location("");
-        //*** For test Location
-        //location.setLatitude(13.756331);
-        //location.setLongitude(100.501765);
-        //*** Data Using
-        //location.setLatitude(location.getLatitude());
-        //location.setLongitude(location.getLongitude());
-       // location = gps.getLocation();
-
-        GPSTracker gps;
-        gps = new GPSTracker(getBaseContext());
-
-        if(gps.canGetLocation()){
-
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-
-            location.setLatitude(latitude);
-            location.setLongitude(longitude);
-
-        }else{
-            Toast.makeText(getBaseContext(), "\"อุปกรณ์์ของคุณ ปิด GPS\"", Toast.LENGTH_SHORT).show();
+            if (location != null)
+                onLocationChanged(location);
+            else
+                Toast.makeText(getBaseContext(), "ไม่พบสถานที่ของคุณ กรุณาเปิด GPS!", Toast.LENGTH_SHORT).show();
         }
 
-        onLocationChanged(location);
+
+        // Location location=new Location("");
+        //*** For test Location
+      /*  location.setLatitude(13.756331);
+        location.setLongitude(100.501765);*/
+        //*** Data Using
+        // location.setLatitude(location.getLatitude());
+        // location.setLongitude(location.getLongitude());
+        // location = gps.getLocation();
+        // onLocationChanged(location);
     }
 
     @Override
