@@ -27,17 +27,6 @@
         android:layout_alignStart="@+id/btnEmergency" />
 
     <Button
-        android:textStyle="bold"
-        android:id="@+id/btnEmerCall"
-        android:background="@drawable/red"
-        android:layout_height="120dp"
-        android:layout_width="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp" />
-
-    <Button
         android:text=""
         android:layout_height="wrap_content"
         android:id="@+id/btnMsgCall"
@@ -70,17 +59,6 @@
         android:layout_alignStart="@+id/btnMsgCall" />
 
     <Button
-        android:textStyle="bold"
-        android:id="@+id/btnWhere"
-        android:background="@drawable/green"
-        android:layout_height="120dp"
-        android:layout_width="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/btnPost"
-        android:layout_alignEnd="@+id/btnPost"
-        android:layout_marginRight="20dp" />
-
-    <Button
         android:text=""
         android:layout_height="wrap_content"
         android:id="@+id/btnKnowledge"
@@ -103,32 +81,12 @@
 
     <Button
         android:layout_height="wrap_content"
-        android:id="@+id/btnHealth"
-        android:background="@drawable/heathly"
-        android:layout_width="100dp"
-        android:layout_below="@+id/btnWhere"
-        android:layout_toRightOf="@+id/btnEmerCall"
-        android:layout_toEndOf="@+id/btnEmerCall" />
-
-    <Button
-        android:layout_height="wrap_content"
         android:id="@+id/btnProfile"
         android:background="@drawable/user"
         android:layout_width="100dp"
         android:layout_below="@+id/btnEmerCall"
         android:layout_alignLeft="@+id/btnEmerCall"
         android:layout_alignStart="@+id/btnEmerCall" />
-
-    <Button
-        android:layout_height="wrap_content"
-        android:id="@+id/btnPost"
-        android:background="@drawable/post"
-        android:layout_width="100dp"
-        android:layout_below="@+id/btnWhere"
-        android:layout_toRightOf="@+id/btnHealth"
-        android:layout_toEndOf="@+id/btnHealth"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
 
     <Button
         android:text=""
@@ -151,14 +109,50 @@
         android:layout_alignStart="@+id/btnFavorite" />
 
     <Button
+        android:textStyle="bold"
+        android:id="@+id/btnWhere"
+        android:background="@drawable/green"
+        android:layout_height="120dp"
+        android:layout_width="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:textStyle="bold"
+        android:id="@+id/btnEmerCall"
+        android:background="@drawable/red"
+        android:layout_height="120dp"
+        android:layout_width="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:id="@+id/btnPost"
+        android:background="@drawable/post"
+        android:layout_width="100dp"
+        android:layout_below="@+id/btnWhere"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:id="@+id/btnHealth"
+        android:background="@drawable/heathly"
+        android:layout_width="100dp"
+        android:layout_above="@+id/btnMsgCall"
+        android:layout_centerHorizontal="true" />
+
+    <Button
         android:text=""
         android:layout_height="wrap_content"
         android:id="@+id/btnSetting"
         android:background="@drawable/setting"
         android:layout_width="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/btnBoard"
-        android:layout_alignStart="@+id/btnBoard"
-        android:layout_below="@+id/btnBoard" />
+        android:layout_below="@+id/btnBoard"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
