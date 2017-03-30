@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
+import com.app.oldermore.common.CommonClass;
+import com.app.oldermore.common.SettingModel;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -30,8 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class ManualActivity extends Activity {
+    private CommonClass common = new  CommonClass();
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     //private DatabaseActivity myDb = new DatabaseActivity(this);
@@ -43,6 +47,7 @@ public class ManualActivity extends Activity {
     private Button btnMainMenu, btnVideo, btnWord;
     private String manual_video;
     private String manual_word;
+    private RelativeLayout bgElement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +70,13 @@ public class ManualActivity extends Activity {
             }
         }
 
+        bgElement = (RelativeLayout) findViewById(R.id.container);
+        //bgElement.setBackgroundColor(Color.WHITE);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
         btnVideo = (Button) findViewById(R.id.btnVideo);
         btnWord = (Button) findViewById(R.id.btnWord);
 
+        GetCommon();
         LoadData();
 
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
@@ -208,5 +216,11 @@ public class ManualActivity extends Activity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void GetCommon(){
+        SettingModel ret = new SettingModel();
+        ret = common.GetSettingValue();
+        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
     }
 }
