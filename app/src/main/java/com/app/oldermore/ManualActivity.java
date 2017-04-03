@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
@@ -35,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ManualActivity extends Activity {
-    private CommonClass common = new  CommonClass();
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     //private DatabaseActivity myDb = new DatabaseActivity(this);
@@ -218,9 +218,13 @@ public class ManualActivity extends Activity {
         alert.show();
     }
 
-    private void GetCommon(){
+    private void GetCommon() {
+        CommonClass common = new CommonClass();
         SettingModel ret = new SettingModel();
         ret = common.GetSettingValue();
         bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
+        btnWord.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnVideo.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
     }
 }
