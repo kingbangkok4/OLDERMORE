@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 
 import com.app.oldermore.http.Http;
@@ -23,6 +24,8 @@ public class BoardActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
+    private WebView WebViw;
+    Button btnMainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,8 @@ public class BoardActivity extends Activity {
             }
         }
 
-        Button btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        WebView WebViw = (WebView) findViewById(R.id.webView1);
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +58,9 @@ public class BoardActivity extends Activity {
                 startActivity(i);
             }
         });
+
+        WebViw.getSettings().setJavaScriptEnabled(true);
+        WebViw.loadUrl("http://172.22.25.29:8888/webboard/main_webboard.php");
 
     }
 
