@@ -24,43 +24,10 @@
         android:background="@color/colorAccent"
         android:textColor="@android:color/background_light" />
 
-    <Button
-        android:text="+ เพิ่ม"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="10dp"
-        android:id="@+id/btnAddNew"
-        android:background="@drawable/gat1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_height="30dp"/>
-
-    <Button
-        android:text="กระทู้ของฉัน"
-        android:layout_width="match_parent"
-        android:id="@+id/btnMyBoard"
-        android:background="@drawable/gat3"
-        android:layout_height="30dp"
-        android:layout_below="@+id/btnAddNew"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:text="กระทู้หลัก"
-        android:layout_width="match_parent"
-        android:id="@+id/btnMainBoard"
-        android:background="@drawable/button07"
-        android:layout_height="30dp"
-        android:layout_below="@+id/btnMyBoard"
-        android:layout_alignLeft="@+id/btnMyBoard"
-        android:layout_alignStart="@+id/btnMyBoard"/>
-
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/webView1"
-        android:layout_below="@+id/btnMainBoard"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/btnMainMenu">

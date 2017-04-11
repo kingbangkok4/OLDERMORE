@@ -26,7 +26,7 @@ public class BoardActivity extends Activity {
     HashMap<String, String> map;
     private Http http = new Http();
     private WebView webView;
-    Button btnMainMenu, btnAddNew, btnMyBoard, btnMainBoard;
+    Button btnMainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +51,6 @@ public class BoardActivity extends Activity {
 
         webView = (WebView) findViewById(R.id.webView1);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-        btnAddNew = (Button)findViewById(R.id.btnAddNew);
-        btnMyBoard = (Button)findViewById(R.id.btnAddNew);
-        btnMainBoard = (Button)findViewById(R.id.btnMainBoard);
 
 /*        webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://www.google.co.th");*/
@@ -69,29 +66,6 @@ public class BoardActivity extends Activity {
                 startActivity(i);
             }
         });
-
-        btnAddNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                webView.setWebViewClient(new WebViewClient());
-                webView.loadUrl(getString(R.string.str_url_webboard_new_topic));
-            }
-        });
-        btnMyBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                webView.setWebViewClient(new WebViewClient());
-                webView.loadUrl(getString(R.string.str_url_webboard));
-            }
-        });
-        btnMainBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                webView.setWebViewClient(new WebViewClient());
-                webView.loadUrl(getString(R.string.str_url_webboard));
-            }
-        });
-
     }
 
     private void MessageDialog(String msg) {
