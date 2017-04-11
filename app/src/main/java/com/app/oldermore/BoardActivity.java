@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.app.oldermore.http.Http;
@@ -24,8 +25,8 @@ public class BoardActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
-    private WebView WebViw;
-    Button btnMainMenu;
+    private WebView webView;
+    Button btnMainMenu, btnAddNew, btnMyBoard, btnMainBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,18 @@ public class BoardActivity extends Activity {
             }
         }
 
-        WebView WebViw = (WebView) findViewById(R.id.webView1);
+        webView = (WebView) findViewById(R.id.webView1);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        btnAddNew = (Button)findViewById(R.id.btnAddNew);
+        btnMyBoard = (Button)findViewById(R.id.btnAddNew);
+        btnMainBoard = (Button)findViewById(R.id.btnMainBoard);
+
+/*        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://www.google.co.th");*/
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl(getString(R.string.str_url_webboard));
+
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,8 +70,27 @@ public class BoardActivity extends Activity {
             }
         });
 
-        WebViw.getSettings().setJavaScriptEnabled(true);
-        WebViw.loadUrl("http://172.22.25.29:8888/webboard/main_webboard.php");
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webView.setWebViewClient(new WebViewClient());
+                webView.loadUrl(getString(R.string.str_url_webboard_new_topic));
+            }
+        });
+        btnMyBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webView.setWebViewClient(new WebViewClient());
+                webView.loadUrl(getString(R.string.str_url_webboard));
+            }
+        });
+        btnMainBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webView.setWebViewClient(new WebViewClient());
+                webView.loadUrl(getString(R.string.str_url_webboard));
+            }
+        });
 
     }
 
