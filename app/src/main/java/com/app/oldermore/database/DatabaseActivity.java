@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class DatabaseActivity extends SQLiteOpenHelper {
     private static String DB_NAME = "oldermore_mdb.sqlite";
     private static String TABLE_USER = "user";
+    private static String TABLE_SETTING = "setting";
     private static Integer BUFFER_SIZE = 128;
     private SQLiteDatabase myDataBase;
     private final Context context;

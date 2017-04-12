@@ -5,7 +5,7 @@ public class CommonClass{
         SettingModel ret = new SettingModel();
         try {
             ret.setFontSize(20);
-            ret.setBgColor("#FFFFFF");
+            ret.setBgColor("#ffffff");
         }catch (Exception ex){
 
         }

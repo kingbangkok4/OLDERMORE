@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.app.oldermore.http.Http;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class SettingActivity extends Activity {
+public class SettingActivity extends Activity implements View.OnClickListener{
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     //private DatabaseActivity myDb = new DatabaseActivity(this);
@@ -24,7 +24,8 @@ public class SettingActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
-    private Button btnMainMenu;
+    private Button btnMainMenu, btnFont16, btnFont18, btnFont20, btnFont22, btnFont24,
+    btnBg1, btnBg2, btnBg3, btnBg4, btnBg0, btnSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,30 @@ public class SettingActivity extends Activity {
         }
 
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        btnSet = (Button)findViewById(R.id.btnSet);
+
+        btnFont16 = (Button) findViewById(R.id.btnFont16);
+        btnFont18 = (Button) findViewById(R.id.btnFont18);
+        btnFont20 = (Button) findViewById(R.id.btnFont20);
+        btnFont22 = (Button) findViewById(R.id.btnFont22);
+        btnFont24 = (Button) findViewById(R.id.btnFont24);
+
+        btnBg0 = (Button) findViewById(R.id.btnBg0);
+        btnBg1 = (Button) findViewById(R.id.btnBg1);
+        btnBg2 = (Button) findViewById(R.id.btnBg2);
+        btnBg3 = (Button) findViewById(R.id.btnBg3);
+        btnBg4 = (Button) findViewById(R.id.btnBg4);
+
+        btnFont16.setOnClickListener(this);
+        btnFont18.setOnClickListener(this);
+        btnFont20.setOnClickListener(this);
+        btnFont22.setOnClickListener(this);
+        btnFont24.setOnClickListener(this);
+        btnBg0.setOnClickListener(this);
+        btnBg1.setOnClickListener(this);
+        btnBg2.setOnClickListener(this);
+        btnBg3.setOnClickListener(this);
+        btnBg4.setOnClickListener(this);
 
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +83,51 @@ public class SettingActivity extends Activity {
             }
         });
 
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnFont16:
+                setFont(btnFont16.getText().toString().trim());
+                break;
+            case R.id.btnFont18:
+                setFont(btnFont18.getText().toString().trim());
+                break;
+            case R.id.btnFont20:
+                setFont(btnFont20.getText().toString().trim());
+                break;
+            case R.id.btnFont22:
+                setFont(btnFont22.getText().toString().trim());
+                break;
+            case R.id.btnFont24:
+                setFont(btnFont24.getText().toString().trim());
+                break;
+
+            case R.id.btnBg0:
+                setBgColor("#ffffff");
+                break;
+            case R.id.btnBg1:
+                setBgColor("#eee6ff");
+                break;
+            case R.id.btnBg2:
+                setBgColor("#ffe6f2");
+                break;
+            case R.id.btnBg3:
+                setBgColor("#e6f7ff");
+                break;
+            case R.id.btnBg4:
+                setBgColor("#eafaea");
+                break;
+        }
+    }
+
+    private void setFont(String strFontSize){
+        int size = Integer.parseInt(strFontSize);
+        btnSet.setTextSize(size);
+        btnSet.setText(strFontSize);
+    }
+    private void setBgColor(String strBgColor){
+        btnSet.setBackgroundColor(Color.parseColor(strBgColor));
     }
 
     private void MessageDialog(String msg) {
