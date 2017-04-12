@@ -18,8 +18,8 @@ import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
-import com.app.oldermore.common.CommonClass;
 import com.app.oldermore.common.SettingModel;
+import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -38,7 +38,7 @@ import java.util.List;
 public class ManualActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> MyArrManualList = new ArrayList<HashMap<String, String>>();
@@ -219,12 +219,25 @@ public class ManualActivity extends Activity {
     }
 
     private void GetCommon() {
-        CommonClass common = new CommonClass();
         SettingModel ret = new SettingModel();
-        ret = common.GetSettingValue();
+        ret = GetSettingValue();
         bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
         btnWord.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
         btnVideo.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
         btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+    }
+
+    public SettingModel GetSettingValue(){
+        SettingModel ret = new SettingModel();
+        try {
+            ret = myDb.GetSetting();
+            if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+        }catch (Exception ex){
+
+        }
+        return ret;
     }
 }

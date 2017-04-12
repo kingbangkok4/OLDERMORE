@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.app.oldermore.common.SettingModel;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -151,6 +153,56 @@ public class DatabaseActivity extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public SettingModel GetSetting() {
+        try {
+            SettingModel ret = new SettingModel();
+            SQLiteDatabase db;
+            db = this.getReadableDatabase(); // Read Data
+            String strSQL = "SELECT font_size, bg_color FROM "
+                    + TABLE_SETTING + " LIMIT 1 ";
+            Cursor cursor = db.rawQuery(strSQL, null);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        ret.setFontSize(Integer.parseInt(cursor.getString(0)));
+                        ret.setBgColor(cursor.getString(1));
+                    } while (cursor.moveToNext());
+                }
+            }
+            cursor.close();
+            db.close();
+            return ret;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void AddSetting(SettingModel set) {
+        SQLiteDatabase db;
+        try {
+            if(set != null){
+                db = this.getReadableDatabase(); // Read Data
+                String strSQL = "SELECT * FROM " + TABLE_SETTING + " ";
+                Cursor cursor = db.rawQuery(strSQL, null);
+                Integer count = cursor.getCount();
+                cursor.close();
+                db = this.getWritableDatabase(); // Update or Insert to database
+                if (count > 0) {
+                    String strSQLInsert = "DELETE FROM " + TABLE_SETTING + " ";
+                    db.execSQL(strSQLInsert);
+                }
+                String strSQLInsert = "INSERT INTO " + TABLE_SETTING
+                        + "(font_size, bg_color) VALUES('" + set.getFontSize() + "', '" + set.getBgColor() + "') ";
+                db.execSQL(strSQLInsert);
+                db.close();
+            }
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
         }
     }
 
