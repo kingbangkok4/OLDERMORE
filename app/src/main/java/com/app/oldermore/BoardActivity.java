@@ -56,7 +56,7 @@ public class BoardActivity extends Activity {
         webView.loadUrl("https://www.google.co.th");*/
 
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(getString(R.string.str_url_webboard));
+        webView.loadUrl(getString(R.string.str_url_webboard)+"?user="+MyArrList.get(0).get("username"));
 
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
