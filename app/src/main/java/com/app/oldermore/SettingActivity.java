@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.app.oldermore.common.SettingModel;
 import com.app.oldermore.database.DatabaseActivity;
@@ -87,6 +90,7 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         });
 
         LoadData();
+        GetCommon();
 
     }
 
@@ -147,10 +151,12 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         btnSet.setTextSize(size);
         btnSet.setText(strFontSize);
         AddSetting();
+        GetCommon();
     }
     private void setBgColor(String strBgColor){
         btnSet.setBackgroundColor(Color.parseColor(strBgColor));
         AddSetting();
+        GetCommon();
     }
 
     private void AddSetting(){
@@ -163,6 +169,19 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         }catch(Exception ex){
 
         }
+    }
+
+    private void GetCommon() {
+        SettingModel ret = new SettingModel();
+        ret = GetSettingValue();
+        RelativeLayout bgElement = (RelativeLayout) findViewById(R.id.container);
+        TextView textView9 = (TextView)findViewById(R.id.textView9);
+        TextView textView17 = (TextView)findViewById(R.id.textView17);
+
+        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
+        btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        textView9.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        textView17.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
     }
 
     private SettingModel GetSettingValue(){
