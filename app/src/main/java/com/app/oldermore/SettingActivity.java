@@ -10,6 +10,8 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 
+import com.app.oldermore.common.SettingModel;
+import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
 import java.util.ArrayList;
@@ -19,13 +21,14 @@ import java.util.HashMap;
 public class SettingActivity extends Activity implements View.OnClickListener{
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
     private Button btnMainMenu, btnFont16, btnFont18, btnFont20, btnFont22, btnFont24,
     btnBg1, btnBg2, btnBg3, btnBg4, btnBg0, btnSet;
+    private  String bgColor = "#ffffff";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,17 @@ public class SettingActivity extends Activity implements View.OnClickListener{
             }
         });
 
+        LoadData();
+
+    }
+
+    private void LoadData() {
+        SettingModel getModel = new SettingModel();
+        getModel = GetSettingValue();
+        int size = getModel.getFontSize();
+        btnSet.setTextSize(size);
+        btnSet.setText(size);
+        btnSet.setBackgroundColor(Color.parseColor(getModel.getBgColor()));
     }
 
     public void onClick(View v) {
@@ -128,6 +142,32 @@ public class SettingActivity extends Activity implements View.OnClickListener{
     }
     private void setBgColor(String strBgColor){
         btnSet.setBackgroundColor(Color.parseColor(strBgColor));
+    }
+
+    private void AddSetting(){
+        try {
+            int size = Integer.parseInt(btnSet.getText().toString().trim());
+            SettingModel model = new SettingModel();
+            model.setFontSize(size);
+            model.setBgColor(bgColor);
+            myDb.AddSetting(model);
+        }catch(Exception ex){
+
+        }
+    }
+
+    private SettingModel GetSettingValue(){
+        SettingModel ret = new SettingModel();
+        try {
+            ret = myDb.GetSetting();
+            if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+        }catch (Exception ex){
+
+        }
+        return ret;
     }
 
     private void MessageDialog(String msg) {

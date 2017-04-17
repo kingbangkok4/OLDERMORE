@@ -227,7 +227,7 @@ public class ManualActivity extends Activity {
         btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
     }
 
-    public SettingModel GetSettingValue(){
+    private SettingModel GetSettingValue(){
         SettingModel ret = new SettingModel();
         try {
             ret = myDb.GetSetting();
@@ -240,4 +240,5 @@ public class ManualActivity extends Activity {
         }
         return ret;
     }
+    
 }
