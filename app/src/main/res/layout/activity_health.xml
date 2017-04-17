@@ -1,124 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <TextView
-        android:text="ชื่อ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/txtNameEmergency2"
-        android:gravity="center"
-        android:layout_below="@+id/ImageEmergency2"
-        android:layout_alignLeft="@+id/ImageEmergency2"
-        android:layout_alignStart="@+id/ImageEmergency2"
-        android:layout_alignRight="@+id/ImageEmergency2"
-        android:layout_alignEnd="@+id/ImageEmergency2" />
-
-    <TextView
-        android:text="ชื่อ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNameEmergency3"
+        android:layout_alignEnd="@+id/ImageEmergency2"
+        android:layout_alignLeft="@+id/ImageEmergency2"
+        android:layout_alignRight="@+id/ImageEmergency2"
+        android:layout_alignStart="@+id/ImageEmergency2"
+        android:layout_below="@+id/ImageEmergency2"
         android:gravity="center"
-        android:layout_below="@+id/ImageEmergency3"
+        android:text="ชื่อ"/>
+
+    <TextView
+        android:id="@+id/txtNameEmergency3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ImageEmergency3"
         android:layout_alignLeft="@+id/ImageEmergency3"
-        android:layout_alignStart="@+id/ImageEmergency3"
         android:layout_alignRight="@+id/ImageEmergency3"
-        android:layout_alignEnd="@+id/ImageEmergency3" />
+        android:layout_alignStart="@+id/ImageEmergency3"
+        android:layout_below="@+id/ImageEmergency3"
+        android:gravity="center"
+        android:text="ชื่อ"/>
 
     <ImageButton
+        android:id="@+id/ImageEmergency3"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/ImageEmergency3"
         android:layout_alignBottom="@+id/ImageEmergency2"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/ImageEmergency2"
-        android:background="@drawable/sdd" />
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/sdd"/>
 
     <TextView
-        android:text="ชื่อ"
+        android:id="@+id/txtNameEmergency1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNameEmergency1"
+        android:layout_alignEnd="@+id/ImageEmergency1"
+        android:layout_alignLeft="@+id/ImageEmergency1"
+        android:layout_alignRight="@+id/ImageEmergency1"
+        android:layout_alignStart="@+id/ImageEmergency1"
         android:layout_below="@+id/ImageEmergency1"
         android:gravity="center"
-        android:layout_alignLeft="@+id/ImageEmergency1"
-        android:layout_alignStart="@+id/ImageEmergency1"
-        android:layout_alignRight="@+id/ImageEmergency1"
-        android:layout_alignEnd="@+id/ImageEmergency1" />
+        android:text="ชื่อ"/>
 
     <ImageButton
+        android:id="@+id/ImageEmergency2"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/ImageEmergency2"
         android:layout_alignBottom="@+id/ImageEmergency1"
-        android:layout_centerHorizontal="true"
         android:layout_alignTop="@+id/ImageEmergency1"
-        android:background="@drawable/sdd" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/sdd"/>
 
     <Button
-        android:text="เมนูหลัก"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:id="@+id/btnMainMenu"
-        android:layout_alignParentRight="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:background="@drawable/mmain1"
-        android:layout_height="50dp" />
+        android:text="เมนูหลัก"/>
 
     <Button
-        android:layout_width="match_parent"
         android:id="@+id/btnAdd"
-        android:text="เพิ่ม"
-        android:background="@drawable/emery"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_above="@+id/btnMainMenu"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/emery"
+        android:text="เพิ่ม"/>
 
     <ImageButton
+        android:id="@+id/ImageEmergency1"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/ImageEmergency1"
-        android:layout_below="@+id/textView3"
-        android:layout_alignRight="@+id/textView6"
         android:layout_alignEnd="@+id/textView6"
-        android:background="@drawable/sdd" />
+        android:layout_alignRight="@+id/textView6"
+        android:layout_below="@+id/textView3"
+        android:background="@drawable/sdd"/>
 
     <TextView
-        android:text="ข้อมูลสุขภาพ"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="ข้อมูลสุขภาพ"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
 
     <TextView
-        android:text="ผู้ติดต่อกรณีฉมีเหตุฉุกเฉิน"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/listHelth"
         android:layout_toEndOf="@+id/ImageEmergency2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:text="ผู้ติดต่อกรณีฉมีเหตุฉุกเฉิน"/>
 
     <ListView
-        android:layout_width="match_parent"
         android:id="@+id/listHelth"
-        android:layout_alignParentRight="true"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textView"
-        android:layout_height="250dp"/>
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView"/>
 
 </RelativeLayout>

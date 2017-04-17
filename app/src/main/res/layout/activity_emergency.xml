@@ -1,59 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <TextView
-        android:text="ข้อมูลติดต่อกรณีฉุกเฉิน"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:textSize="20dp"
         android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light" />
+        android:gravity="center"
+        android:text="ข้อมูลติดต่อกรณีฉุกเฉิน"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
 
     <ListView
+        android:id="@+id/txtSearch"
         android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/background_light"
+        android:layout_below="@+id/btnAdd"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_below="@+id/btnAdd"
-        android:id="@+id/txtSearch"
-        android:layout_height="250dp" />
+        android:background="@android:color/background_light"/>
 
     <Button
-        android:text="เพิ่ม"
+        android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAdd"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/emery" />
+        android:background="@drawable/emery"
+        android:text="เพิ่ม"/>
 
     <Button
-        android:text="เมนูหลัก"
+        android:id="@+id/btnMainMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnMainMenu"
-        android:background="@drawable/mmain1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/mmain1"
+        android:text="เมนูหลัก"/>
 
     <ListView
+        android:id="@+id/listEmergency"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listEmergency"
-        android:layout_below="@+id/txtSearch"
-        android:layout_alignLeft="@+id/txtSearch"
-        android:layout_alignStart="@+id/txtSearch"
-        android:layout_alignRight="@+id/txtSearch"
-        android:layout_alignEnd="@+id/txtSearch"
-        android:background="@color/white"
         android:layout_above="@+id/btnMainMenu"
-        android:layout_marginTop="10dp" />
+        android:layout_alignEnd="@+id/txtSearch"
+        android:layout_alignLeft="@+id/txtSearch"
+        android:layout_alignRight="@+id/txtSearch"
+        android:layout_alignStart="@+id/txtSearch"
+        android:layout_below="@+id/txtSearch"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"/>
 </RelativeLayout>

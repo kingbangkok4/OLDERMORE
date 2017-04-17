@@ -8,19 +8,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.app.oldermore.common.SettingModel;
+import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -40,7 +45,7 @@ import java.util.List;
 public class HealthActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> MyArrHealthList = new ArrayList<HashMap<String, String>>();
@@ -89,6 +94,7 @@ public class HealthActivity extends Activity {
         listHelth = (ListView) findViewById(R.id.listHelth);
 
         LoadData();
+        GetCommon();
 
         if (MyArrEmergency.size() > 0) {
             DisableEmergency();
@@ -475,6 +481,33 @@ public class HealthActivity extends Activity {
                 txtNameEmergency3.setText(name);
                 break;
         }
+    }
+
+    private void GetCommon() {
+        SettingModel ret = new SettingModel();
+        ret = GetSettingValue();
+        RelativeLayout bgElement = (RelativeLayout) findViewById(R.id.container);
+
+        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
+        btnAdd.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        txtNameEmergency1.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        txtNameEmergency2.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        txtNameEmergency3.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+    }
+
+    private SettingModel GetSettingValue(){
+        SettingModel ret = new SettingModel();
+        try {
+            ret = myDb.GetSetting();
+            if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+        }catch (Exception ex){
+
+        }
+        return ret;
     }
 
     private void MessageDialog(String msg) {

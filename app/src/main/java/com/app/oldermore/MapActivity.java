@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,10 +14,14 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.app.oldermore.common.SettingModel;
+import com.app.oldermore.database.DatabaseActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -43,6 +48,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    private DatabaseActivity myDb = new DatabaseActivity(this);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +113,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
                 Toast.makeText(getBaseContext(), "ไม่พบสถานที่ของคุณ กรุณาเปิด GPS!", Toast.LENGTH_SHORT).show();
         }
 
+        GetCommon();
 
         // Location location=new Location("");
         //*** For test Location
@@ -170,6 +177,29 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // Log.d("Latitude","status");
         // TODO Auto-generated method stub
+    }
+
+    private void GetCommon() {
+        SettingModel ret = new SettingModel();
+        ret = GetSettingValue();
+        RelativeLayout bgElement = (RelativeLayout) findViewById(R.id.container);
+
+        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
+        btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+    }
+
+    private SettingModel GetSettingValue(){
+        SettingModel ret = new SettingModel();
+        try {
+            ret = myDb.GetSetting();
+            if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+        }catch (Exception ex){
+
+        }
+        return ret;
     }
 
 }

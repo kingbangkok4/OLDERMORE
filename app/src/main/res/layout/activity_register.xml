@@ -1,252 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg2">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg2"
+                android:orientation="vertical">
 
     <TextView
-        android:text="ยืนยันรหัสผ่าน"
+        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView18"
         android:layout_alignBaseline="@+id/txtRePassword"
         android:layout_alignBottom="@+id/txtRePassword"
         android:layout_alignLeft="@+id/textView31"
-        android:layout_alignStart="@+id/textView31" />
+        android:layout_alignStart="@+id/textView31"
+        android:text="ยืนยันรหัสผ่าน"/>
 
     <EditText
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="18dp"
         android:id="@+id/txtPassword"
-        android:background="@android:color/background_light"
         android:layout_width="200dp"
-        android:layout_below="@+id/txtUsername"
-        android:layout_alignLeft="@+id/txtUsername"
-        android:layout_alignStart="@+id/txtUsername" />
-
-    <TextView
-        android:text="ที่อยู่"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView30"
-        android:layout_alignTop="@+id/txtAddress"
-        android:layout_alignLeft="@+id/textView29"
-        android:layout_alignStart="@+id/textView29" />
-
-    <TextView
-        android:text="ลงทะเบียน"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light" />
-
-    <EditText
         android:layout_height="30dp"
-        android:inputType="textPassword"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="18dp"
-        android:id="@+id/txtRePassword"
-        android:background="?attr/colorButtonNormal"
-        android:layout_width="200dp"
-        android:layout_below="@+id/txtPassword"
-        android:layout_alignLeft="@+id/txtPassword"
-        android:layout_alignStart="@+id/txtPassword"
-        android:layout_alignRight="@+id/txtPass"
-        android:layout_alignEnd="@+id/txtPass" />
-
-    <EditText
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="18dp"
-        android:id="@+id/editText18"
-        android:background="@android:color/background_light"
-        android:layout_width="200dp"
-        android:layout_below="@+id/txtUsername"
-        android:layout_alignLeft="@+id/txtUsername"
-        android:layout_alignStart="@+id/txtUsername" />
-
-    <EditText
-        android:layout_height="30dp"
-        android:inputType="textPassword"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="18dp"
-        android:id="@+id/txtPass"
-        android:background="?attr/colorButtonNormal"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/txtUsername"
         android:layout_alignLeft="@+id/txtUsername"
         android:layout_alignStart="@+id/txtUsername"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp" />
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginTop="18dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:gravity=""
+        android:inputType="textPersonName"
+        android:text=""/>
 
     <TextView
-        android:text="ชื่อผู้ใช้งาน"
+        android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView29"
+        android:layout_alignStart="@+id/textView29"
+        android:layout_alignTop="@+id/txtAddress"
+        android:text="ที่อยู่"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="ลงทะเบียน"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
+
+    <EditText
+        android:id="@+id/txtRePassword"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/txtPass"
+        android:layout_alignLeft="@+id/txtPassword"
+        android:layout_alignRight="@+id/txtPass"
+        android:layout_alignStart="@+id/txtPassword"
+        android:layout_below="@+id/txtPassword"
+        android:layout_marginTop="18dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:gravity=""
+        android:inputType="textPassword"
+        android:text=""/>
+
+    <EditText
+        android:id="@+id/editText18"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/txtUsername"
+        android:layout_alignStart="@+id/txtUsername"
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginTop="18dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:gravity=""
+        android:inputType="textPersonName"
+        android:text=""/>
+
+    <EditText
+        android:id="@+id/txtPass"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/txtUsername"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/txtUsername"
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="18dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:gravity=""
+        android:inputType="textPassword"
+        android:text=""/>
+
+    <TextView
         android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/txtUsername"
         android:layout_alignBottom="@+id/txtUsername"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp" />
+        android:layout_marginStart="19dp"
+        android:text="ชื่อผู้ใช้งาน"/>
 
     <TextView
-        android:text="รหัสผ่าน"
+        android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView31"
         android:layout_alignBaseline="@+id/txtPassword"
         android:layout_alignBottom="@+id/txtPassword"
         android:layout_alignLeft="@+id/textView32"
-        android:layout_alignStart="@+id/textView32" />
+        android:layout_alignStart="@+id/textView32"
+        android:text="รหัสผ่าน"/>
 
     <TextView
-        android:text="อีเมล์"
+        android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView28"
         android:layout_alignBaseline="@+id/txtEmail"
         android:layout_alignBottom="@+id/txtEmail"
         android:layout_alignLeft="@+id/textView33"
-        android:layout_alignStart="@+id/textView33" />
+        android:layout_alignStart="@+id/textView33"
+        android:text="อีเมล์"/>
 
     <EditText
-        android:layout_height="30dp"
-        android:inputType="textEmailAddress"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
         android:id="@+id/txtEmail"
-        android:background="?attr/colorButtonNormal"
         android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/txtName"
         android:layout_alignLeft="@+id/txtMobile"
+        android:layout_alignRight="@+id/txtName"
         android:layout_alignStart="@+id/txtMobile"
         android:layout_below="@+id/txtName"
         android:layout_marginTop="18dp"
-        android:layout_alignRight="@+id/txtName"
-        android:layout_alignEnd="@+id/txtName" />
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:gravity=""
+        android:inputType="textEmailAddress"
+        android:text=""/>
 
     <EditText
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
         android:id="@+id/txtName"
-        android:background="?attr/colorButtonNormal"
         android:layout_width="200dp"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/txtRePassword"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/txtRePassword"
         android:layout_alignLeft="@+id/txtRePassword"
-        android:layout_alignStart="@+id/txtRePassword"
         android:layout_alignRight="@+id/txtRePassword"
-        android:layout_alignEnd="@+id/txtRePassword" />
+        android:layout_alignStart="@+id/txtRePassword"
+        android:layout_below="@+id/txtRePassword"
+        android:layout_marginTop="18dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:gravity=""
+        android:inputType="textPersonName"
+        android:text=""/>
 
     <TextView
-        android:text="ชื่อ - นามสกุล"
+        android:id="@+id/textView33"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView33"
         android:layout_alignBaseline="@+id/txtName"
         android:layout_alignBottom="@+id/txtName"
         android:layout_alignLeft="@+id/textView18"
-        android:layout_alignStart="@+id/textView18" />gfjhgfj
+        android:layout_alignStart="@+id/textView18"
+        android:text="ชื่อ - นามสกุล"/>gfjhgfj
 
     <EditText
+        android:id="@+id/txtMobile"
+        android:layout_width="200dp"
         android:layout_height="30dp"
+        android:layout_alignEnd="@+id/txtName"
+        android:layout_alignLeft="@+id/txtName"
+        android:layout_alignRight="@+id/txtName"
+        android:layout_alignStart="@+id/txtName"
+        android:layout_below="@+id/txtEmail"
+        android:layout_marginTop="18dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:gravity=""
         android:inputType="phone"
         android:maxLength="10"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:id="@+id/txtMobile"
-        android:background="?attr/colorButtonNormal"
-        android:layout_width="200dp"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/txtEmail"
-        android:layout_alignLeft="@+id/txtName"
-        android:layout_alignStart="@+id/txtName"
-        android:layout_alignRight="@+id/txtName"
-        android:layout_alignEnd="@+id/txtName" />
+        android:text=""/>
 
     <TextView
-        android:text="เบอร์โทร"
+        android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView29"
         android:layout_alignBaseline="@+id/txtMobile"
         android:layout_alignBottom="@+id/txtMobile"
         android:layout_alignLeft="@+id/textView28"
-        android:layout_alignStart="@+id/textView28" />
+        android:layout_alignStart="@+id/textView28"
+        android:text="เบอร์โทร"/>
 
     <EditText
+        android:id="@+id/txtAddress"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/txtAddress"
-        android:background="?attr/colorButtonNormal"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/txtMobile"
+        android:layout_alignEnd="@+id/txtPass"
         android:layout_alignLeft="@+id/txtMobile"
-        android:layout_alignStart="@+id/txtMobile"
         android:layout_alignRight="@+id/txtPass"
-        android:layout_alignEnd="@+id/txtPass" />
+        android:layout_alignStart="@+id/txtMobile"
+        android:layout_below="@+id/txtMobile"
+        android:layout_marginTop="17dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:inputType="textMultiLine"/>
 
     <EditText
-        android:layout_height="30dp"
-        android:inputType="textPersonName"
-        android:gravity=""
-        android:text=""
-        android:ems="10"
-        android:layout_marginTop="16dp"
         android:id="@+id/txtUsername"
-        android:background="?attr/colorButtonNormal"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/textView18"
         android:layout_width="match_parent"
-        android:layout_marginRight="10dp" />
+        android:layout_height="30dp"
+        android:layout_below="@+id/textView"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/textView18"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:gravity=""
+        android:inputType="textPersonName"
+        android:text=""/>
 
     <Button
-        android:text="ลงทะเบียน"
-        android:layout_width="match_parent"
         android:id="@+id/btnSubmit"
-        android:layout_below="@+id/txtAddress"
-        android:background="@drawable/buttonr"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_alignRight="@+id/txtAddress"
         android:layout_alignEnd="@+id/txtAddress"
         android:layout_alignLeft="@+id/textView30"
-        android:layout_alignStart="@+id/textView30" />
+        android:layout_alignRight="@+id/txtAddress"
+        android:layout_alignStart="@+id/textView30"
+        android:layout_below="@+id/txtAddress"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/buttonr"
+        android:text="ลงทะเบียน"/>
 
     <Button
-        android:text="กลับ"
+        android:id="@+id/btnBackToLogin"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/btnBackToLogin"
-        android:background="@drawable/back"
-        android:layout_below="@+id/btnSubmit"
-        android:layout_alignRight="@+id/btnSubmit"
         android:layout_alignEnd="@+id/btnSubmit"
         android:layout_alignLeft="@+id/btnSubmit"
-        android:layout_alignStart="@+id/btnSubmit" />
+        android:layout_alignRight="@+id/btnSubmit"
+        android:layout_alignStart="@+id/btnSubmit"
+        android:layout_below="@+id/btnSubmit"
+        android:background="@drawable/back"
+        android:text="กลับ"/>
 </RelativeLayout>

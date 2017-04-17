@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <Button
-        android:text="เมนูหลัก"
+        android:id="@+id/btnMainMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnMainMenu"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/mmain1" />
+        android:background="@drawable/mmain1"
+        android:text="เมนูหลัก"/>
 
     <TextView
-        android:text="แต่งรูป"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:textSize="20dp"
         android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light" />
+        android:gravity="center"
+        android:text="แต่งรูป"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
 
     <Button
-        android:text="กล้อง"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="38dp"
         android:id="@+id/btnCamera"
-        android:layout_below="@+id/textView"
-        android:layout_toStartOf="@+id/btnAlbum"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/photo" />
-
-    <Button
-        android:text="อัลบัม"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="38dp"
+        android:layout_toStartOf="@+id/btnAlbum"
+        android:background="@drawable/photo"
+        android:text="กล้อง"/>
+
+    <Button
         android:id="@+id/btnAlbum"
-        android:background="@drawable/flim"
-        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp" />
+        android:layout_marginStart="8dp"
+        android:background="@drawable/flim"
+        android:text="อัลบัม"/>
 
     <Button
-        android:text="แต่งรูป"
+        android:id="@+id/btnPhoto"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:id="@+id/btnPhoto"
-        android:background="@drawable/photo1"
-        android:layout_below="@+id/btnCamera"
         android:layout_alignLeft="@+id/btnAlbum"
-        android:layout_alignStart="@+id/btnAlbum" />
+        android:layout_alignStart="@+id/btnAlbum"
+        android:layout_below="@+id/btnCamera"
+        android:background="@drawable/photo1"
+        android:text="แต่งรูป"/>
 </RelativeLayout>

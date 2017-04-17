@@ -1,155 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg2">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg2"
+                android:orientation="vertical">
 
     <Button
-        android:text=""
-        android:layout_height="80dp"
         android:id="@+id/btnManual"
-        android:background="@drawable/setup"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignLeft="@+id/btnPhotoRetouch"
         android:layout_alignStart="@+id/btnPhotoRetouch"
         android:layout_below="@+id/btnPhotoRetouch"
-        android:layout_width="80dp" />
+        android:background="@drawable/setup"
+        android:text=""/>
 
     <Button
-        android:text=""
-        android:layout_height="80dp"
         android:id="@+id/btnKnowledge"
-        android:background="@drawable/jang"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignBottom="@+id/btnManual"
         android:layout_alignLeft="@+id/btnNontifiction"
         android:layout_alignStart="@+id/btnNontifiction"
         android:layout_below="@+id/btnNontifiction"
-        android:layout_width="80dp" />
+        android:background="@drawable/jang"
+        android:text=""/>
 
     <Button
-        android:text=""
         android:id="@+id/btnFavorite"
-        android:background="@drawable/love"
-        android:layout_below="@+id/btnProfile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignLeft="@+id/btnProfile"
         android:layout_alignStart="@+id/btnProfile"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_below="@+id/btnProfile"
+        android:background="@drawable/love"
+        android:text=""/>
 
     <Button
-        android:textStyle="bold"
         android:id="@+id/btnEmerCall"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/red"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:textStyle="bold"/>
 
     <Button
-        android:text=""
-        android:layout_height="80dp"
         android:id="@+id/btnSetting"
-        android:background="@drawable/setting"
-        android:layout_below="@+id/btnBoard"
-        android:layout_alignParentRight="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentEnd="true"
-        android:layout_width="80dp" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnBoard"
+        android:background="@drawable/setting"
+        android:text=""/>
 
     <Button
-        android:text=""
-        android:layout_height="80dp"
         android:id="@+id/btnNontifiction"
-        android:background="@drawable/ton"
-        android:layout_below="@+id/btnFavorite"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_width="80dp" />
+        android:layout_below="@+id/btnFavorite"
+        android:background="@drawable/ton"
+        android:text=""/>
 
     <Button
-        android:layout_height="80dp"
         android:id="@+id/btnProfile"
-        android:background="@drawable/user"
         android:layout_width="80dp"
-        android:layout_below="@+id/btnEmerCall"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text=""
-        android:layout_height="80dp"
-        android:id="@+id/btnMsgCall"
-        android:background="@drawable/chat"
-        android:layout_width="80dp"
-        android:layout_below="@+id/btnHealth"
-        android:layout_alignLeft="@+id/btnHealth"
-        android:layout_alignStart="@+id/btnHealth" />
-
-    <Button
-        android:text=""
-        android:layout_height="80dp"
-        android:id="@+id/btnBoard"
-        android:background="@drawable/comm"
-        android:layout_width="80dp"
-        android:layout_below="@+id/btnEmergency"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_height="80dp"
-        android:id="@+id/btnEmergency"
-        android:text=""
-        android:background="@drawable/od"
-        android:layout_width="80dp"
-        android:layout_below="@+id/btnPost"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:textStyle="bold"
-        android:id="@+id/btnWhere"
-        android:background="@drawable/green"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
-
-    <Button
-        android:layout_height="80dp"
-        android:id="@+id/btnPost"
-        android:background="@drawable/post"
-        android:layout_width="80dp"
-        android:layout_below="@+id/btnWhere"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_height="80dp"
-        android:id="@+id/btnHealth"
-        android:background="@drawable/heathly"
-        android:layout_width="80dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/btnEmerCall"
-        android:layout_centerHorizontal="true" />
+        android:background="@drawable/user"/>
 
     <Button
-        android:text=""
-        android:layout_height="80dp"
-        android:id="@+id/btnPhotoRetouch"
-        android:background="@drawable/im"
+        android:id="@+id/btnMsgCall"
         android:layout_width="80dp"
-        android:layout_below="@+id/btnMsgCall"
-        android:layout_alignLeft="@+id/btnMsgCall"
-        android:layout_alignStart="@+id/btnMsgCall" />
+        android:layout_height="80dp"
+        android:layout_alignLeft="@+id/btnHealth"
+        android:layout_alignStart="@+id/btnHealth"
+        android:layout_below="@+id/btnHealth"
+        android:background="@drawable/chat"
+        android:text=""/>
 
     <Button
-        android:text="ออกจากระบบ"
+        android:id="@+id/btnBoard"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnEmergency"
+        android:background="@drawable/comm"
+        android:text=""/>
+
+    <Button
+        android:id="@+id/btnEmergency"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnPost"
+        android:background="@drawable/od"
+        android:text=""/>
+
+    <Button
+        android:id="@+id/btnWhere"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/green"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnWhere"
+        android:background="@drawable/post"/>
+
+    <Button
+        android:id="@+id/btnHealth"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/btnEmerCall"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/heathly"/>
+
+    <Button
+        android:id="@+id/btnPhotoRetouch"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignLeft="@+id/btnMsgCall"
+        android:layout_alignStart="@+id/btnMsgCall"
+        android:layout_below="@+id/btnMsgCall"
+        android:background="@drawable/im"
+        android:text=""/>
+
+    <Button
+        android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:textStyle="bold"
-        android:id="@+id/btnLogout"
-        android:background="@drawable/exit7"
         android:layout_below="@+id/btnManual"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/exit7"
+        android:text="ออกจากระบบ"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

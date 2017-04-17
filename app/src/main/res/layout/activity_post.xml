@@ -1,114 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <Button
-        android:text="เมนูหลัก"
-        android:layout_width="match_parent"
         android:id="@+id/btnMainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/mmain1"
-        android:layout_height="40dp" />
+        android:text="เมนูหลัก"/>
 
     <TextView
-        android:text="โพสต์"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:textSize="20dp"
         android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light" />
+        android:gravity="center"
+        android:text="โพสต์"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
 
     <ListView
+        android:id="@+id/listPost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light"
+        android:layout_above="@+id/btnMainMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnPostImage"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_above="@+id/btnMainMenu"
-        android:id="@+id/listPost"
-        android:layout_below="@+id/btnPostImage"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:background="@android:color/background_light"/>
 
     <TextView
-        android:text="รูปโปรไฟล์/ชื่อ"
+        android:id="@+id/lblName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lblName"
-        android:gravity="center"
-        android:layout_below="@+id/btnImageProfile"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnImageProfile"
+        android:gravity="center"
+        android:text="รูปโปรไฟล์/ชื่อ"/>
 
     <ImageButton
-        android:layout_height="60dp"
         android:id="@+id/btnImageProfile"
         android:layout_width="80dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:hint="คุณกำลังคิดอะไรอยู่"
-        android:textSize="12dp"
         android:id="@+id/txtPost"
-        android:background="@android:color/white"
-        android:layout_below="@+id/lblName"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignRight="@+id/listPost"
         android:layout_alignEnd="@+id/listPost"
         android:layout_alignLeft="@+id/listPost"
-        android:layout_alignStart="@+id/listPost" />
+        android:layout_alignRight="@+id/listPost"
+        android:layout_alignStart="@+id/listPost"
+        android:layout_below="@+id/lblName"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint="คุณกำลังคิดอะไรอยู่"
+        android:inputType="textMultiLine"
+        android:textSize="12dp"/>
 
     <Button
-        android:text="รูป"
-        android:layout_width="110dp"
         android:id="@+id/btnImage"
-        android:background="@drawable/photo2"
+        android:layout_width="110dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/txtPost"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtPost"
+        android:layout_toEndOf="@+id/btnAppImage"
         android:layout_toRightOf="@+id/btnAppImage"
-        android:layout_toEndOf="@+id/btnAppImage" />
+        android:background="@drawable/photo2"
+        android:text="รูป"/>
 
     <Button
-        android:text="โพส"
         android:id="@+id/btnPost"
         android:layout_width="110dp"
-        android:background="@drawable/postty"
         android:layout_height="30dp"
-        android:layout_below="@+id/txtPost"
         android:layout_alignLeft="@+id/txtPost"
         android:layout_alignStart="@+id/txtPost"
+        android:layout_below="@+id/txtPost"
+        android:layout_toLeftOf="@+id/btnAppImage"
         android:layout_toStartOf="@+id/btnAppImage"
-        android:layout_toLeftOf="@+id/btnAppImage" />
+        android:background="@drawable/postty"
+        android:text="โพส"/>
 
     <Button
-        android:text="คลังรูป"
         android:id="@+id/btnAppImage"
-        android:background="@drawable/flim"
-        android:layout_height="30dp"
         android:layout_width="120dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/txtPost"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/flim"
+        android:text="คลังรูป"/>
 
     <Button
         android:id="@+id/btnPostImage"
-        android:layout_height="60dp"
         android:layout_width="150dp"
-        android:background="@drawable/no"
+        android:layout_height="60dp"
         android:layout_below="@+id/btnImage"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/no"/>
 
 </RelativeLayout>

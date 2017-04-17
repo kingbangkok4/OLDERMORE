@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <Button
-        android:text="เมนูหลัก"
+        android:id="@+id/btnMainMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnMainMenu"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/mmain1" />
+        android:background="@drawable/mmain1"
+        android:text="เมนูหลัก"/>
 
     <TextView
-        android:text="สาระน่ารู้"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textStyle="bold|italic"
-        android:gravity="center"
-        android:textSize="20dp"
         android:background="@color/colorAccent"
-        android:textColor="@android:color/background_light" />
+        android:gravity="center"
+        android:text="สาระน่ารู้"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
 
     <EditText
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
         android:id="@+id/txtKnowledge"
-        android:textSize="14dp"
-        android:layout_below="@+id/textView"
-        android:background="@color/white"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/listKnowledge"
         android:layout_alignStart="@+id/listKnowledge"
-        android:layout_width="240dp"/>
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:textSize="14dp"/>
 
     <Button
-        android:text="ค้นหา"
+        android:id="@+id/btnSearch"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/txtKnowledge"
-        android:layout_toRightOf="@+id/txtKnowledge"
-        android:layout_marginStart="1dp"
-        android:id="@+id/btnSearch"
-        android:background="@drawable/search1"
-        android:layout_alignRight="@+id/listKnowledge"
         android:layout_alignEnd="@+id/listKnowledge"
-        android:layout_width="60dp"/>
+        android:layout_alignRight="@+id/listKnowledge"
+        android:layout_marginStart="1dp"
+        android:layout_toRightOf="@+id/txtKnowledge"
+        android:background="@drawable/search1"
+        android:text="ค้นหา"/>
 
     <ListView
+        android:id="@+id/listKnowledge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light"
-        android:id="@+id/listKnowledge"
+        android:layout_above="@+id/btnMainMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtKnowledge"
-        android:layout_above="@+id/btnMainMenu"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/background_light"/>
 </RelativeLayout>

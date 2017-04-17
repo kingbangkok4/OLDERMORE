@@ -5,17 +5,21 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.oldermore.common.SettingModel;
+import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -40,7 +44,7 @@ public class ChatActivity extends Activity {
     private String lastChatId = "0";
     private String friendId = "";
     private String friendName = "";
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> ArrListChat = new ArrayList<HashMap<String, String>>();
@@ -118,7 +122,7 @@ public class ChatActivity extends Activity {
                 list.setSelection(adp.getCount() - 1);
             }
         });
-
+        GetCommon();
         Loop();
         //Test Loop
         Thread t = new Thread() {
@@ -218,6 +222,31 @@ public class ChatActivity extends Activity {
         chatText.setText("");
         side = !side;
         return true;
+    }
+
+    private void GetCommon() {
+        SettingModel ret = new SettingModel();
+        ret = GetSettingValue();
+        RelativeLayout bgElement = (RelativeLayout) findViewById(R.id.container);
+
+        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
+        btnSend.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnBack.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        chatText.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+    }
+
+    private SettingModel GetSettingValue(){
+        SettingModel ret = new SettingModel();
+        try {
+            ret = myDb.GetSetting();
+            if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+        }catch (Exception ex){
+
+        }
+        return ret;
     }
 
     private void MessageDialog(String msg) {

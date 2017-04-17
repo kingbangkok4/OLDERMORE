@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
+import com.app.oldermore.common.SettingModel;
+import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -35,7 +40,7 @@ public class KnowledgeActivity extends Activity{
     ListView listKnowledge;
     private FeedListAdapter listAdapter;
     private List<FeedItem> feedItems;
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
@@ -87,6 +92,7 @@ public class KnowledgeActivity extends Activity{
         URL_FEED = getString(R.string.url) + "getKnowledge.php";
         LoadDataPost();
         parseJsonFeed();
+        GetCommon();
 
     }
 
@@ -136,6 +142,31 @@ public class KnowledgeActivity extends Activity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void GetCommon() {
+        SettingModel ret = new SettingModel();
+        ret = GetSettingValue();
+        RelativeLayout bgElement = (RelativeLayout) findViewById(R.id.container);
+
+        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
+        btnSearch.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        txtKnowledge.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+    }
+
+    private SettingModel GetSettingValue(){
+        SettingModel ret = new SettingModel();
+        try {
+            ret = myDb.GetSetting();
+            if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+        }catch (Exception ex){
+
+        }
+        return ret;
     }
 
     private void MessageDialog(String msg) {

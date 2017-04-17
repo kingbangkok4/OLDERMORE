@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -26,8 +28,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.oldermore.common.SettingModel;
+import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -60,7 +65,7 @@ import info.androidhive.listviewfeed.data.FeedItem;
 public class PostActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
-    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private DatabaseActivity myDb = new DatabaseActivity(this);
     private ArrayList<HashMap<String, String>> MyArrProfile = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
@@ -124,6 +129,8 @@ public class PostActivity extends Activity {
         LoadDataPost();
         parseJsonFeed();
         LoadDataImageApp();
+        GetCommon();
+
         // These two lines not needed,
         // just to get the look of facebook (changing background color & hiding the icon)
        /* getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
@@ -700,4 +707,34 @@ public class PostActivity extends Activity {
             out.write(b, 0, read);
         }
     }
+
+    private void GetCommon() {
+        SettingModel ret = new SettingModel();
+        ret = GetSettingValue();
+        RelativeLayout bgElement = (RelativeLayout) findViewById(R.id.container);
+
+        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
+        btnPost.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnAppImage.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnImage.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnPostImage.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        lblName.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        txtPost.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+        btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
+    }
+
+    private SettingModel GetSettingValue(){
+        SettingModel ret = new SettingModel();
+        try {
+            ret = myDb.GetSetting();
+            if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+        }catch (Exception ex){
+
+        }
+        return ret;
+    }
+
 }
