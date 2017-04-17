@@ -731,10 +731,13 @@ public class PostActivity extends Activity {
                 ret.setFontSize(20);
                 ret.setBgColor("#ffffff");
             }
+            else if(ret.getBgColor() == null || ret.getFontSize() == 0) {
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
         }catch (Exception ex){
 
         }
         return ret;
     }
-
 }

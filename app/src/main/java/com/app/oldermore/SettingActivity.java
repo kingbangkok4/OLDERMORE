@@ -95,8 +95,10 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         getModel = GetSettingValue();
         int size = getModel.getFontSize();
         btnSet.setTextSize(size);
-        btnSet.setText(size);
+        btnSet.setText(Integer.toString(size));
         btnSet.setBackgroundColor(Color.parseColor(getModel.getBgColor()));
+
+        bgColor = getModel.getBgColor();
     }
 
     public void onClick(View v) {
@@ -118,18 +120,23 @@ public class SettingActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.btnBg0:
+                bgColor = "#ffffff";
                 setBgColor("#ffffff");
                 break;
             case R.id.btnBg1:
+                bgColor = "#eee6ff";
                 setBgColor("#eee6ff");
                 break;
             case R.id.btnBg2:
+                bgColor = "#ffe6f2";
                 setBgColor("#ffe6f2");
                 break;
             case R.id.btnBg3:
+                bgColor = "#e6f7ff";
                 setBgColor("#e6f7ff");
                 break;
             case R.id.btnBg4:
+                bgColor = "#eafaea";
                 setBgColor("#eafaea");
                 break;
         }
@@ -139,9 +146,11 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         int size = Integer.parseInt(strFontSize);
         btnSet.setTextSize(size);
         btnSet.setText(strFontSize);
+        AddSetting();
     }
     private void setBgColor(String strBgColor){
         btnSet.setBackgroundColor(Color.parseColor(strBgColor));
+        AddSetting();
     }
 
     private void AddSetting(){
@@ -161,6 +170,10 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         try {
             ret = myDb.GetSetting();
             if(ret == null){
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            }
+            else if(ret.getBgColor() == null || ret.getFontSize() == 0) {
                 ret.setFontSize(20);
                 ret.setBgColor("#ffffff");
             }
