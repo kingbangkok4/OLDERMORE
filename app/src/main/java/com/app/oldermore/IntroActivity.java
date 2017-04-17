@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.LinearLayout;
 
+import com.app.oldermore.admin.AdminMainActivity;
 import com.app.oldermore.database.DatabaseActivity;
 
 import java.io.IOException;
@@ -39,9 +40,15 @@ public class IntroActivity extends Activity {
                 MyArrList = myDb.CheckLogin();
                 if (MyArrList != null) {
                     if (MyArrList.size() > 0) {
-                        Intent i = new Intent(IntroActivity.this, MenuActivity.class);
-                        i.putExtra("MyArrList", MyArrList);
-                        startActivity(i);
+                        if(("ADMIN").equals(MyArrList.get(0).get("type"))){
+                            Intent i = new Intent(getBaseContext(), AdminMainActivity.class);
+                            i.putExtra("MyArrList", MyArrList);
+                            startActivity(i);
+                        }else {
+                            Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                            i.putExtra("MyArrList", MyArrList);
+                            startActivity(i);
+                        }
                     } else {
                         Intent i = new Intent(IntroActivity.this, MainActivity.class);
                         startActivity(i);

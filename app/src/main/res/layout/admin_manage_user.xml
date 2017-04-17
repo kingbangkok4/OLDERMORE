@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnMainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignEnd="@+id/listView"
+        android:layout_alignLeft="@+id/txtSearch"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignStart="@+id/txtSearch"
+        android:background="@drawable/mmain1"
+        android:gravity="center"
+        android:text="เมนูหลัก"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="จัดการผู้ใช้งาน"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/txtSearch"
+        android:background="@drawable/search1"
+        android:text="ค้นหา"/>
+
+    <EditText
+        android:id="@+id/txtSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="17dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text=""
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/btnSearch"
+        android:layout_toStartOf="@+id/btnSearch"/>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@android:color/background_light"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/btnSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/btnMainMenu"/>
+
+</RelativeLayout>

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.oldermore.admin.AdminMainActivity;
 import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
@@ -82,9 +83,16 @@ public class MainActivity extends Activity {
                             MyArrList.get(0).get("user_image"),
                             MyArrList.get(0).get("type"));
 
-                    Intent i = new Intent(getBaseContext(), MenuActivity.class);
-                    i.putExtra("MyArrList", MyArrList);
-                    startActivity(i);
+                    if(("ADMIN").equals(MyArrList.get(0).get("type"))){
+                        Intent i = new Intent(getBaseContext(), AdminMainActivity.class);
+                        i.putExtra("MyArrList", MyArrList);
+                        startActivity(i);
+                    }else {
+                        Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                        i.putExtra("MyArrList", MyArrList);
+                        startActivity(i);
+                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
                 }
