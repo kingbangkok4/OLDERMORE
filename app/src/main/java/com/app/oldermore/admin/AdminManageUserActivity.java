@@ -115,7 +115,7 @@ public class AdminManageUserActivity extends Activity {
                                     int position, long id) {
                 try {
                     //int emId = Integer.parseInt(ArrListFreind.get(position).get("emergency_id"));
-                    DialogAddEmergency(true, position);
+                    DialogUpdateProfile(position);
                 } catch (Exception e) {
                     // When Error
                     MessageDialog(e.getMessage());
@@ -156,7 +156,7 @@ public class AdminManageUserActivity extends Activity {
 
     }
 
-    private void DialogAddEmergency(Boolean editMode, int position) {
+    private void DialogUpdateProfile(int position) {
         View dialogBoxView = View.inflate(this, R.layout.dialog_add_emergency, null);
         String strImgProfile = "";
         final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
@@ -166,11 +166,10 @@ public class AdminManageUserActivity extends Activity {
         final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtMobile);
         final String[] name = {""};
         final String[] mobile = {""};
-        String member_id = "";
-        //String user_id = "";
+        //String member_id = "";
+        String user_id = "";
 
-        if (editMode) {
-            member_id = ArrListFriend.get(position).get("member_id");
+            user_id = ArrListFriend.get(position).get("user_id");
             name[0] = ArrListFriend.get(position).get("member_name");
             mobile[0] = ArrListFriend.get(position).get("member_mobile");
             //user_id = MyArrList.get(0).get("user_id");
@@ -197,15 +196,8 @@ public class AdminManageUserActivity extends Activity {
 
             txtName.setText(name[0]);
             txtMobile.setText(mobile[0]);
-        } else {
-            member_id = "";
-            name[0] = txtName.getText().toString().trim();
-            mobile[0] = txtMobile.getText().toString().trim();
-            //user_id = MyArrList.get(0).get("user_id");
-        }
 
-        final String finalMember_id = member_id;
-
+        final String finalUserId = user_id;
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,7 +221,7 @@ public class AdminManageUserActivity extends Activity {
                 mobile[0] = txtMobile.getText().toString().trim();
 
                 if (!"".equals(name[0]) && !"".equals(mobile[0])) {
-                    SaveData(finalMember_id, name[0], mobile[0]);
+                    SaveData(finalUserId, name[0], mobile[0]);
 
                     LoadDataFriend();
                 } else {
@@ -256,14 +248,13 @@ public class AdminManageUserActivity extends Activity {
                         }).show();
     }
 
-    private void SaveData(String emergency_id, String member_name, String member_mobile) {
+    private void SaveData(String user_id, String member_name, String member_mobile) {
         String status = "0";
         String error = "";
-        String url = getString(R.string.url) + "saveEmergency.php";
+        String url = getString(R.string.url) + "updateProfile.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("member_id", emergency_id));
-        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+        params.add(new BasicNameValuePair("user_id", user_id));
         params.add(new BasicNameValuePair("member_name", member_name));
         params.add(new BasicNameValuePair("member_mobile", member_mobile));
         params.add(new BasicNameValuePair("member_image", strImgProfile));
