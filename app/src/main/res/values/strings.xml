@@ -14,6 +14,7 @@
 
     <string name="url">http://www.oldermore.tpakrsai.com/api/</string>
     <string name="url_upload">http://www.oldermore.tpakrsai.com/api/uploadFile.php</string>
+    <string name="url_upload_video">http://www.oldermore.tpakrsai.com/api/uploadFile.php</string>
     <string name="url_images">http://www.oldermore.tpakrsai.com/images/</string>
     <string name="str_url_video">http://www.oldermore.tpakrsai.com/video/</string>
     <string name="str_url_webboard">http://www.oldermore.tpakrsai.com/webboard/main_webboard.php</string>

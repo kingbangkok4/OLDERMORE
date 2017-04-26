@@ -23,7 +23,7 @@ public class AdminMainActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
-    Button btnLogout, btnMaUser;
+    Button btnLogout, btnMaUser, btnMaManual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class AdminMainActivity extends Activity {
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnMaUser = (Button) findViewById(R.id.btnMaUser);
+        btnMaManual = (Button)findViewById(R.id.btnMaManual);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +62,14 @@ public class AdminMainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), AdminManageUserActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btnMaManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), AdminManualActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }

@@ -109,6 +109,9 @@
         <activity
             android:name=".admin.AdminManageUserActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".admin.AdminManualActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".alarm.service.AlarmService"
@@ -135,6 +138,7 @@
                 <action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
         </receiver>
+
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
