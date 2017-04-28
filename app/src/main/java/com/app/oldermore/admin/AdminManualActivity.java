@@ -1,12 +1,13 @@
 package com.app.oldermore.admin;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,194 +16,42 @@ import android.widget.TextView;
 
 import com.app.oldermore.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 
 public class AdminManualActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
-
-    private Button buttonChoose;
-    private Button buttonUpload;
-    private TextView textView;
-    private TextView textViewResponse;
+    private Button buttonChoose, buttonUpload;
+    private Button buttonChoosePic, buttonUploadPic;
+    private TextView textView, textView1;
 
     private static final int SELECT_VIDEO = 3;
+    private static final int SELECT_PICTURE = 1;
 
     private String selectedPath;
-    private String strURLUpload, strImgProfile;
+    private String type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_manual);
-        // Permission StrictMode
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
-        Bundle extras = getIntent().getExtras();
-        // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
-        if (extras != null) {
-            tmpMyArrList = (ArrayList<HashMap<String, String>>) extras
-                    .getSerializable("MyArrList");
-            if (tmpMyArrList != null) {
-                MyArrList = tmpMyArrList;
-            }
-        }
 
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
+        buttonChoosePic = (Button) findViewById(R.id.buttonChoosePic);
+        buttonUploadPic = (Button) findViewById(R.id.buttonUploadPic);
 
         textView = (TextView) findViewById(R.id.textView);
-        textViewResponse = (TextView) findViewById(R.id.textViewResponse);
+        textView1 = (TextView) findViewById(R.id.textView1);
+        //textViewResponse = (TextView) findViewById(R.id.textViewResponse);
 
         buttonChoose.setOnClickListener(this);
         buttonUpload.setOnClickListener(this);
     }
 
     private void chooseVideo() {
-        // *** Upload file to Server
-        strURLUpload = getString(R.string.url_upload_video);
-
         Intent intent = new Intent();
         intent.setType("video/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select a Video "), SELECT_VIDEO);
-    }
 
-
-
-    private void uploadVideo() {
-        strImgProfile = "";
-        if (!"".equals(selectedPath)) {
-            // *** Upload file to Server
-            boolean status = uploadFiletoServer(selectedPath, strURLUpload);
-            if (status) {
-               /* namePhotoSplite = mCurrentPhotoPath.split("/");
-                strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];*/
-            }
-            //UpdateProfile();
-        } else {
-            MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!");
-        }
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        if (v == buttonChoose) {
-            chooseVideo();
-        }
-        if (v == buttonUpload) {
-            uploadVideo();
-        }
-    }
-
-    private void MessageDialog(String msg) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    public static boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
-
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 10 * 1024 * 1024;
-        int resCode = 0;
-        String resMessage = "";
-
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary = "*****";
-
-        try {
-            File file = new File(strSDPath);
-            if (!file.exists()) {
-                return false;
-            }
-
-            FileInputStream fileInputStream = new FileInputStream(new File(strSDPath));
-
-            URL url = new URL(strUrlServer);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
-            conn.setRequestMethod("POST");
-
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-
-            DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
-            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes(
-                    "Content-Disposition: form-data; name=\"filUpload\";filename=\"" + strSDPath + "\"" + lineEnd);
-            outputStream.writeBytes(lineEnd);
-
-            bytesAvailable = fileInputStream.available();
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            buffer = new byte[bufferSize];
-
-            // Read file
-            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-            while (bytesRead > 0) {
-                outputStream.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-            }
-
-            outputStream.writeBytes(lineEnd);
-            outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-            // Response Code and Message
-            resCode = conn.getResponseCode();
-            if (resCode == HttpURLConnection.HTTP_OK) {
-                InputStream is = conn.getInputStream();
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-                int read = 0;
-                while ((read = is.read()) != -1) {
-                    bos.write(read);
-                }
-                byte[] result = bos.toByteArray();
-                bos.close();
-
-                resMessage = new String(result);
-
-            }
-
-            fileInputStream.close();
-            outputStream.flush();
-            outputStream.close();
-
-            return true;
-
-        } catch (Exception ex) {
-            // Exception handling
-            return false;
-        }
     }
 
     @Override
@@ -210,9 +59,14 @@ public class AdminManualActivity extends AppCompatActivity implements View.OnCli
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_VIDEO) {
                 System.out.println("SELECT_VIDEO");
-                Uri selectedImageUri = data.getData();
-                selectedPath = getPath(selectedImageUri);
+                Uri selectedVideoUri = data.getData();
+                selectedPath = getPath(selectedVideoUri);
                 textView.setText(selectedPath);
+            }else if (requestCode == SELECT_PICTURE) {
+                System.out.println("SELECT_PICTURE");
+                Uri selectedPicUri = data.getData();
+                selectedPath = getPath(selectedPicUri);
+                textView1.setText(selectedPath);
             }
         }
     }
@@ -234,4 +88,77 @@ public class AdminManualActivity extends AppCompatActivity implements View.OnCli
         return path;
     }
 
+    private void uploadVideo() {
+        class UploadVideo extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog uploading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                uploading = ProgressDialog.show(AdminManualActivity.this, "Uploading File", "Please wait...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                uploading.dismiss();
+                //textViewResponse.setText(Html.fromHtml("<b>Uploaded at <a href='" + s + "'>" + s + "</a></b>"));
+                //textViewResponse.setMovementMethod(LinkMovementMethod.getInstance());
+                MessageDialog(s);
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                Upload u = new Upload();
+                String msg = u.upLoad2Server(selectedPath);
+                return msg;
+            }
+        }
+        UploadVideo uv = new UploadVideo();
+        uv.execute();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (v == buttonChoose) {
+            type = "video";
+            chooseVideo();
+        }
+        if (v == buttonUpload) {
+            uploadVideo();
+        }
+        if (v == buttonChoosePic) {
+            type = "pic";
+            choosePic();
+        }
+        if (v == buttonUploadPic) {
+            uploadPic();
+        }
+
+    }
+
+    private void choosePic() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select a Picture "), SELECT_PICTURE);
+    }
+
+    private void uploadPic() {
+
+    }
+
+    private void MessageDialog(String msg) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }

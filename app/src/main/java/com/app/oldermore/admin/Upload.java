@@ -1,6 +1,5 @@
 package com.app.oldermore.admin;
 
-import android.os.StrictMode;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -15,13 +14,11 @@ import java.net.URL;
 
 public class Upload {
 
-    public static final String UPLOAD_URL = "http://www.oldermore.tpakrsai.com/api/uploadVideo.php";
-
     private int serverResponseCode;
 
-    public String uploadVideo(String file) {
+    public String upLoad2Server(String sourceFileUri) {
 
-        String fileName = file;
+        String fileName = sourceFileUri;
         HttpURLConnection conn = null;
         DataOutputStream dos = null;
         String lineEnd = "\r\n";
@@ -31,14 +28,7 @@ public class Upload {
         byte[] buffer;
         int maxBufferSize = 1 * 1024 * 1024;
 
-        // Permission StrictMode
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
-        File sourceFile = new File(file);
+        File sourceFile = new File(sourceFileUri);
         if (!sourceFile.isFile()) {
             Log.e("Huzza", "Source File Does not exist");
             return null;
@@ -46,7 +36,7 @@ public class Upload {
 
         try {
             FileInputStream fileInputStream = new FileInputStream(sourceFile);
-            URL url = new URL(UPLOAD_URL);
+            URL url = new URL(Config.UPLOAD_URL);
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.setDoOutput(true);
