@@ -1,13 +1,24 @@
 package info.androidhive.listviewfeed.app;
 
-import info.androidhive.listviewfeed.volley.LruBitmapCache;
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.app.oldermore.AppConfigs;
+import com.app.oldermore.utils.GLog;
+import com.app.oldermore.widget.BaseToolObject;
+import com.app.oldermore.widget.ToolStructureBuilder;
+
+import java.util.List;
+
+import info.androidhive.listviewfeed.volley.LruBitmapCache;
 
 public class AppController extends Application {
 
@@ -23,6 +34,15 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+
+        AppConfigs.getInstance().editorFeatures = buildEditorTools();
+        GLog.setLogMode(GLog.LogMode.VERBOSE);
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        AppConfigs.getInstance().deviceWidth = metrics.widthPixels;
+        AppConfigs.getInstance().deviceHeight = metrics.heightPixels;
     }
 
     public static synchronized AppController getInstance() {
@@ -67,5 +87,10 @@ public class AppController extends Application {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+    private List<BaseToolObject> buildEditorTools() {
+        ToolStructureBuilder tb = new ToolStructureBuilder(this);
+        return tb.build();
     }
 }
