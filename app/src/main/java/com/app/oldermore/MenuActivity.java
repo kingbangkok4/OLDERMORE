@@ -11,8 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 
+import com.app.oldermore.activities.PhotoEffectsActivity;
 import com.app.oldermore.alarm.AlarmActivity;
-import com.app.oldermore.alarm.alert.AlarmAlertActivity;
 import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
@@ -170,7 +170,7 @@ public class MenuActivity extends Activity {
         btnPhotoRetouch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), PhotoRetouchActivity.class);
+                Intent i = new Intent(getBaseContext(), PhotoEffectsActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
