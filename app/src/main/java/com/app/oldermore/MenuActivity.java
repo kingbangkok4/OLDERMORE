@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 
-import com.app.oldermore.activities.PhotoEffectsActivity;
 import com.app.oldermore.alarm.AlarmActivity;
 import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
@@ -25,6 +24,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.app.oldermore.activities.PhotoEffectsActivity;
 
 
 public class MenuActivity extends Activity {

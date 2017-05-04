@@ -70,7 +70,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <com.app.eptest.widget.TouchImageView
+    <com.app.oldermore.widget.TouchImageView
         android:id="@+id/imgv_preview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"

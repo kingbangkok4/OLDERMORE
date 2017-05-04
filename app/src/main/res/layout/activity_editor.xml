@@ -43,7 +43,7 @@
         android:layout_above="@+id/controller"
         android:layout_height="fill_parent">
 
-        <com.app.eptest.widget.TouchImageView
+        <com.app.oldermore.widget.TouchImageView
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
