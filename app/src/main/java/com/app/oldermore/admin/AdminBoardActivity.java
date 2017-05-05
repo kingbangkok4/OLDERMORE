@@ -7,9 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
-import com.app.oldermore.MenuActivity;
 import com.app.oldermore.R;
 import com.app.oldermore.http.Http;
 
@@ -25,6 +26,8 @@ public class AdminBoardActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
+    private WebView webView;
+    Button btnMainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +50,23 @@ public class AdminBoardActivity extends Activity {
             }
         }
 
-        Button btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+        webView = (WebView) findViewById(R.id.webView1);
+        btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
+
+/*        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://www.google.co.th");*/
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl(getString(R.string.str_url_admin_webboard));
+
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                Intent i = new Intent(getBaseContext(), AdminMainActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
         });
-
     }
 
     private void MessageDialog(String msg) {

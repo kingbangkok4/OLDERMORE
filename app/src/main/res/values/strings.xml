@@ -19,6 +19,7 @@
     <string name="url_images">http://www.oldermore.tpakrsai.com/images/</string>
     <string name="str_url_video">http://www.oldermore.tpakrsai.com/video/</string>
     <string name="str_url_webboard">http://www.oldermore.tpakrsai.com/webboard/main_webboard.php</string>
+    <string name="str_url_admin_webboard">http://www.oldermore.tpakrsai.com/webboard/admin_webboard.php</string>
     <string name="str_url_webboard_new_topic">http://www.oldermore.tpakrsai.com/webboard/new_topic.php</string>
     <string name="title_activity_maps">Map</string>
 
