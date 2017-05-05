@@ -112,6 +112,15 @@
         <activity
             android:name=".admin.AdminManualActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".admin.AdminBoardActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".admin.AdminEmergencyActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".admin.AdminKnowledgeActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".alarm.service.AlarmService"
