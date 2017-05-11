@@ -36,7 +36,7 @@ public class Upload {
 
         try {
             FileInputStream fileInputStream = new FileInputStream(sourceFile);
-            URL url = new URL(Config.UPLOAD_URL);
+            URL url = new URL(Config.UPLOAD_URL_VIDEO);
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.setDoOutput(true);

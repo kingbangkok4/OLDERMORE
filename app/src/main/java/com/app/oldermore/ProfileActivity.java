@@ -382,8 +382,10 @@ public class ProfileActivity extends Activity {
     }
 
     private void setImage() {
-        Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
-        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        if(mCurrentPhotoPath != null) {
+            Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        }
     }
 
     public static boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
