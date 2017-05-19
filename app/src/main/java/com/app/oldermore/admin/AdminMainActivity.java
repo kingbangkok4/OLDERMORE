@@ -50,6 +50,8 @@ public class AdminMainActivity extends Activity {
         btnMaUser = (Button) findViewById(R.id.btnMaUser);
         btnMaManual = (Button)findViewById(R.id.btnMaManual);
         btnMaBoard  = (Button)findViewById(R.id.btnMaBoard);
+        btnMaKnowlet  = (Button)findViewById(R.id.btnMaKnowlet);
+        btnMaEmergency = (Button)findViewById(R.id.btnMaEmergency);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +81,22 @@ public class AdminMainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), AdminBoardActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btnMaKnowlet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), AdminKnowledgeActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btnMaEmergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), AdminEmergencyActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
