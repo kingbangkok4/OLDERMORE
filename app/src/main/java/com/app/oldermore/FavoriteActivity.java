@@ -86,7 +86,7 @@ public class FavoriteActivity extends Activity {
 
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch = (Button) findViewById(R.id.btnAdd);
 
         txtName = (EditText) findViewById(R.id.txtName);
         listFriend = (ListView) findViewById(R.id.txtSearch);
@@ -185,7 +185,7 @@ public class FavoriteActivity extends Activity {
     private void DialodAddFriend() {
         View dialogBoxView = View.inflate(this, R.layout.dialog_add_friend, null);
         friendName = "";
-        final Button btnAFSerch = (Button) dialogBoxView.findViewById(R.id.btnSearch);
+        final Button btnAFSerch = (Button) dialogBoxView.findViewById(R.id.btnAdd);
         final EditText txtAFSearch = (EditText) dialogBoxView.findViewById(R.id.txtSearch);
         final TextView txtAFFriend = (TextView) dialogBoxView.findViewById(R.id.txtFriend);
         listFavorite = (ListView) dialogBoxView.findViewById(R.id.listFriend);

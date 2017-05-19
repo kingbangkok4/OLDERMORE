@@ -9,11 +9,11 @@
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/btnSearch"
+        android:layout_alignBottom="@+id/btnAdd"
         android:layout_alignLeft="@+id/txtSearch"
         android:layout_alignStart="@+id/txtSearch"
         android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/btnSearch"
+        android:layout_toLeftOf="@+id/btnAdd"
         android:background="?attr/actionModeBackground"
         android:backgroundTint="@android:color/white"
         android:ems="10"
@@ -59,7 +59,7 @@
         android:textStyle="bold|italic"/>
 
     <Button
-        android:id="@+id/btnSearch"
+        android:id="@+id/btnAdd"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_alignEnd="@+id/txtSearch"
@@ -76,7 +76,7 @@
         android:layout_above="@+id/btnMainMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnSearch"
+        android:layout_below="@+id/btnAdd"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"

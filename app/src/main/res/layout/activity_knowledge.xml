@@ -30,24 +30,12 @@
         android:id="@+id/txtKnowledge"
         android:layout_width="240dp"
         android:layout_height="40dp"
-        android:layout_alignLeft="@+id/listKnowledge"
-        android:layout_alignStart="@+id/listKnowledge"
         android:layout_below="@+id/textView"
         android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:textSize="14dp"/>
-
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@+id/txtKnowledge"
-        android:layout_alignEnd="@+id/listKnowledge"
-        android:layout_alignRight="@+id/listKnowledge"
-        android:layout_marginStart="1dp"
-        android:layout_toRightOf="@+id/txtKnowledge"
-        android:background="@drawable/search1"
-        android:text="ค้นหา"/>
+        android:textSize="14dp"
+        android:layout_alignLeft="@+id/listKnowledge"
+        android:layout_alignStart="@+id/listKnowledge" />
 
     <ListView
         android:id="@+id/listKnowledge"
@@ -61,4 +49,23 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/background_light"/>
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_height="40dp"
+        android:background="@drawable/sdd"
+        android:layout_above="@+id/listKnowledge"
+        android:layout_alignRight="@+id/listKnowledge"
+        android:layout_alignEnd="@+id/listKnowledge"
+        android:layout_width="40dp" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_height="40dp"
+        android:background="@drawable/search1"
+        android:text="ค้นหา"
+        android:layout_width="90dp"
+        android:layout_toRightOf="@+id/txtKnowledge"
+        android:layout_toEndOf="@+id/txtKnowledge"
+        android:layout_above="@+id/listKnowledge" />
 </RelativeLayout>

@@ -93,7 +93,7 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
 
         //btnMainMenu, btnSearch, btnFriend, btnChat
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch = (Button) findViewById(R.id.btnAdd);
         btnFriend = (Button) findViewById(R.id.btnFriend);
         spinFriendChat = (Spinner) findViewById(R.id.spinnerFriendChat);
         listView = (ListView)findViewById(R.id.listView);
@@ -172,7 +172,7 @@ public class MsgCallActivity extends Activity  implements AdapterView.OnItemSele
     private void DialodAddFriend() {
         View dialogBoxView = View.inflate(this, R.layout.dialog_add_friend, null);
         friendName = "";
-        final Button btnAFSerch = (Button) dialogBoxView.findViewById(R.id.btnSearch);
+        final Button btnAFSerch = (Button) dialogBoxView.findViewById(R.id.btnAdd);
         final EditText txtAFSearch = (EditText) dialogBoxView.findViewById(R.id.txtSearch);
         final TextView txtAFFriend = (TextView) dialogBoxView.findViewById(R.id.txtFriend);
         listFriend = (ListView) dialogBoxView.findViewById(R.id.listFriend);

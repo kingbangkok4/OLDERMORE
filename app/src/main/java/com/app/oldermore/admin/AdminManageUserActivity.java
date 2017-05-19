@@ -89,7 +89,7 @@ public class AdminManageUserActivity extends Activity {
 
         //btnMainMenu, btnSearch, btnFriend, btnChat
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch = (Button) findViewById(R.id.btnAdd);
         listView = (ListView) findViewById(R.id.listView);
         txtSearch = (EditText) findViewById(R.id.txtSearch);
 

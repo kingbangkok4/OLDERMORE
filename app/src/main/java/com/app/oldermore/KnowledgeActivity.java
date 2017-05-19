@@ -35,7 +35,7 @@ import info.androidhive.listviewfeed.data.FeedItem;
 public class KnowledgeActivity extends Activity{
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
-    Button btnMainMenu, btnSearch;
+    Button btnMainMenu, btnSearch, btnAdd;
     EditText txtKnowledge;
     ListView listKnowledge;
     private FeedListAdapter listAdapter;
@@ -70,6 +70,7 @@ public class KnowledgeActivity extends Activity{
 
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
         btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
         txtKnowledge = (EditText)findViewById(R.id.txtKnowledge);
         listKnowledge = (ListView)findViewById(R.id.listKnowledge);
 
@@ -89,6 +90,7 @@ public class KnowledgeActivity extends Activity{
             }
         });
 
+        btnAdd.setVisibility(View.GONE);
         URL_FEED = getString(R.string.url) + "getKnowledge.php";
         LoadDataPost();
         parseJsonFeed();
