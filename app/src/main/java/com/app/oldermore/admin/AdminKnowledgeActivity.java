@@ -93,17 +93,18 @@ public class AdminKnowledgeActivity extends Activity {
                 MessageDialog("คุณต้องการเพิ่ม?");
             }
         });
-        listKnowledge.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                MessageDialog("คุณต้องการลบ?");
-                return false;
-            }
-        });
 
         URL_FEED = getString(R.string.url) + "getKnowledge.php";
         LoadDataPost();
         parseJsonFeed();
+
+        listKnowledge.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                MessageDialog("Long Click!!");
+                return false;
+            }
+        });
 
     }
 
@@ -113,6 +114,7 @@ public class AdminKnowledgeActivity extends Activity {
         listAdapter = new FeedListAdapter(this, feedItems);
         listKnowledge.setAdapter(listAdapter);
     }
+
 
     /**
      * Parsing json reponse and passing the data to feed view list adapter

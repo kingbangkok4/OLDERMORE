@@ -683,7 +683,9 @@ public class EmergencyActivity extends Activity {
 
     private void setImage() {
         Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
-        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        if(b != null){
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        }
     }
 
     private void MessageDialog(String msg) {
