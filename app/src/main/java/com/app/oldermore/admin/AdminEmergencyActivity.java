@@ -8,13 +8,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.oldermore.R;
-import com.app.oldermore.common.SettingModel;
 import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
 
@@ -118,7 +114,6 @@ public class AdminEmergencyActivity extends Activity {
 
         //LoadData();
         LoadDataEmergecy();
-        GetCommon();
 
         final AlertDialog.Builder viewDetail = new AlertDialog.Builder(this);
         listEmergency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -643,33 +638,6 @@ public class AdminEmergencyActivity extends Activity {
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
-    }
-
-    private void GetCommon() {
-        SettingModel ret = new SettingModel();
-        ret = GetSettingValue();
-        RelativeLayout bgElement = (RelativeLayout) findViewById(R.id.container);
-
-        bgElement.setBackgroundColor(Color.parseColor(ret.getBgColor()));
-        btnAdd.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
-        btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
-    }
-
-    private SettingModel GetSettingValue() {
-        SettingModel ret = new SettingModel();
-        try {
-            ret = myDb.GetSetting();
-            if (ret == null) {
-                ret.setFontSize(20);
-                ret.setBgColor("#ffffff");
-            } else if (ret.getBgColor() == null || ret.getFontSize() == 0) {
-                ret.setFontSize(20);
-                ret.setBgColor("#ffffff");
-            }
-        } catch (Exception ex) {
-
-        }
-        return ret;
     }
 
 }
