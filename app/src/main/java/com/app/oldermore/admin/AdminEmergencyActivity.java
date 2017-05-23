@@ -1,12 +1,10 @@
 package com.app.oldermore.admin;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -24,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -52,6 +50,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +63,7 @@ public class AdminEmergencyActivity extends Activity {
     private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
-    private ArrayList<HashMap<String, String>> ArrListFreind = new ArrayList<HashMap<String, String>>();
+    //private ArrayList<HashMap<String, String>> ArrListFreind = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> ArrListEmergecy = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
@@ -122,46 +121,20 @@ public class AdminEmergencyActivity extends Activity {
         GetCommon();
 
         final AlertDialog.Builder viewDetail = new AlertDialog.Builder(this);
-        /*listFriend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                try {
-                    //int emId = Integer.parseInt(ArrListFreind.get(position).get("emergency_id"));
-                    DialogAddEmergency(true, position);
-                } catch (Exception e) {
-                    // When Error
-                    MessageDialog(e.getMessage());
-                }
-            }
-        });*/
-
         listEmergency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                try {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + ArrListEmergecy.get(position).get("mobile")));
-                    if (ActivityCompat.checkSelfPermission(getBaseContext(),
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    startActivity(callIntent);
-                } catch (Exception e) {
-                    // When Error
-                    MessageDialog(e.getMessage());
-                }
+                DialogAddEmergency(true, position);
             }
         });
-    }
-
-       /* listFriend.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listEmergency.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final String emergency_id = ArrListFreind.get(position).get("emergency_id");
-                String emergency_name = ArrListFreind.get(position).get("emergency_name");
+                final String emPhoneId = ArrListEmergecy.get(position).get("id");
+                String mobile = ArrListEmergecy.get(position).get("mobile");
 
-                viewDetail.setTitle("คุณต้องการลบผู้ติดต่อฉุกเฉินนี้?");
-                viewDetail.setMessage("ชื่อ : " + emergency_name)
+                viewDetail.setTitle("คุณต้องการลบเบอร์โทรฉุกเฉินนี้?");
+                viewDetail.setMessage("เบอร์โทร : " + mobile)
                         .setCancelable(false)
                         .setPositiveButton(
                                 "ยืนยัน",
@@ -169,9 +142,9 @@ public class AdminEmergencyActivity extends Activity {
                                     public void onClick(
                                             DialogInterface dialog,
                                             int id) {
-                                        DeleteEmergency(emergency_id);
+                                        DeleteEmergencyPhone(emPhoneId);
                                         dialog.dismiss();
-                                        LoadData();
+                                        LoadDataEmergecy();
                                     }
                                 })
                         .setNegativeButton(
@@ -189,37 +162,8 @@ public class AdminEmergencyActivity extends Activity {
                 return false;
             }
         });
-
     }
 
-    /*private void LoadData() {
-        String url = getString(R.string.url) + "getEmergency.php";
-
-        // Paste Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
-
-        try {
-            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-            ArrListFreind.clear();
-            if (data.length() > 0) {
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject c = data.getJSONObject(i);
-                    map = new HashMap<String, String>();
-                    map.put("emergency_id", c.getString("emergency_id"));
-                    map.put("emergency_name", c.getString("emergency_name"));
-                    map.put("emergency_mobile", c.getString("emergency_mobile"));
-                    map.put("emergency_image", c.getString("emergency_image"));
-                    map.put("user_id", c.getString("user_id"));
-                    ArrListFreind.add(map);
-                }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        listFriend.setAdapter(new AdminEmergencyActivity.ImageAdapter(this, ArrListFreind));
-    }*/
 
     private void LoadDataEmergecy() {
         String url = getString(R.string.url) + "getEmergencyPhone.php";
@@ -249,14 +193,13 @@ public class AdminEmergencyActivity extends Activity {
         listEmergency.setAdapter(new AdminEmergencyActivity.ImageAdapterEmergencyPhone(this, ArrListEmergecy));
     }
 
-    private void DeleteEmergency(String emergency_id) {
+    private void DeleteEmergencyPhone(String id) {
         String status = "0";
         String error = "";
-        String url = getString(R.string.url) + "deleteEmergency.php";
+        String url = getString(R.string.url) + "deleteEmergencyPhone.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("emergency_id", emergency_id));
-        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
+        params.add(new BasicNameValuePair("id", id));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {
@@ -381,7 +324,7 @@ public class AdminEmergencyActivity extends Activity {
             imageView.getLayoutParams().width = 550;
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             try {
-                imageView.setImageBitmap(loadBitmap(getString(R.string.url_images)+ "/emergency_phone/" + MyArr.get(position).get("image")));
+                imageView.setImageBitmap(loadBitmap(getString(R.string.url_images) + "/" + MyArr.get(position).get("image")));
             } catch (Exception e) {
                 // When Error
                 imageView.setImageResource(android.R.drawable.ic_menu_report_image);
@@ -452,9 +395,41 @@ public class AdminEmergencyActivity extends Activity {
     private void DialogAddEmergency(Boolean editMode, int position) {
         View dialogBoxView = View.inflate(this, R.layout.dialog_emergency_pic, null);
         strImgProfile = "";
+        String id = null;
+        final String[] mobile = new String[1];
+        String image = "";
         final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
+        final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtMobile);
         btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
 
+        if (editMode) {
+            id = ArrListEmergecy.get(position).get("id");
+            image = ArrListEmergecy.get(position).get("image");
+            mobile[0] = ArrListEmergecy.get(position).get("mobile");
+
+            String photo_url_str = getString(R.string.url_images);
+            if (!"".equals(ArrListEmergecy.get(position).get("image")) && ArrListEmergecy.get(position).get("image") != null) {
+                photo_url_str += ArrListEmergecy.get(position).get("image");
+            } else {
+                photo_url_str += "no.png";
+            }
+            URL newurl = null;
+            try {
+                newurl = new URL(photo_url_str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            Bitmap b = null;
+            try {
+                b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+
+            txtMobile.setText(mobile[0]);
+        }else {id = "";}
+        final String finalId = id;
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -462,7 +437,14 @@ public class AdminEmergencyActivity extends Activity {
                 if (status) {
                     namePhotoSplite = mCurrentPhotoPath.split("/");
                     strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
-                }else {
+                    mobile[0] = txtMobile.getText().toString().trim();
+                    if (!"".equals(strImgProfile) && !"".equals(txtMobile.getText().toString().trim())) {
+                        SaveData(finalId, strImgProfile, mobile[0]);
+                        LoadDataEmergecy();
+                    } else {
+                        MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!!");
+                    }
+                } else {
                     MessageDialog("กรุณาเลือกรูป!!");
                 }
             }
@@ -499,17 +481,15 @@ public class AdminEmergencyActivity extends Activity {
                         }).show();
     }
 
-    private void SaveData(String emergency_id, String member_name, String member_mobile) {
+    private void SaveData(String id, String image, String mobile) {
         String status = "0";
         String error = "";
-        String url = getString(R.string.url) + "saveEmergency.php";
+        String url = getString(R.string.url) + "saveEmergencyPhone.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("emergency_id", emergency_id));
-        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
-        params.add(new BasicNameValuePair("emergency_name", member_name));
-        params.add(new BasicNameValuePair("emergency_mobile", member_mobile));
-        params.add(new BasicNameValuePair("emergency_image", strImgProfile));
+        params.add(new BasicNameValuePair("id", id));
+        params.add(new BasicNameValuePair("image", image));
+        params.add(new BasicNameValuePair("mobile", mobile));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {
@@ -614,7 +594,7 @@ public class AdminEmergencyActivity extends Activity {
 
     private void setImage() {
         Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
-        if(b != null){
+        if (b != null) {
             btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
         }
     }
@@ -675,19 +655,18 @@ public class AdminEmergencyActivity extends Activity {
         btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
     }
 
-    private SettingModel GetSettingValue(){
+    private SettingModel GetSettingValue() {
         SettingModel ret = new SettingModel();
         try {
             ret = myDb.GetSetting();
-            if(ret == null){
+            if (ret == null) {
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            } else if (ret.getBgColor() == null || ret.getFontSize() == 0) {
                 ret.setFontSize(20);
                 ret.setBgColor("#ffffff");
             }
-            else if(ret.getBgColor() == null || ret.getFontSize() == 0) {
-                ret.setFontSize(20);
-                ret.setBgColor("#ffffff");
-            }
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
         return ret;

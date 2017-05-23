@@ -380,7 +380,7 @@ public class EmergencyActivity extends Activity {
             imageView.getLayoutParams().width = 550;
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             try {
-                imageView.setImageBitmap(loadBitmap(getString(R.string.url_images)+ "/emergency_phone/" + MyArr.get(position).get("image")));
+                imageView.setImageBitmap(loadBitmap(getString(R.string.url_images)+ "/" + MyArr.get(position).get("image")));
             } catch (Exception e) {
                 // When Error
                 imageView.setImageResource(android.R.drawable.ic_menu_report_image);
