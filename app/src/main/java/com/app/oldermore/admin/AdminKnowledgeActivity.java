@@ -124,17 +124,17 @@ public class AdminKnowledgeActivity extends Activity {
         listKnowledge.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MessageDialog("Click!!");
+                DialogAddKnowledge(true, position);
             }
         });
         listKnowledge.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final String knowledgeId = knowledgeArrList.get(position).get("id");
-                String content = knowledgeArrList.get(position).get("ststus");
+                String content = knowledgeArrList.get(position).get("status");
 
                 viewDetail.setTitle("คุณต้องการลบสาระน่ารู้นี้?");
-                viewDetail.setMessage(" " + content.substring(0, 50))
+                viewDetail.setMessage(" " + content.substring(0, 20))
                         .setCancelable(false)
                         .setPositiveButton(
                                 "ยืนยัน",
@@ -223,7 +223,7 @@ public class AdminKnowledgeActivity extends Activity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 250, 100, false));
 
             txtMobile.setText(content[0]);
         } else {
@@ -541,7 +541,7 @@ public class AdminKnowledgeActivity extends Activity {
     private void setImage() {
         Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
         if (b != null) {
-            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 250, 100, false));
         }
     }
 

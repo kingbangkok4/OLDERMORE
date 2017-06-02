@@ -420,7 +420,7 @@ public class AdminEmergencyActivity extends Activity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 250, 100, false));
 
             txtMobile.setText(mobile[0]);
         }else {id = "";}
@@ -590,7 +590,7 @@ public class AdminEmergencyActivity extends Activity {
     private void setImage() {
         Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
         if (b != null) {
-            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 250, 100, false));
         }
     }
 
