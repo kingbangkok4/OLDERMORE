@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -190,14 +193,14 @@ public class AdminKnowledgeActivity extends Activity {
         }
     }
 
-    private void DialogAddKnowledge(boolean editMode, int position) {
+    private void DialogAddKnowledge(final boolean editMode, int position) {
         View dialogBoxView = View.inflate(this, R.layout.dialog_add_knowledge, null);
         strImgProfile = "";
         String id = null;
         final String[] content = new String[1];
         String image = "";
         final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
-        final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtContent);
+        final EditText txtContent = (EditText) dialogBoxView.findViewById(R.id.txtContent);
         btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
 
         if (editMode) {
@@ -225,7 +228,7 @@ public class AdminKnowledgeActivity extends Activity {
             }
             btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 250, 100, false));
 
-            txtMobile.setText(content[0]);
+            txtContent.setText(content[0]);
         } else {
             id = "";
         }
@@ -234,19 +237,43 @@ public class AdminKnowledgeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 boolean status = uploadFiletoServer(mCurrentPhotoPath, strURLUpload);
-                if (status) {
-                    namePhotoSplite = mCurrentPhotoPath.split("/");
-                    strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
-                    content[0] = txtMobile.getText().toString().trim();
-                    if (!"".equals(strImgProfile) && !"".equals(txtMobile.getText().toString().trim())) {
-                        SaveData(finalId, strImgProfile, content[0]);
-                        LoadData();
+                if (editMode) {
+                    if (status) {
+                        namePhotoSplite = mCurrentPhotoPath.split("/");
+                        strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
+                        content[0] = txtContent.getText().toString().trim();
+                        if (!"".equals(strImgProfile) && !"".equals(txtContent.getText().toString().trim())) {
+                            SaveData(finalId, strImgProfile, content[0]);
+                            LoadData();
+                        } else {
+                            MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!!");
+                        }
                     } else {
-                        MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!!");
+                        strImgProfile = "";
+                        content[0] = txtContent.getText().toString().trim();
+                        if (!"".equals(txtContent.getText().toString().trim())) {
+                            SaveData(finalId, strImgProfile, content[0]);
+                            LoadData();
+                        } else {
+                            MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!!");
+                        }
                     }
-                } else {
-                    MessageDialog("กรุณาเลือกรูป!!");
+                }else{
+                    if (status) {
+                        namePhotoSplite = mCurrentPhotoPath.split("/");
+                        strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
+                        content[0] = txtContent.getText().toString().trim();
+                        if (!"".equals(strImgProfile) && !"".equals(txtContent.getText().toString().trim())) {
+                            SaveData(finalId, strImgProfile, content[0]);
+                            LoadData();
+                        } else {
+                            MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!!");
+                        }
+                    } else {
+                        MessageDialog("กรุณาเลือกรูป!!");
+                    }
                 }
+
             }
         });
         btnImageProfile.setOnClickListener(new View.OnClickListener() {
@@ -543,6 +570,24 @@ public class AdminKnowledgeActivity extends Activity {
         if (b != null) {
             btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 250, 100, false));
         }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) if (requestCode == SELECT_PICTURE) {
+            Uri selectedImageUri = data.getData();
+            mCurrentPhotoPath = getPath(selectedImageUri);
+            System.out.println("Image Path : " + mCurrentPhotoPath);
+            setImage();
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
     private void MessageDialog(String msg) {

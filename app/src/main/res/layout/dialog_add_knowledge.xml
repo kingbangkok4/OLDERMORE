@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="เพิ่มมเบอร์ดิดต่อฉุกเฉิน"
+        android:text="เพิ่ม-แก้ไข ข้อมูลฉุกเฉิน"
         android:textColor="@android:color/background_light"
         android:textSize="20dp"
         android:textStyle="bold|italic"/>
