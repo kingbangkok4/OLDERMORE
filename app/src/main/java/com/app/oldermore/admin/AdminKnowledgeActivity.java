@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,9 +36,14 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,15 +56,18 @@ public class AdminKnowledgeActivity extends Activity {
     Button btnMainMenu, btnSearch, btnAdd;
     EditText txtKnowledge;
     ListView listKnowledge;
-  /*  private FeedListAdapter listAdapter;
-    private List<FeedItem> feedItems;*/
+    /*  private FeedListAdapter listAdapter;
+      private List<FeedItem> feedItems;*/
     private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> knowledgeArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
-    //private String URL_FEED = "";
+    private ImageButton btnImageProfile;
+    private String mCurrentPhotoPath, strURLUpload, strImgProfile;
+    private String[] namePhotoSplite;
+    private static final int SELECT_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +93,8 @@ public class AdminKnowledgeActivity extends Activity {
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
         btnSearch = (Button) findViewById(R.id.btnSearch);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-        txtKnowledge = (EditText)findViewById(R.id.txtKnowledge);
-        listKnowledge = (ListView)findViewById(R.id.listKnowledge);
+        txtKnowledge = (EditText) findViewById(R.id.txtKnowledge);
+        listKnowledge = (ListView) findViewById(R.id.listKnowledge);
 
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,11 +113,13 @@ public class AdminKnowledgeActivity extends Activity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageDialog("คุณต้องการเพิ่ม?");
+                DialogAddKnowledge(false, 0);
             }
         });
 
         LoadData();
+
+        final AlertDialog.Builder viewDetail = new AlertDialog.Builder(this);
 
         listKnowledge.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,17 +130,162 @@ public class AdminKnowledgeActivity extends Activity {
         listKnowledge.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                MessageDialog("Long Click!!");
+                final String knowledgeId = knowledgeArrList.get(position).get("id");
+                String content = knowledgeArrList.get(position).get("ststus");
+
+                viewDetail.setTitle("คุณต้องการลบสาระน่ารู้นี้?");
+                viewDetail.setMessage(" " + content.substring(0, 50))
+                        .setCancelable(false)
+                        .setPositiveButton(
+                                "ยืนยัน",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int id) {
+                                        DeleteKnowledge(knowledgeId);
+                                        dialog.dismiss();
+                                        LoadData();
+                                    }
+                                })
+                        .setNegativeButton(
+                                "ยกเลิก",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = viewDetail.create();
+                alert.show();
                 return false;
             }
         });
+    }
+
+    private void DeleteKnowledge(String knowledgeId) {
+        String status = "0";
+        String error = "";
+        String url = getString(R.string.url) + "deleteKnowledge.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("id", knowledgeId));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                status = c.getString("status");
+                error = c.getString("error");
+                if ("1".equals(status)) {
+                    //LoadData();
+                    MessageDialog(error);
+                } else {
+                    MessageDialog(error);
+                }
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MessageDialog(e.getMessage());
+        }
+    }
+
+    private void DialogAddKnowledge(boolean editMode, int position) {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_add_knowledge, null);
+        strImgProfile = "";
+        String id = null;
+        final String[] content = new String[1];
+        String image = "";
+        final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
+        final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtContent);
+        btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
+
+        if (editMode) {
+            id = knowledgeArrList.get(position).get("id");
+            image = knowledgeArrList.get(position).get("image");
+            content[0] = knowledgeArrList.get(position).get("status");
+
+            String photo_url_str = getString(R.string.url_images);
+            if (!"".equals(knowledgeArrList.get(position).get("image")) && knowledgeArrList.get(position).get("image") != null) {
+                photo_url_str += knowledgeArrList.get(position).get("image");
+            } else {
+                photo_url_str += "no.png";
+            }
+            URL newurl = null;
+            try {
+                newurl = new URL(photo_url_str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            Bitmap b = null;
+            try {
+                b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+
+            txtMobile.setText(content[0]);
+        } else {
+            id = "";
+        }
+        final String finalId = id;
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean status = uploadFiletoServer(mCurrentPhotoPath, strURLUpload);
+                if (status) {
+                    namePhotoSplite = mCurrentPhotoPath.split("/");
+                    strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
+                    content[0] = txtMobile.getText().toString().trim();
+                    if (!"".equals(strImgProfile) && !"".equals(txtMobile.getText().toString().trim())) {
+                        SaveData(finalId, strImgProfile, content[0]);
+                        LoadData();
+                    } else {
+                        MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน!!");
+                    }
+                } else {
+                    MessageDialog("กรุณาเลือกรูป!!");
+                }
+            }
+        });
+        btnImageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // *** Upload file to Server
+                strURLUpload = getString(R.string.url_upload);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(
+                        Intent.createChooser(intent, "Select Picture"),
+                        SELECT_PICTURE);
+            }
+        });
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("เพิ่มเบอร์ติดต่อฉุกเฉิน");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+       /*         .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })*/
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
     }
 
     private void LoadData() {
         String url = getString(R.string.url) + "getKnowledge.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("status",txtKnowledge.getText().toString().trim()));
+        params.add(new BasicNameValuePair("status", txtKnowledge.getText().toString().trim()));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             knowledgeArrList.clear();
@@ -150,6 +306,35 @@ public class AdminKnowledgeActivity extends Activity {
             e.printStackTrace();
         }
         listKnowledge.setAdapter(new ImageAdapter(this, knowledgeArrList));
+    }
+
+    private void SaveData(String id, String image, String content) {
+        String status = "0";
+        String error = "";
+        String url = getString(R.string.url) + "saveKnowledge.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("id", id));
+        params.add(new BasicNameValuePair("image", image));
+        params.add(new BasicNameValuePair("status", content));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                status = c.getString("status");
+                error = c.getString("error");
+                if ("1".equals(status)) {
+                    //LoadData();
+                    MessageDialog(error);
+                } else {
+                    MessageDialog(error);
+                }
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MessageDialog(e.getMessage());
+        }
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -270,6 +455,95 @@ public class AdminKnowledgeActivity extends Activity {
     /*****
      * Get Image Resource from URL (End)
      *****/
+
+    public static boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
+
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 10 * 1024 * 1024;
+        int resCode = 0;
+        String resMessage = "";
+
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+
+        try {
+            File file = new File(strSDPath);
+            if (!file.exists()) {
+                return false;
+            }
+
+            FileInputStream fileInputStream = new FileInputStream(new File(strSDPath));
+
+            URL url = new URL(strUrlServer);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setRequestMethod("POST");
+
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+            DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
+            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+            outputStream.writeBytes(
+                    "Content-Disposition: form-data; name=\"filUpload\";filename=\"" + strSDPath + "\"" + lineEnd);
+            outputStream.writeBytes(lineEnd);
+
+            bytesAvailable = fileInputStream.available();
+            bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            buffer = new byte[bufferSize];
+
+            // Read file
+            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+            while (bytesRead > 0) {
+                outputStream.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            }
+
+            outputStream.writeBytes(lineEnd);
+            outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+            // Response Code and Message
+            resCode = conn.getResponseCode();
+            if (resCode == HttpURLConnection.HTTP_OK) {
+                InputStream is = conn.getInputStream();
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                int read = 0;
+                while ((read = is.read()) != -1) {
+                    bos.write(read);
+                }
+                byte[] result = bos.toByteArray();
+                bos.close();
+
+                resMessage = new String(result);
+
+            }
+
+            fileInputStream.close();
+            outputStream.flush();
+            outputStream.close();
+
+            return true;
+
+        } catch (Exception ex) {
+            // Exception handling
+            return false;
+        }
+    }
+
+    private void setImage() {
+        Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
+        if (b != null) {
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        }
+    }
 
     private void MessageDialog(String msg) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
