@@ -139,7 +139,7 @@ public class AdminKnowledgeActivity extends Activity {
                     map = new HashMap<String, String>();
                     map.put("id", c.getString("id"));
                     map.put("name", c.getString("name"));
-                    map.put("image", c.getString("image")==null? null: getString(R.string.url_images) + c.getString("image").replace("\\",""));
+                    map.put("image", c.getString("image"));
                     map.put("status", c.getString("status"));
                     map.put("timeStamp", c.getString("timeStamp"));
                     knowledgeArrList.add(map);
