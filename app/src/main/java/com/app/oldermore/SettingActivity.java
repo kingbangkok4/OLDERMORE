@@ -29,7 +29,7 @@ public class SettingActivity extends Activity implements View.OnClickListener{
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
-    private Button btnMainMenu, btnFont16, btnFont18, btnFont20, btnFont22, btnFont24,
+    private Button btnMainMenu, btnFont16, btnFont18, btnFont20, btnFont22, btnFont24,btnManual,
     btnBg1, btnBg2, btnBg3, btnBg4, btnBg0, btnSet;
     private  String bgColor = "#ffffff";
 
@@ -68,6 +68,7 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         btnBg2 = (Button) findViewById(R.id.btnBg2);
         btnBg3 = (Button) findViewById(R.id.btnBg3);
         btnBg4 = (Button) findViewById(R.id.btnBg4);
+        btnManual =(Button) findViewById(R.id.btnManual);
 
         btnFont16.setOnClickListener(this);
         btnFont18.setOnClickListener(this);
@@ -89,6 +90,14 @@ public class SettingActivity extends Activity implements View.OnClickListener{
             }
         });
 
+        btnManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), ManualActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
         LoadData();
         GetCommon();
 

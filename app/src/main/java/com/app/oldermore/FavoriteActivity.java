@@ -94,7 +94,7 @@ public class FavoriteActivity extends Activity {
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                Intent i = new Intent(getBaseContext(), ProfileActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }

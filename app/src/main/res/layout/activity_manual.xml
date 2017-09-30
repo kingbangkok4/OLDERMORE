@@ -6,16 +6,16 @@
     android:background="@android:color/holo_purple">
 
     <Button
-        android:text="เมนูหลัก"
-        android:layout_width="match_parent"
         android:id="@+id/btnMainMenu"
-        android:background="@drawable/mmain1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/txtSearch"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_alignEnd="@+id/txtSearch"
         android:layout_alignLeft="@+id/txtSearch"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/txtSearch"
         android:layout_alignStart="@+id/txtSearch"
-        android:layout_height="50dp" />
+        android:background="@drawable/mmain1"
+        android:text="กลับ" />
 
     <TextView
         android:text="วิธีใช้"

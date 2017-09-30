@@ -25,7 +25,7 @@
     <!-- 653d84 -->
     <color name="editor_activity_background">#FFFFFF</color>
     <color name="edit_activity_control_background">#f1efeb</color>
-    <color name="ads_background">#FFFFFF</color>
+    <color name="ads_background">#ffffff</color>
     <color name="select_frame_item_image_background">#FFF</color>
     <color name="select_frame_text_color">#FFFFFF</color>
     <color name="save_complete_dialog_image_background">#FFFFFF</color>

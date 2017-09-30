@@ -77,7 +77,7 @@ public class KnowledgeActivity extends Activity{
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                Intent i = new Intent(getBaseContext(), BoardActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }

@@ -25,7 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/mmain1"
-        android:text="เมนูหลัก"/>
+        android:text="เมนูหลัก" />
 
     <TextView
         android:id="@+id/textView"
@@ -165,5 +165,15 @@
         android:layout_toLeftOf="@+id/btnFont24"
         android:layout_toStartOf="@+id/btnFont24"
         android:background="@color/wallet_bright_foreground_holo_dark"/>
+
+    <Button
+        android:id="@+id/btnManual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnBg1"
+        android:layout_alignStart="@+id/btnBg1"
+        android:layout_below="@+id/btnSet"
+        android:layout_marginTop="76dp"
+        android:text="วิธีใช้" />
 
 </RelativeLayout>

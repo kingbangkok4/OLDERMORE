@@ -14,6 +14,7 @@
         android:layout_alignBottom="@+id/txtMobile"
         android:layout_alignLeft="@+id/textView20"
         android:layout_alignStart="@+id/textView20"
+        android:textSize="30dp"
         android:text="เบอร์โทร"/>
 
     <TextView
@@ -193,5 +194,25 @@
         android:layout_below="@+id/ImageEmergency2"
         android:gravity="center"
         android:text="ชื่อ"/>
+
+    <Button
+        android:id="@+id/btnHealth"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/txtNameEmergency1"
+        android:layout_marginTop="105dp"
+        android:layout_toRightOf="@+id/textView22"
+        android:text="สุขภาพ"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/btnFavorite"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="คนโปรด"
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/btnHealth"
+        android:layout_toRightOf="@+id/btnImageProfile"
+        android:layout_toEndOf="@+id/btnImageProfile" />
 
 </RelativeLayout>

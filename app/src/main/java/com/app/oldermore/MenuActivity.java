@@ -29,9 +29,7 @@ import com.app.oldermore.activities.PhotoEffectsActivity;
 
 
 public class MenuActivity extends Activity {
-    private Button btnProfile, btnHealth, btnPost, btnFavorite,
-            btnMsgCall, btnEmergency, btnNontifiction, btnPhotoRetouch, btnBoard,
-            btnKnowledge, btnManual, btnSetting, btnEmerCall, btnWhere, btnLogout;
+    private Button btnProfile, btnMsgCall, btnEmergency, btnNontifiction, btnPhotoRetouch, btnBoard, btnSetting, btnEmerCall, btnWhere, btnLogout;
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     private DatabaseActivity myDb = new DatabaseActivity(this);
@@ -63,20 +61,24 @@ public class MenuActivity extends Activity {
             }
         }
 
-        btnProfile = (Button) findViewById(R.id.btnProfile);
-        btnHealth = (Button) findViewById(R.id.btnHealth);
-        btnMsgCall = (Button) findViewById(R.id.btnMsgCall);
-        btnFavorite = (Button) findViewById(R.id.btnFavorite);
         btnEmergency = (Button) findViewById(R.id.btnEmergency);
-        btnPost = (Button) findViewById(R.id.btnPost);
-        btnNontifiction = (Button) findViewById(R.id.btnNontifiction);
-        btnPhotoRetouch = (Button) findViewById(R.id.btnPhotoRetouch);
-        btnBoard = (Button) findViewById(R.id.btnBoard);
-        btnKnowledge = (Button) findViewById(R.id.btnKnowledge);
-        btnManual = (Button) findViewById(R.id.btnManual);
-        btnSetting = (Button) findViewById(R.id.btnSetting);
         btnEmerCall = (Button) findViewById(R.id.btnEmerCall);
         btnWhere = (Button) findViewById(R.id.btnWhere);
+        btnProfile = (Button) findViewById(R.id.btnProfile);
+        btnMsgCall = (Button) findViewById(R.id.btnMsgCall);
+        btnPhotoRetouch = (Button) findViewById(R.id.btnPhotoRetouch);
+        btnBoard = (Button) findViewById(R.id.btnBoard);
+        btnSetting = (Button) findViewById(R.id.btnSetting);
+        btnNontifiction = (Button) findViewById(R.id.btnNontifiction);
+
+/*        btnHealth = (Button) findViewById(R.id.btnMsgCall);
+        btnFavorite = (Button) findViewById(R.id.btnFavorite);
+        btnPost = (Button) findViewById(R.id.btnPost);
+        btnKnowledge = (Button) findViewById(R.id.btnKnowledge);
+        btnManual = (Button) findViewById(R.id.btnManual);*/
+
+
+
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         LoadDataEmergency();
@@ -120,14 +122,14 @@ public class MenuActivity extends Activity {
                 startActivity(i);
             }
         });
-        btnHealth.setOnClickListener(new View.OnClickListener() {
+     /*   btnHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), HealthActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
-        });
+        });*/
         btnMsgCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,14 +138,14 @@ public class MenuActivity extends Activity {
                 startActivity(i);
             }
         });
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
+       /* btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), FavoriteActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
-        });
+        });*/
         btnEmergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,14 +154,14 @@ public class MenuActivity extends Activity {
                 startActivity(i);
             }
         });
-        btnPost.setOnClickListener(new View.OnClickListener() {
+    /*    btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), PostActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
-        });
+        });*/
         btnNontifiction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,7 +186,7 @@ public class MenuActivity extends Activity {
                 startActivity(i);
             }
         });
-        btnKnowledge.setOnClickListener(new View.OnClickListener() {
+       /* btnKnowledge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), KnowledgeActivity.class);
@@ -199,7 +201,7 @@ public class MenuActivity extends Activity {
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
-        });
+        });*/
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

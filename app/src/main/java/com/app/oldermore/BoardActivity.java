@@ -27,6 +27,7 @@ public class BoardActivity extends Activity {
     private Http http = new Http();
     private WebView webView;
     Button btnMainMenu;
+    Button btnKnowledge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +52,25 @@ public class BoardActivity extends Activity {
 
         webView = (WebView) findViewById(R.id.webView1);
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
-
-/*        webView.getSettings().setJavaScriptEnabled(true);
+        btnKnowledge = (Button) findViewById(R.id.btnKnowledge);
+        /*        webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://www.google.co.th");*/
 
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(getString(R.string.str_url_webboard)+"?user="+MyArrList.get(0).get("username"));
+        webView.loadUrl(getString(R.string.str_url_webboard) + "?user=" + MyArrList.get(0).get("username"));
 
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btnKnowledge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), KnowledgeActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }

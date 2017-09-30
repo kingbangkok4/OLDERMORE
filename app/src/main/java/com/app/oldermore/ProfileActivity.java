@@ -60,7 +60,7 @@ public class ProfileActivity extends Activity {
     private ImageButton btnImageProfile, ImageEmergency1, ImageEmergency2, ImageEmergency3;
     private EditText txtName, txtMobile;
     private TextView lblName, txtNameEmergency1, txtNameEmergency2, txtNameEmergency3;
-    private Button btnSave, btnMainMenu;
+    private Button btnSave, btnMainMenu, btnFavorite, btnHealth;
     private String mCurrentPhotoPath, strURLUpload, strImgProfile;
     private static final int SELECT_PICTURE = 1;
     private String[] namePhotoSplite;
@@ -98,7 +98,8 @@ public class ProfileActivity extends Activity {
         txtNameEmergency1 = (TextView) findViewById(R.id.txtNameEmergency1);
         txtNameEmergency2 = (TextView) findViewById(R.id.txtNameEmergency2);
         txtNameEmergency3 = (TextView) findViewById(R.id.txtNameEmergency3);
-
+        btnHealth = (Button) findViewById(R.id.btnHealth);
+        btnFavorite=(Button)findViewById(R.id.btnFavorite);
         LoadData();
         GetCommon();
 
@@ -116,7 +117,7 @@ public class ProfileActivity extends Activity {
             public void onClick(View v) {
                 if (MyArrEmergency.get(0).get("emergency_mobile") != null) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    callIntent.setData(Uri.parse("tel:" + MyArrEmergency.get(0).get("emergency_mobile")));
                     if (ActivityCompat.checkSelfPermission(getBaseContext(),
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -131,7 +132,7 @@ public class ProfileActivity extends Activity {
             public void onClick(View v) {
                 if (MyArrEmergency.get(1).get("emergency_mobile") != null) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    callIntent.setData(Uri.parse("tel:" + MyArrEmergency.get(0).get("emergency_mobile")));
                     if (ActivityCompat.checkSelfPermission(getBaseContext(),
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -146,7 +147,7 @@ public class ProfileActivity extends Activity {
             public void onClick(View v) {
                 if (MyArrEmergency.get(2).get("emergency_mobile") != null) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+MyArrEmergency.get(0).get("emergency_mobile")));
+                    callIntent.setData(Uri.parse("tel:" + MyArrEmergency.get(0).get("emergency_mobile")));
                     if (ActivityCompat.checkSelfPermission(getBaseContext(),
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -195,6 +196,24 @@ public class ProfileActivity extends Activity {
                 startActivity(i);
             }
         });
+        btnHealth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), HealthActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+
+            }
+        });
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), FavoriteActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+
+            }
+        });
     }
 
     private void DisableEmergency() {
@@ -221,19 +240,19 @@ public class ProfileActivity extends Activity {
                 status = c.getString("status");
                 error = c.getString("error");
                 //if ("1".equals(status)) {
-                    map = new HashMap<String, String>();
-                    map.put("member_id", c.getString("member_id"));
-                    map.put("member_name", c.getString("member_name"));
-                    map.put("member_mobile", c.getString("member_mobile"));
-                    map.put("member_address", c.getString("member_address"));
-                    map.put("member_email", c.getString("member_email"));
-                    map.put("user_image", c.getString("user_image"));
-                    MyArrProfile.add(map);
+                map = new HashMap<String, String>();
+                map.put("member_id", c.getString("member_id"));
+                map.put("member_name", c.getString("member_name"));
+                map.put("member_mobile", c.getString("member_mobile"));
+                map.put("member_address", c.getString("member_address"));
+                map.put("member_email", c.getString("member_email"));
+                map.put("user_image", c.getString("user_image"));
+                MyArrProfile.add(map);
 
-                    ShowProfile();
+                ShowProfile();
                 //} else {
-                   // MessageDialog(error);
-               // }
+                // MessageDialog(error);
+                // }
                 LoadDataEmergency();
             }
         } catch (JSONException e) {
@@ -382,7 +401,7 @@ public class ProfileActivity extends Activity {
     }
 
     private void setImage() {
-        if(mCurrentPhotoPath != null) {
+        if (mCurrentPhotoPath != null) {
             Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
             btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
         }
@@ -505,19 +524,18 @@ public class ProfileActivity extends Activity {
         btnMainMenu.setTextSize(TypedValue.COMPLEX_UNIT_SP, ret.getFontSize());
     }
 
-    private SettingModel GetSettingValue(){
+    private SettingModel GetSettingValue() {
         SettingModel ret = new SettingModel();
         try {
             ret = myDb.GetSetting();
-            if(ret == null){
+            if (ret == null) {
+                ret.setFontSize(20);
+                ret.setBgColor("#ffffff");
+            } else if (ret.getBgColor() == null || ret.getFontSize() == 0) {
                 ret.setFontSize(20);
                 ret.setBgColor("#ffffff");
             }
-            else if(ret.getBgColor() == null || ret.getFontSize() == 0) {
-                ret.setFontSize(20);
-                ret.setBgColor("#ffffff");
-            }
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
         return ret;
