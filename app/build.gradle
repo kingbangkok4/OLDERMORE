@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.3"
+    buildToolsVersion '25.0.3'
     defaultConfig {
         applicationId "com.app.oldermore"
         minSdkVersion 15
@@ -31,10 +31,10 @@ dependencies {
     compile files('libs/httpclient-4.0.3.jar')
     //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.google.android.gms:play-services:7.8.0'
+   // compile 'com.google.android.gms:play-services:7.8.0'
 
-    compile 'com.android.support:design:23.3.1'
-    //compile 'com.google.android.gms:play-services:8.4.0'
+   // compile 'com.android.support:design:23.3.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/google-play-services.jar')
     compile files('libs/volley.jar')

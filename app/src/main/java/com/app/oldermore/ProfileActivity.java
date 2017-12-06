@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -64,6 +65,7 @@ public class ProfileActivity extends Activity {
     private String mCurrentPhotoPath, strURLUpload, strImgProfile;
     private static final int SELECT_PICTURE = 1;
     private String[] namePhotoSplite;
+    RadioButton myOption1, myOption2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,9 @@ public class ProfileActivity extends Activity {
         txtNameEmergency3 = (TextView) findViewById(R.id.txtNameEmergency3);
         btnHealth = (Button) findViewById(R.id.btnHealth);
         btnFavorite=(Button)findViewById(R.id.btnFavorite);
+        myOption1 = (RadioButton)findViewById(R.id.radio1);
+        myOption2 = (RadioButton)findViewById(R.id.radio2);
+
         LoadData();
         GetCommon();
 
@@ -110,6 +115,14 @@ public class ProfileActivity extends Activity {
             }
         } else {
             DisableEmergency();
+        }
+
+        if(MyArrProfile.size() > 0){
+            if("1".equals(MyArrProfile.get(0).get("police"))){
+                myOption1.setChecked(true);
+            }else {
+                myOption2.setChecked(true);
+            }
         }
 
         ImageEmergency1.setOnClickListener(new View.OnClickListener() {
@@ -247,6 +260,7 @@ public class ProfileActivity extends Activity {
                 map.put("member_address", c.getString("member_address"));
                 map.put("member_email", c.getString("member_email"));
                 map.put("user_image", c.getString("user_image"));
+                map.put("police", c.getString("police"));
                 MyArrProfile.add(map);
 
                 ShowProfile();
@@ -281,6 +295,7 @@ public class ProfileActivity extends Activity {
                     map.put("emergency_mobile", c.getString("emergency_mobile"));
                     map.put("emergency_image", c.getString("emergency_image"));
                     map.put("user_id", c.getString("user_id"));
+                    map.put("police", c.getString("police"));
                     MyArrEmergency.add(map);
                 }
             }
@@ -293,6 +308,10 @@ public class ProfileActivity extends Activity {
     private void UpdateProfile() {
         String status = "0";
         String error = "";
+        String police = "0";
+        if(myOption1.isChecked()){
+            police = "1";
+        }
         String url = getString(R.string.url) + "updateProfile.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -300,6 +319,7 @@ public class ProfileActivity extends Activity {
         params.add(new BasicNameValuePair("member_name", txtName.getText().toString().trim()));
         params.add(new BasicNameValuePair("member_mobile", txtMobile.getText().toString().trim()));
         params.add(new BasicNameValuePair("user_image", strImgProfile));
+        params.add(new BasicNameValuePair("police", police));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {

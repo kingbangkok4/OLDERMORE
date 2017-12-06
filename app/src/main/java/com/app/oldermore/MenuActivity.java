@@ -233,7 +233,9 @@ public class MenuActivity extends Activity {
                     map.put("user_id", c.getString("user_id"));
                     MyArrEmergency.add(map);*/
                 //}
-                strEmerCall = c.getString("emergency_mobile");
+                if(c.getString("police").equals("0")){
+                    strEmerCall = c.getString("emergency_mobile");
+                }
             }
 
         } catch (JSONException e) {

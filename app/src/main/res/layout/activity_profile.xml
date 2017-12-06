@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <TextView
@@ -14,8 +14,8 @@
         android:layout_alignBottom="@+id/txtMobile"
         android:layout_alignLeft="@+id/textView20"
         android:layout_alignStart="@+id/textView20"
-        android:textSize="30dp"
-        android:text="เบอร์โทร"/>
+        android:text="เบอร์โทร"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/lblName"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnImageProfile"
         android:layout_centerHorizontal="true"
-        android:text="รูปโปรไฟล์/ชื่อ"/>
+        android:text="รูปโปรไฟล์/ชื่อ" />
 
     <TextView
         android:id="@+id/textView"
@@ -37,7 +37,7 @@
         android:text="ข้อมูลส่วนตัว"
         android:textColor="@android:color/background_light"
         android:textSize="20dp"
-        android:textStyle="bold|italic"/>
+        android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/textView20"
@@ -51,18 +51,20 @@
         android:layout_marginStart="15dp"
         android:layout_toLeftOf="@+id/txtName"
         android:layout_toStartOf="@+id/txtName"
-        android:text="ชื่อ"/>
+        android:text="ชื่อ" />
 
     <ImageButton
         android:id="@+id/ImageEmergency1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignLeft="@+id/textView21"
-        android:layout_alignStart="@+id/textView21"
-        android:layout_below="@+id/textView21"
-        android:layout_marginTop="27dp"
+        android:layout_below="@+id/txtMobile"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="109dp"
+        android:layout_toLeftOf="@+id/btnHealth"
+        android:layout_toStartOf="@+id/btnHealth"
         android:background="@android:color/holo_purple"
-        android:gravity="center"/>
+        android:gravity="center" />
 
     <ImageButton
         android:id="@+id/ImageEmergency2"
@@ -74,7 +76,7 @@
         android:layout_alignRight="@+id/lblName"
         android:layout_alignStart="@+id/txtMobile"
         android:layout_alignTop="@+id/ImageEmergency1"
-        android:background="@android:color/holo_purple"/>
+        android:background="@android:color/holo_purple" />
 
     <ImageButton
         android:id="@+id/ImageEmergency3"
@@ -86,7 +88,7 @@
         android:layout_alignTop="@+id/ImageEmergency2"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:background="@android:color/holo_purple"/>
+        android:background="@android:color/holo_purple" />
 
     <ImageButton
         android:id="@+id/btnImageProfile"
@@ -94,7 +96,7 @@
         android:layout_height="80dp"
         android:layout_alignLeft="@+id/lblName"
         android:layout_alignStart="@+id/lblName"
-        android:layout_below="@+id/textView"/>
+        android:layout_below="@+id/textView" />
 
     <EditText
         android:id="@+id/txtMobile"
@@ -111,17 +113,7 @@
         android:gravity="center"
         android:inputType="phone"
         android:maxLength="10"
-        android:text=""/>
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView22"
-        android:layout_alignStart="@+id/textView22"
-        android:layout_below="@+id/txtMobile"
-        android:layout_marginTop="23dp"
-        android:text="ผู้ติดต่อกรณีฉมีเหตุฉุกเฉิน"/>
+        android:text="" />
 
     <TextView
         android:id="@+id/txtNameEmergency3"
@@ -133,7 +125,7 @@
         android:layout_alignStart="@+id/ImageEmergency3"
         android:layout_below="@+id/ImageEmergency3"
         android:gravity="center"
-        android:text="ชื่อ"/>
+        android:text="ชื่อ" />
 
     <TextView
         android:id="@+id/txtNameEmergency1"
@@ -145,7 +137,7 @@
         android:layout_alignStart="@+id/ImageEmergency1"
         android:layout_below="@+id/ImageEmergency1"
         android:gravity="center"
-        android:text="ชื่อ"/>
+        android:text="ชื่อ" />
 
     <Button
         android:id="@+id/btnMainMenu"
@@ -155,7 +147,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/mmain1"
-        android:text="เมนูหลัก"/>
+        android:text="เมนูหลัก" />
 
     <EditText
         android:id="@+id/txtName"
@@ -171,7 +163,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text=""/>
+        android:text="" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -181,7 +173,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/save"
-        android:text="บันทึก"/>
+        android:text="บันทึก" />
 
     <TextView
         android:id="@+id/txtNameEmergency2"
@@ -193,7 +185,7 @@
         android:layout_alignStart="@+id/ImageEmergency2"
         android:layout_below="@+id/ImageEmergency2"
         android:gravity="center"
-        android:text="ชื่อ"/>
+        android:text="ชื่อ" />
 
     <Button
         android:id="@+id/btnHealth"
@@ -209,10 +201,45 @@
         android:id="@+id/btnFavorite"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="คนโปรด"
-        android:textSize="20dp"
         android:layout_alignTop="@+id/btnHealth"
+        android:layout_toEndOf="@+id/btnImageProfile"
         android:layout_toRightOf="@+id/btnImageProfile"
-        android:layout_toEndOf="@+id/btnImageProfile" />
+        android:text="คนโปรด"
+        android:textSize="20dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView22"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
+        android:layout_toLeftOf="@+id/ImageEmergency3"
+        android:layout_toStartOf="@+id/ImageEmergency3">
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/ImageEmergency2"
+            android:layout_alignRight="@+id/ImageEmergency2"
+            android:layout_below="@+id/txtMobile"
+            android:layout_marginTop="14dp"
+            android:checked="true"
+            android:text="ติดต่อ 191"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radio1"
+            android:layout_alignStart="@+id/radio1"
+            android:layout_below="@+id/radio1"
+            android:layout_marginTop="20dp"
+            android:text="ผู้ติดต่อกรณีมีเหตุฉุกเฉิน"
+            android:textSize="18sp" />
+
+    </RadioGroup>
 
 </RelativeLayout>
