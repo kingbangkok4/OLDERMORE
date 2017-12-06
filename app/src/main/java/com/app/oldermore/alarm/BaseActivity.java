@@ -52,36 +52,6 @@ public abstract class BaseActivity  extends ActionBarActivity implements android
 			Intent newAlarmIntent = new Intent(this, AlarmPreferencesActivity.class);
 			startActivity(newAlarmIntent);
 			break;
-		case R.id.menu_item_rate:
-			url = "market://details?id=" + getPackageName();
-			intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse(url));
-			try {
-				startActivity(intent);
-			} catch (ActivityNotFoundException e) {
-				Toast.makeText(this, "Couldn't launch the market", Toast.LENGTH_LONG).show();
-			}
-			break;
-		case R.id.menu_item_website:
-			url = "http://www.neilson.co.za";
-			intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse(url));
-			try {
-				startActivity(intent);
-			} catch (ActivityNotFoundException e) {
-				Toast.makeText(this, "Couldn't launch the website", Toast.LENGTH_LONG).show();
-			}
-			break;
-		case R.id.menu_item_report:
-			
-			url = "https://github.com/SheldonNeilson/Android-Alarm-Clock/issues";
-			intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse(url));
-			try {
-				startActivity(intent);
-			} catch (ActivityNotFoundException e) {
-				Toast.makeText(this, "Couldn't launch the bug reporting website", Toast.LENGTH_LONG).show();
-			}
 			
 			/*
 			Intent send = new Intent(Intent.ACTION_SENDTO);
@@ -106,7 +76,7 @@ public abstract class BaseActivity  extends ActionBarActivity implements android
 			send.setData(emalUri);
 			startActivity(Intent.createChooser(send, "Send mail..."));
 			*/
-			break;
+			//break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

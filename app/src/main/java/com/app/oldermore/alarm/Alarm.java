@@ -92,7 +92,7 @@ public class Alarm implements Serializable {
 	private Day[] days = {Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY, Day.FRIDAY, Day.SATURDAY, Day.SUNDAY};
 	private String alarmTonePath = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
 	private Boolean vibrate = true;
-	private String alarmName = "ไม่มีชื่อเรื่อง";
+	private String alarmName = "";
 	private Difficulty difficulty = Difficulty.EASY;
 	
 	public Alarm() {
