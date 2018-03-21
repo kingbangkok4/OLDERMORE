@@ -24,11 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.app.oldermore.FavoriteActivity;
-import com.app.oldermore.HealthActivity;
 import com.app.oldermore.R;
 import com.app.oldermore.database.DatabaseActivity;
 import com.app.oldermore.http.Http;
@@ -57,7 +54,7 @@ public class AdminManageUserActivity extends Activity {
     private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
-    // ArrayList<HashMap<String, String>> ArrListFC = new ArrayList<HashMap<String, String>>();
+   // ArrayList<HashMap<String, String>> ArrListFC = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> ArrListFriend = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
@@ -68,7 +65,6 @@ public class AdminManageUserActivity extends Activity {
     private String friendName = "";
     private String friendUserId = "", strImgProfile = "";
     private String nameSearch = "";
-    private String friendId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,14 +157,10 @@ public class AdminManageUserActivity extends Activity {
     }
 
     private void DialogUpdateProfile(int position) {
-        final ArrayList<HashMap<String, String>> ProfileArrList = new ArrayList<HashMap<String, String>>();
-
         View dialogBoxView = View.inflate(this, R.layout.dialog_add_emergency, null);
         String strImgProfile = "";
         final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
         final Button btnCall = (Button) dialogBoxView.findViewById(R.id.btnCall);
-        final Button btnHealth = (Button) dialogBoxView.findViewById(R.id.btnHealth);
-        final Button btnFavorite = (Button) dialogBoxView.findViewById(R.id.btnFavorite);
         final ImageButton btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
         final EditText txtName = (EditText) dialogBoxView.findViewById(R.id.txtName);
         final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtMobile);
@@ -177,33 +169,33 @@ public class AdminManageUserActivity extends Activity {
         //String member_id = "";
         String user_id = "";
 
-        user_id = ArrListFriend.get(position).get("user_id");
-        name[0] = ArrListFriend.get(position).get("member_name");
-        mobile[0] = ArrListFriend.get(position).get("member_mobile");
-        //user_id = MyArrList.get(0).get("user_id");
+            user_id = ArrListFriend.get(position).get("user_id");
+            name[0] = ArrListFriend.get(position).get("member_name");
+            mobile[0] = ArrListFriend.get(position).get("member_mobile");
+            //user_id = MyArrList.get(0).get("user_id");
 
-        String photo_url_str = getString(R.string.url_images);
-        if (!"".equals(ArrListFriend.get(position).get("user_image")) && ArrListFriend.get(position).get("user_image") != null) {
-            photo_url_str += ArrListFriend.get(position).get("user_image");
-        } else {
-            photo_url_str += "no.png";
-        }
-        URL newurl = null;
-        try {
-            newurl = new URL(photo_url_str);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Bitmap b = null;
-        try {
-            b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+            String photo_url_str = getString(R.string.url_images);
+            if (!"".equals(ArrListFriend.get(position).get("user_image")) && ArrListFriend.get(position).get("user_image") != null) {
+                photo_url_str += ArrListFriend.get(position).get("user_image");
+            } else {
+                photo_url_str += "no.png";
+            }
+            URL newurl = null;
+            try {
+                newurl = new URL(photo_url_str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            Bitmap b = null;
+            try {
+                b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
 
-        txtName.setText(name[0]);
-        txtMobile.setText(mobile[0]);
+            txtName.setText(name[0]);
+            txtMobile.setText(mobile[0]);
 
         final String finalUserId = user_id;
         btnCall.setOnClickListener(new View.OnClickListener() {
@@ -219,23 +211,6 @@ public class AdminManageUserActivity extends Activity {
                     }
                     startActivity(callIntent);
                 }
-            }
-        });
-        final String finalUser_id = user_id;
-        btnHealth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    DialogHalth(finalUser_id);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
             }
         });
         //final String finalUser_id = user_id;
@@ -272,180 +247,6 @@ public class AdminManageUserActivity extends Activity {
                             }
                         }).show();
     }
-
-    private void DialogHalth(String user_id) throws JSONException {
-        View dialogBoxView = View.inflate(this, R.layout.activity_health, null);
-        ArrayList<HashMap<String, String>> MyArrHealthList = new ArrayList<HashMap<String, String>>();
-
-        final Button btnAdd = (Button) dialogBoxView.findViewById(R.id.btnAdd);
-        final Button btnMainMenu = (Button) dialogBoxView.findViewById(R.id.btnMainMenu);
-
-        final ImageButton ImageEmergency1 = (ImageButton) dialogBoxView.findViewById(R.id.ImageEmergency1);
-        final ImageButton ImageEmergency2 = (ImageButton) dialogBoxView.findViewById(R.id.ImageEmergency2);
-        final ImageButton ImageEmergency3 = (ImageButton) dialogBoxView.findViewById(R.id.ImageEmergency3);
-
-        final TextView txtNameEmergency1 = (TextView) dialogBoxView.findViewById(R.id.txtNameEmergency1);
-        final TextView txtNameEmergency2 = (TextView) dialogBoxView.findViewById(R.id.txtNameEmergency2);
-        final TextView txtNameEmergency3 = (TextView) dialogBoxView.findViewById(R.id.txtNameEmergency3);
-
-        ListView listHelth = (ListView) dialogBoxView.findViewById(R.id.listHelth);
-
-        // LoadData();
-        String url = getString(R.string.url) + "getHealth.php";
-        // Paste Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("user_id", user_id));
-
-        JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-        MyArrHealthList.clear();
-        if (data.length() > 0) {
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject c = data.getJSONObject(i);
-                map = new HashMap<String, String>();
-                map.put("health_id", c.getString("health_id"));
-                map.put("con_disease", c.getString("con_disease"));
-                map.put("drug_allergy", c.getString("drug_allergy"));
-                map.put("doctor", c.getString("doctor"));
-                map.put("doctor_mobile", c.getString("doctor_mobile"));
-                map.put("hotel", c.getString("hotel"));
-                map.put("hotel_mobile", c.getString("hotel_mobile"));
-                map.put("user_id", c.getString("user_id"));
-                MyArrHealthList.add(map);
-            }
-        }
-        SimpleAdapter sAdap;
-        sAdap = new SimpleAdapter(getBaseContext(), MyArrHealthList, R.layout.activity_one_column,
-                new String[]{"con_disease"}, new int[]{R.id.ColName});
-        listHelth.setAdapter(sAdap);
-
-       // GetCommon();
-
-        ImageEmergency1.setEnabled(false);
-        txtNameEmergency1.setEnabled(false);
-        ImageEmergency2.setEnabled(false);
-        txtNameEmergency2.setEnabled(false);
-        ImageEmergency3.setEnabled(false);
-        txtNameEmergency3.setEnabled(false);
-        btnMainMenu.setEnabled(false);
-
-
-        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("เพิ่ม - แก้ไข ข้อมูลสุขภาพ");
-        builderInOut.setMessage("")
-                .setView(dialogBoxView)
-                .setCancelable(false)
-       /*         .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                })*/
-                .setNegativeButton("ปิด",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        }).show();
-    }
-
-    private void DialogFavorite(final String user_id) throws JSONException {
-        View dialogBoxView = View.inflate(this, R.layout.activity_favorite, null);
-        final ArrayList<HashMap<String, String>> MyArrFavoriteList = new ArrayList<HashMap<String, String>>();
-
-        Button btnMainMenu = (Button) dialogBoxView.findViewById(R.id.btnMainMenu);
-        Button btnAdd = (Button) dialogBoxView.findViewById(R.id.btnAdd);
-        Button btnSearch = (Button) dialogBoxView.findViewById(R.id.btnAdd);
-
-        final EditText txtName = (EditText) dialogBoxView.findViewById(R.id.txtName);
-        final ListView listFriend = (ListView) dialogBoxView.findViewById(R.id.txtSearch);
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialodAddFriend();
-            }
-        });
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //LoadData();
-                String url = getString(R.string.url) + "getFavorite.php";
-
-                // Paste Parameters
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("user_id", user_id));
-                params.add(new BasicNameValuePair("search", txtName.getText().toString().trim()));
-
-                try {
-                    JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-                    MyArrFavoriteList.clear();
-                    if (data.length() > 0) {
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject c = data.getJSONObject(i);
-                            map = new HashMap<String, String>();
-                            map.put("id", c.getString("id"));
-                            map.put("friend_id", c.getString("friend_id"));
-                            map.put("user_image", c.getString("user_image").equals("")?"user.png":c.getString("user_image"));
-                            map.put("member_name", c.getString("member_name"));
-                            map.put("member_mobile", c.getString("member_mobile"));
-                            MyArrFavoriteList.add(map);
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                listFriend.setAdapter(new AdminManageUserActivity.ImageAdapter(this, MyArrFavoriteList));
-            }
-        });
-
-        //LoadData();
-        String url = getString(R.string.url) + "getFavorite.php";
-
-        // Paste Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("user_id", user_id));
-        params.add(new BasicNameValuePair("search", txtName.getText().toString().trim()));
-
-        try {
-            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-            MyArrFavoriteList.clear();
-            if (data.length() > 0) {
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject c = data.getJSONObject(i);
-                    map = new HashMap<String, String>();
-                    map.put("id", c.getString("id"));
-                    map.put("friend_id", c.getString("friend_id"));
-                    map.put("user_image", c.getString("user_image").equals("")?"user.png":c.getString("user_image"));
-                    map.put("member_name", c.getString("member_name"));
-                    map.put("member_mobile", c.getString("member_mobile"));
-                    MyArrFavoriteList.add(map);
-                }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        listFriend.setAdapter(new AdminManageUserActivity.ImageAdapter((View.OnClickListener) this, MyArrFavoriteList));
-
-        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("เพิ่ม - แก้ไข คนโปรด");
-        builderInOut.setMessage("")
-                .setView(dialogBoxView)
-                .setCancelable(false)
-       /*         .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                })*/
-                .setNegativeButton("ปิด",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        }).show();
-    }
-
 
     private void SaveData(String user_id, String member_name, String member_mobile) {
         String status = "0";
@@ -505,113 +306,6 @@ public class AdminManageUserActivity extends Activity {
         }
     }
 
-    private void DialodAddFriend() {
-        View dialogBoxView = View.inflate(this, R.layout.dialog_add_friend, null);
-        friendName = "";
-        final Button btnAFSerch = (Button) dialogBoxView.findViewById(R.id.btnAdd);
-        final EditText txtAFSearch = (EditText) dialogBoxView.findViewById(R.id.txtSearch);
-        final TextView txtAFFriend = (TextView) dialogBoxView.findViewById(R.id.txtFriend);
-        ListView listFavorite = (ListView) dialogBoxView.findViewById(R.id.listFriend);
-        txtAFFriend.setText("");
-        final ArrayList<HashMap<String, String>> ArrListFavorite = new ArrayList<HashMap<String, String>>();
-
-        //LoadDataFriend();
-        String url = getString(R.string.url) + "getFriend.php";
-
-        // Paste Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
-        params.add(new BasicNameValuePair("search", nameSearch));
-
-        try {
-            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-            ArrListFavorite.clear();
-            if (data.length() > 0) {
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject c = data.getJSONObject(i);
-                    map = new HashMap<String, String>();
-                    map.put("id", c.getString("id"));
-                    map.put("friend_id", c.getString("friend_id"));
-                    map.put("user_image", c.getString("user_image").equals("")?"user.png":c.getString("user_image"));
-                    map.put("member_name", c.getString("member_name"));
-                    map.put("member_mobile", c.getString("member_mobile"));
-                    ArrListFavorite.add(map);
-                }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        listFavorite.setAdapter(new AdminManageUserActivity.ImageAdapter((View.OnClickListener) this, ArrListFavorite));
-
-        btnAFSerch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nameSearch = txtAFSearch.getText().toString().trim();
-                //LoadDataFriend();
-            }
-        });
-
-        listFavorite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                txtAFFriend.setText(ArrListFavorite.get(position).get("member_name"));
-                friendId = ArrListFavorite.get(position).get("id");
-            }
-        });
-
-        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("เพิ่มเพื่อน");
-        builderInOut.setMessage("")
-                .setView(dialogBoxView)
-                .setCancelable(false)
-                .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        friendName = txtAFFriend.getText().toString().trim();
-                        if(!"".equals(friendName) && !"".equals(friendId)){
-                            SaveAddFavorite("1");
-                        }else {
-                            MessageDialog("กรุณาเลือกเพื่อนที่ต้องการเพิ่ม");
-                        }
-                    }
-                })
-                .setNegativeButton("ปิด",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        }).show();
-    }
-
-    private void SaveAddFavorite(String friendId) {
-        String status = "0";
-        String error = "";
-        String url = getString(R.string.url) + "saveFavorite.php";
-        // Paste Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
-        params.add(new BasicNameValuePair("friend_id", friendId));
-        params.add(new BasicNameValuePair("favorite", "0"));
-        try {
-            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-            if (data.length() > 0) {
-                JSONObject c = data.getJSONObject(0);
-                status = c.getString("status");
-                error = c.getString("error");
-                if ("1".equals(status)) {
-                    //LoadData();
-                    MessageDialog(error);
-                } else {
-                    MessageDialog(error);
-                }
-            }
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            MessageDialog(e.getMessage());
-        }
-    }
-
     private void LoadDataFriend() {
         String url = getString(R.string.url) + "getMemberAll.php";
         nameSearch = txtSearch.getText().toString().trim();
@@ -639,16 +333,16 @@ public class AdminManageUserActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        listView.setAdapter(new AdminManageUserActivity.ImageAdapter((View.OnClickListener) this, ArrListFriend));
+        listView.setAdapter(new AdminManageUserActivity.ImageAdapter(this, ArrListFriend));
     }
 
     public class ImageAdapter extends BaseAdapter {
         private Context context;
         private ArrayList<HashMap<String, String>> MyArr = new ArrayList<HashMap<String, String>>();
 
-        public ImageAdapter(View.OnClickListener c, ArrayList<HashMap<String, String>> list) {
+        public ImageAdapter(AdminManageUserActivity c, ArrayList<HashMap<String, String>> list) {
             // TODO Auto-generated method stub
-            context = (Context) c;
+            context = c;
             MyArr = list;
         }
 
