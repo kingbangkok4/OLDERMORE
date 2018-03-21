@@ -5,7 +5,7 @@
 
     <string name="url_network">http://192.168.56.1/OLDERMORE_SERVICE/api/</string>
     <string name="url_localhost">http://10.0.2.2:8888/OLDERMORE_SERVICE/api/</string>
-    <string name="url_web">http://www.oldermore.tpakrsai.com/api/</string>
+    <string name="url_web">http://www.oldermore.thaisoftwareretail.com/api/</string>
 
    <!-- <string name="url">http://10.0.2.2/OLDERMORE_SERVICE/api/</string>
     <string name="url_upload">http://10.0.2.2/OLDERMORE_SERVICE/api/uploadFile.php</string>
@@ -13,14 +13,14 @@
     <string name="str_url_video">http://10.0.2.2/OLDERMORE_SERVICE/video/</string>
 -->
 
-    <string name="url">http://www.oldermore.tpakrsai.com/api/</string>
-    <string name="url_upload">http://www.oldermore.tpakrsai.com/api/uploadFile.php</string>
-<!--    <string name="url_upload_video">http://www.oldermore.tpakrsai.com/api/uploadFile.php</string>-->
-    <string name="url_images">http://www.oldermore.tpakrsai.com/images/</string>
-    <string name="str_url_video">http://www.oldermore.tpakrsai.com/video/</string>
-    <string name="str_url_webboard">http://www.oldermore.tpakrsai.com/webboard/main_webboard.php</string>
-    <string name="str_url_admin_webboard">http://www.oldermore.tpakrsai.com/webboard/admin_webboard.php</string>
-    <string name="str_url_webboard_new_topic">http://www.oldermore.tpakrsai.com/webboard/new_topic.php</string>
+    <string name="url">http://www.oldermore.thaisoftwareretail.com/api/</string>
+    <string name="url_upload">http://www.oldermore.thaisoftwareretail.com/api/uploadFile.php</string>
+<!--    <string name="url_upload_video">http://www.oldermore.thaisoftwareretail.com/api/uploadFile.php</string>-->
+    <string name="url_images">http://www.oldermore.thaisoftwareretail.com/images/</string>
+    <string name="str_url_video">http://www.oldermore.thaisoftwareretail.com/video/</string>
+    <string name="str_url_webboard">http://www.oldermore.thaisoftwareretail.com/webboard/main_webboard.php</string>
+    <string name="str_url_admin_webboard">http://www.oldermore.thaisoftwareretail.com/webboard/admin_webboard.php</string>
+    <string name="str_url_webboard_new_topic">http://www.oldermore.thaisoftwareretail.com/webboard/new_topic.php</string>
     <string name="title_activity_maps">Map</string>
 
     <string name="title_activity_set_alarms">ตั้งเวลาแจ้งเตือน</string>
