@@ -6,16 +6,6 @@
                 android:orientation="vertical">
 
     <Button
-        android:id="@+id/btnMainMenu"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/mmain1"
-        android:text="กลับ"
-        android:layout_below="@+id/btnAdd"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="50dp"
