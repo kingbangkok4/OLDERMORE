@@ -100,7 +100,7 @@
         android:layout_below="@+id/txtMobile"
         android:layout_alignLeft="@+id/btnImageProfile"
         android:layout_alignStart="@+id/btnImageProfile"
-        android:layout_marginTop="79dp" />
+        android:layout_marginTop="64dp" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -108,31 +108,29 @@
         android:layout_height="50dp"
         android:background="@drawable/save"
         android:text="บันทึก"
-        android:layout_marginTop="117dp"
         android:layout_below="@+id/btnCall"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/textView22"
+        android:layout_alignStart="@+id/textView22"
+        android:layout_marginTop="17dp" />
 
     <Button
         android:id="@+id/btnHealth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnAdd"
-        android:layout_alignEnd="@+id/lblName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/lblName"
-        android:layout_marginBottom="51dp"
-        android:text="ข้อมูลสุขภาพ" />
+        android:text="ข้อมูลสุขภาพ"
+        android:layout_alignBaseline="@+id/btnCall"
+        android:layout_alignBottom="@+id/btnCall"
+        android:layout_toLeftOf="@+id/btnCall"
+        android:layout_toStartOf="@+id/btnCall" />
 
     <Button
         android:id="@+id/btnFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/btnHealth"
-        android:layout_toRightOf="@+id/btnHealth"
-        android:text="คนโปรด" />
+        android:text="คนโปรด"
+        android:layout_alignBaseline="@+id/btnCall"
+        android:layout_alignBottom="@+id/btnCall"
+        android:layout_toRightOf="@+id/btnCall"
+        android:layout_toEndOf="@+id/btnCall" />
 
 </RelativeLayout>

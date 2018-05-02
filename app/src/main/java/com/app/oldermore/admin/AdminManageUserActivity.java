@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.oldermore.R;
@@ -54,7 +55,7 @@ public class AdminManageUserActivity extends Activity {
     private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
-   // ArrayList<HashMap<String, String>> ArrListFC = new ArrayList<HashMap<String, String>>();
+    // ArrayList<HashMap<String, String>> ArrListFC = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> ArrListFriend = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
@@ -65,6 +66,8 @@ public class AdminManageUserActivity extends Activity {
     private String friendName = "";
     private String friendUserId = "", strImgProfile = "";
     private String nameSearch = "";
+    private ListView listHelth;
+    ArrayList<HashMap<String, String>> MyArrHealthList = new ArrayList<HashMap<String, String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,8 @@ public class AdminManageUserActivity extends Activity {
         String strImgProfile = "";
         final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
         final Button btnCall = (Button) dialogBoxView.findViewById(R.id.btnCall);
+        final Button btnHealth = (Button) dialogBoxView.findViewById(R.id.btnHealth);
+        final Button btnFavorite = (Button) dialogBoxView.findViewById(R.id.btnFavorite);
         final ImageButton btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
         final EditText txtName = (EditText) dialogBoxView.findViewById(R.id.txtName);
         final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtMobile);
@@ -169,33 +174,33 @@ public class AdminManageUserActivity extends Activity {
         //String member_id = "";
         String user_id = "";
 
-            user_id = ArrListFriend.get(position).get("user_id");
-            name[0] = ArrListFriend.get(position).get("member_name");
-            mobile[0] = ArrListFriend.get(position).get("member_mobile");
-            //user_id = MyArrList.get(0).get("user_id");
+        user_id = ArrListFriend.get(position).get("user_id");
+        name[0] = ArrListFriend.get(position).get("member_name");
+        mobile[0] = ArrListFriend.get(position).get("member_mobile");
+        //user_id = MyArrList.get(0).get("user_id");
 
-            String photo_url_str = getString(R.string.url_images);
-            if (!"".equals(ArrListFriend.get(position).get("user_image")) && ArrListFriend.get(position).get("user_image") != null) {
-                photo_url_str += ArrListFriend.get(position).get("user_image");
-            } else {
-                photo_url_str += "no.png";
-            }
-            URL newurl = null;
-            try {
-                newurl = new URL(photo_url_str);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            Bitmap b = null;
-            try {
-                b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
+        String photo_url_str = getString(R.string.url_images);
+        if (!"".equals(ArrListFriend.get(position).get("user_image")) && ArrListFriend.get(position).get("user_image") != null) {
+            photo_url_str += ArrListFriend.get(position).get("user_image");
+        } else {
+            photo_url_str += "no.png";
+        }
+        URL newurl = null;
+        try {
+            newurl = new URL(photo_url_str);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Bitmap b = null;
+        try {
+            b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
 
-            txtName.setText(name[0]);
-            txtMobile.setText(mobile[0]);
+        txtName.setText(name[0]);
+        txtMobile.setText(mobile[0]);
 
         final String finalUserId = user_id;
         btnCall.setOnClickListener(new View.OnClickListener() {
@@ -229,9 +234,37 @@ public class AdminManageUserActivity extends Activity {
                 }
             }
         });
-
+        final String finalUser_id = user_id;
+        btnHealth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogHealth(finalUser_id);
+            }
+        });
         AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
         builderInOut.setTitle("เพิ่ม - แก้ไข ผู้ติดต่อฉุกเฉิน");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+       /*         .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })*/
+                .setNegativeButton("ปิด",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+    }
+
+    private void DialogHealth(String user_id) {
+        View dialogBoxView = View.inflate(this, R.layout.activity_admin_health, null);
+        listHelth = (ListView) dialogBoxView.findViewById(R.id.listHelth);
+        LoadHelthData(user_id);
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("เพิ่ม - แก้ไข ข้อมูลสุขภาพ");
         builderInOut.setMessage("")
                 .setView(dialogBoxView)
                 .setCancelable(false)
@@ -334,6 +367,43 @@ public class AdminManageUserActivity extends Activity {
             e.printStackTrace();
         }
         listView.setAdapter(new AdminManageUserActivity.ImageAdapter(this, ArrListFriend));
+    }
+
+    protected void LoadHelthData(String user_id) {
+        String url = getString(R.string.url) + "getHealth.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("user_id", user_id));
+
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            MyArrHealthList.clear();
+            if (data.length() > 0) {
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject c = data.getJSONObject(i);
+                    map = new HashMap<String, String>();
+                    map.put("health_id", c.getString("health_id"));
+                    map.put("con_disease", c.getString("con_disease"));
+                    map.put("drug_allergy", c.getString("drug_allergy"));
+                    map.put("doctor", c.getString("doctor"));
+                    map.put("doctor_mobile", c.getString("doctor_mobile"));
+                    map.put("hotel", c.getString("hotel"));
+                    map.put("hotel_mobile", c.getString("hotel_mobile"));
+                    map.put("user_id", c.getString("user_id"));
+                    MyArrHealthList.add(map);
+                }
+            }
+            SimpleAdapter sAdap;
+            sAdap = new SimpleAdapter(getBaseContext(), MyArrHealthList, R.layout.activity_one_column,
+                    new String[] {"con_disease"}, new int[] {R.id.ColName});
+            listHelth.setAdapter(sAdap);
+
+            //LoadDataEmergency();
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MessageDialog(e.getMessage());
+        }
     }
 
     public class ImageAdapter extends BaseAdapter {

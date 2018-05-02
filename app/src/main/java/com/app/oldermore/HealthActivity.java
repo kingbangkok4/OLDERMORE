@@ -367,7 +367,7 @@ public class HealthActivity extends Activity {
         }
     }
 
-    private void LoadData() {
+    protected void LoadData() {
         String url = getString(R.string.url) + "getHealth.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
