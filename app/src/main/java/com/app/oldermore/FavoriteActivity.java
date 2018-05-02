@@ -86,7 +86,7 @@ public class FavoriteActivity extends Activity {
 
         btnMainMenu = (Button) findViewById(R.id.btnMainMenu);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-        btnSearch = (Button) findViewById(R.id.btnAdd);
+        btnSearch = (Button) findViewById(R.id.btnSearch);
 
         txtName = (EditText) findViewById(R.id.txtName);
         listFriend = (ListView) findViewById(R.id.txtSearch);
