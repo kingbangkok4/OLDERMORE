@@ -23,7 +23,7 @@ public class AdminMainActivity extends Activity {
     ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Http http = new Http();
-    Button btnLogout, btnMaUser, btnMaManual, btnMaBoard, btnMaEmergency, btnMaKnowlet;
+    Button btnLogout, btnMaUser, btnMaUserImg, btnMaManual, btnMaBoard, btnMaEmergency, btnMaKnowlet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class AdminMainActivity extends Activity {
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnMaUser = (Button) findViewById(R.id.btnMaUser);
+        btnMaUserImg = (Button) findViewById(R.id.btnMaUserImg);
         btnMaManual = (Button)findViewById(R.id.btnMaManual);
         btnMaBoard  = (Button)findViewById(R.id.btnMaBoard);
         btnMaKnowlet  = (Button)findViewById(R.id.btnMaKnowlet);
@@ -62,6 +63,14 @@ public class AdminMainActivity extends Activity {
             }
         });
         btnMaUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), AdminManageUserActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btnMaUserImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), AdminManageUserActivity.class);

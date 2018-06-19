@@ -110,6 +110,9 @@
             android:name=".admin.AdminManageUserActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".admin.AdminManageUserImgActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".admin.AdminManualActivity"
             android:screenOrientation="portrait"/>
         <activity
