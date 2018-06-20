@@ -1,18 +1,17 @@
 package com.app.oldermore.admin;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.ActivityCompat;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +40,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -64,16 +67,19 @@ public class AdminManageUserImgActivity extends Activity {
     private ListView listView;
     private EditText txtSearch;
     private String friendName = "";
-    private String friendUserId = "", strImgProfile = "";
+    private String friendUserId = "", strURLUpload = "", strImgProfile = "", mCurrentPhotoPath;
+    private String[] namePhotoSplite;
+    private static final int SELECT_PICTURE = 1;
     private String nameSearch = "";
     private ListView listHelth;
     ArrayList<HashMap<String, String>> MyArrHealthList = new ArrayList<HashMap<String, String>>();
     private String conDisease, drugAllergy, doctor, doctorMobile, hotel, hotelMobile, healthId;
+    private ImageButton btnImageProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_manage_user);
+        setContentView(R.layout.admin_manage_user_img);
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -119,7 +125,7 @@ public class AdminManageUserImgActivity extends Activity {
                                     int position, long id) {
                 try {
                     //int emId = Integer.parseInt(ArrListFreind.get(position).get("emergency_id"));
-                    DialogUpdateProfile(position);
+                    DialogUpdateProfileImg(position);
                 } catch (Exception e) {
                     // When Error
                     MessageDialog(e.getMessage());
@@ -138,14 +144,15 @@ public class AdminManageUserImgActivity extends Activity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 friendUserId = ArrListFriend.get(position).get("user_id");
-                builder.setTitle("คุณต้องการลบผู้ใช้งานนี้?");
+                builder.setTitle("คุณต้องการลบรูปผู้ใช้งานนี้?");
                 builder.setMessage(ArrListFriend.get(position).get("member_name"))
                         .setCancelable(false)
                         .setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                DeleteUser();
+                                strImgProfile = "user.png";
+                                UpdateUserImg(false, position);
                             }
                         })
                         .setNegativeButton("ไม่ใช่",
@@ -160,24 +167,18 @@ public class AdminManageUserImgActivity extends Activity {
 
     }
 
-    private void DialogUpdateProfile(int position) {
-        View dialogBoxView = View.inflate(this, R.layout.dialog_add_emergency, null);
-        String strImgProfile = "";
+    private void DialogUpdateProfileImg(final int position) {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_add_user_img, null);
+        final String strImgProfile = "";
         final Button btnSave = (Button) dialogBoxView.findViewById(R.id.btnAdd);
-        final Button btnCall = (Button) dialogBoxView.findViewById(R.id.btnCall);
-        final Button btnHealth = (Button) dialogBoxView.findViewById(R.id.btnHealth);
-        final Button btnFavorite = (Button) dialogBoxView.findViewById(R.id.btnFavorite);
-        final ImageButton btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
-        final EditText txtName = (EditText) dialogBoxView.findViewById(R.id.txtName);
-        final EditText txtMobile = (EditText) dialogBoxView.findViewById(R.id.txtMobile);
+        btnImageProfile = (ImageButton) dialogBoxView.findViewById(R.id.btnImageProfile);
+        final TextView txtName = (TextView) dialogBoxView.findViewById(R.id.txtName);
         final String[] name = {""};
-        final String[] mobile = {""};
         //String member_id = "";
         String user_id = "";
 
         user_id = ArrListFriend.get(position).get("user_id");
         name[0] = ArrListFriend.get(position).get("member_name");
-        mobile[0] = ArrListFriend.get(position).get("member_mobile");
         //user_id = MyArrList.get(0).get("user_id");
 
         String photo_url_str = getString(R.string.url_images);
@@ -198,52 +199,35 @@ public class AdminManageUserImgActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
-
+        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 150, 150, false));
         txtName.setText(name[0]);
-        txtMobile.setText(mobile[0]);
-
-        final String finalUserId = user_id;
-        btnCall.setOnClickListener(new View.OnClickListener() {
+        btnImageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!"".equals(txtMobile.getText().toString().trim())) {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + txtMobile.getText().toString().trim()));
-
-                    if (ActivityCompat.checkSelfPermission(getBaseContext(),
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    startActivity(callIntent);
-                }
+                // *** Upload file to Server
+                strURLUpload = getString(R.string.url_upload);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(
+                        Intent.createChooser(intent, "Select Picture"),
+                        SELECT_PICTURE);
             }
         });
+
+        final String finalUserId = user_id;
+
         //final String finalUser_id = user_id;
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name[0] = txtName.getText().toString().trim();
-                mobile[0] = txtMobile.getText().toString().trim();
-
-                if (!"".equals(name[0]) && !"".equals(mobile[0])) {
-                    SaveData(finalUserId, name[0], mobile[0]);
-
-                    LoadDataFriend();
-                } else {
-                    MessageDialog("กรุณาใส่ข้อมูลให้ครบถ้วน");
-                }
+                UpdateUserImg(true, position);
+                LoadDataFriend();
             }
         });
         final String finalUser_id = user_id;
-        btnHealth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogHealth(finalUser_id);
-            }
-        });
         AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("เพิ่ม - แก้ไข ผู้ติดต่อฉุกเฉิน");
+        builderInOut.setTitle("เพิ่ม - แก้ไข รูปผู้ใช้งาน");
         builderInOut.setMessage("")
                 .setView(dialogBoxView)
                 .setCancelable(false)
@@ -377,14 +361,24 @@ public class AdminManageUserImgActivity extends Activity {
         }
     }
 
-    private void DeleteUser() {
+    private void UpdateUserImg(boolean isUpdate, int position) {
         String status = "0";
         String error = "";
-        String url = getString(R.string.url) + "deleteUser.php";
+        if (isUpdate) {
+            boolean status_img = uploadFiletoServer(mCurrentPhotoPath, strURLUpload);
+            if (status_img) {
+                namePhotoSplite = mCurrentPhotoPath.split("/");
+                strImgProfile = namePhotoSplite[namePhotoSplite.length - 1];
+            }
+        }
+        String url = getString(R.string.url) + "updateProfile.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("user_id", MyArrList.get(0).get("user_id")));
-        params.add(new BasicNameValuePair("friend_id", friendUserId));
+        params.add(new BasicNameValuePair("user_id", ArrListFriend.get(position).get("user_id")));
+        params.add(new BasicNameValuePair("member_name", ArrListFriend.get(position).get("member_name")));
+        params.add(new BasicNameValuePair("member_mobile", ArrListFriend.get(position).get("member_mobile")));
+        params.add(new BasicNameValuePair("user_image", strImgProfile));
+        params.add(new BasicNameValuePair("police", ArrListFriend.get(position).get("police")));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {
@@ -425,6 +419,7 @@ public class AdminManageUserImgActivity extends Activity {
                     map.put("user_image", c.getString("user_image").equals("") ? "user.png" : c.getString("user_image"));
                     map.put("member_name", c.getString("member_name"));
                     map.put("member_mobile", c.getString("member_mobile"));
+                    map.put("police", c.getString("police"));
                     ArrListFriend.add(map);
                 }
             }
@@ -461,7 +456,7 @@ public class AdminManageUserImgActivity extends Activity {
             }
             SimpleAdapter sAdap;
             sAdap = new SimpleAdapter(getBaseContext(), MyArrHealthList, R.layout.activity_one_column,
-                    new String[] {"con_disease"}, new int[] {R.id.ColName});
+                    new String[]{"con_disease"}, new int[]{R.id.ColName});
             listHelth.setAdapter(sAdap);
 
             //LoadDataEmergency();
@@ -474,12 +469,12 @@ public class AdminManageUserImgActivity extends Activity {
 
     private void DialogShowHealth(String health_id) {
         View dialogBoxView = View.inflate(this, R.layout.dialog_health, null);
-        final EditText txtConDisease = (EditText)dialogBoxView.findViewById(R.id.txtConDisease);
-        final EditText txtDrugAllergy = (EditText)dialogBoxView.findViewById(R.id.txtDrugAllergy);
-        final EditText txtDoctor = (EditText)dialogBoxView.findViewById(R.id.txtDoctor);
-        final EditText txtDoctorMobile = (EditText)dialogBoxView.findViewById(R.id.txtDoctorMobile);
-        final EditText txtHotel = (EditText)dialogBoxView.findViewById(R.id.txtHotel);
-        final EditText txtHotelMobile = (EditText)dialogBoxView.findViewById(R.id.txtHotelMobile);
+        final EditText txtConDisease = (EditText) dialogBoxView.findViewById(R.id.txtConDisease);
+        final EditText txtDrugAllergy = (EditText) dialogBoxView.findViewById(R.id.txtDrugAllergy);
+        final EditText txtDoctor = (EditText) dialogBoxView.findViewById(R.id.txtDoctor);
+        final EditText txtDoctorMobile = (EditText) dialogBoxView.findViewById(R.id.txtDoctorMobile);
+        final EditText txtHotel = (EditText) dialogBoxView.findViewById(R.id.txtHotel);
+        final EditText txtHotelMobile = (EditText) dialogBoxView.findViewById(R.id.txtHotelMobile);
 
         healthId = health_id;
         txtConDisease.setText(conDisease);
@@ -518,12 +513,12 @@ public class AdminManageUserImgActivity extends Activity {
 
     private void DialogAddHelth() {
         View dialogBoxView = View.inflate(this, R.layout.dialog_health, null);
-        final EditText txtConDisease = (EditText)dialogBoxView.findViewById(R.id.txtConDisease);
-        final EditText txtDrugAllergy = (EditText)dialogBoxView.findViewById(R.id.txtDrugAllergy);
-        final EditText txtDoctor = (EditText)dialogBoxView.findViewById(R.id.txtDoctor);
-        final EditText txtDoctorMobile = (EditText)dialogBoxView.findViewById(R.id.txtDoctorMobile);
-        final EditText txtHotel = (EditText)dialogBoxView.findViewById(R.id.txtHotel);
-        final EditText txtHotelMobile = (EditText)dialogBoxView.findViewById(R.id.txtHotelMobile);
+        final EditText txtConDisease = (EditText) dialogBoxView.findViewById(R.id.txtConDisease);
+        final EditText txtDrugAllergy = (EditText) dialogBoxView.findViewById(R.id.txtDrugAllergy);
+        final EditText txtDoctor = (EditText) dialogBoxView.findViewById(R.id.txtDoctor);
+        final EditText txtDoctorMobile = (EditText) dialogBoxView.findViewById(R.id.txtDoctorMobile);
+        final EditText txtHotel = (EditText) dialogBoxView.findViewById(R.id.txtHotel);
+        final EditText txtHotelMobile = (EditText) dialogBoxView.findViewById(R.id.txtHotelMobile);
 
         AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
         builderInOut.setTitle("เพิ่มข้อมูลสุขภาพ");
@@ -742,5 +737,114 @@ public class AdminManageUserImgActivity extends Activity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    //============================UPLOAD FILE=============================
+    public static boolean uploadFiletoServer(String strSDPath, String strUrlServer) {
+
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 10 * 1024 * 1024;
+        int resCode = 0;
+        String resMessage = "";
+
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+
+        try {
+            File file = new File(strSDPath);
+            if (!file.exists()) {
+                return false;
+            }
+
+            FileInputStream fileInputStream = new FileInputStream(new File(strSDPath));
+
+            URL url = new URL(strUrlServer);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setRequestMethod("POST");
+
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+            DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
+            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+            outputStream.writeBytes(
+                    "Content-Disposition: form-data; name=\"filUpload\";filename=\"" + strSDPath + "\"" + lineEnd);
+            outputStream.writeBytes(lineEnd);
+
+            bytesAvailable = fileInputStream.available();
+            bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            buffer = new byte[bufferSize];
+
+            // Read file
+            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+            while (bytesRead > 0) {
+                outputStream.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            }
+
+            outputStream.writeBytes(lineEnd);
+            outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+            // Response Code and Message
+            resCode = conn.getResponseCode();
+            if (resCode == HttpURLConnection.HTTP_OK) {
+                InputStream is = conn.getInputStream();
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                int read = 0;
+                while ((read = is.read()) != -1) {
+                    bos.write(read);
+                }
+                byte[] result = bos.toByteArray();
+                bos.close();
+
+                resMessage = new String(result);
+
+            }
+
+            fileInputStream.close();
+            outputStream.flush();
+            outputStream.close();
+
+            return true;
+
+        } catch (Exception ex) {
+            // Exception handling
+            return false;
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) if (requestCode == SELECT_PICTURE) {
+            Uri selectedImageUri = data.getData();
+            mCurrentPhotoPath = getPath(selectedImageUri);
+            System.out.println("Image Path : " + mCurrentPhotoPath);
+            setImage();
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+    private void setImage() {
+        if (mCurrentPhotoPath != null) {
+            Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath);
+            btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 150, 150, false));
+        }
+    }
+///===================================================================
 
 }

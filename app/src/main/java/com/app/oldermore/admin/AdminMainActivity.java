@@ -73,7 +73,7 @@ public class AdminMainActivity extends Activity {
         btnMaUserImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), AdminManageUserActivity.class);
+                Intent i = new Intent(getBaseContext(), AdminManageUserImgActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }

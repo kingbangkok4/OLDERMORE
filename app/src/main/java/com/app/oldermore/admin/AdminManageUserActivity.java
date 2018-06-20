@@ -178,7 +178,7 @@ public class AdminManageUserActivity extends Activity {
         user_id = ArrListFriend.get(position).get("user_id");
         name[0] = ArrListFriend.get(position).get("member_name");
         mobile[0] = ArrListFriend.get(position).get("member_mobile");
-        //user_id = MyArrList.get(0).get("user_id");
+        final String police = MyArrList.get(position).get("police");
 
         String photo_url_str = getString(R.string.url_images);
         if (!"".equals(ArrListFriend.get(position).get("user_image")) && ArrListFriend.get(position).get("user_image") != null) {
@@ -227,7 +227,7 @@ public class AdminManageUserActivity extends Activity {
                 mobile[0] = txtMobile.getText().toString().trim();
 
                 if (!"".equals(name[0]) && !"".equals(mobile[0])) {
-                    SaveData(finalUserId, name[0], mobile[0]);
+                    SaveData(finalUserId, name[0], mobile[0], police);
 
                     LoadDataFriend();
                 } else {
@@ -347,7 +347,7 @@ public class AdminManageUserActivity extends Activity {
                         }).show();
     }
 
-    private void SaveData(String user_id, String member_name, String member_mobile) {
+    private void SaveData(String user_id, String member_name, String member_mobile, String police) {
         String status = "0";
         String error = "";
         String url = getString(R.string.url) + "updateProfile.php";
@@ -356,7 +356,8 @@ public class AdminManageUserActivity extends Activity {
         params.add(new BasicNameValuePair("user_id", user_id));
         params.add(new BasicNameValuePair("member_name", member_name));
         params.add(new BasicNameValuePair("member_mobile", member_mobile));
-        params.add(new BasicNameValuePair("member_image", strImgProfile));
+        params.add(new BasicNameValuePair("user_image", strImgProfile));
+        params.add(new BasicNameValuePair("police", police));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {
@@ -425,6 +426,7 @@ public class AdminManageUserActivity extends Activity {
                     map.put("user_image", c.getString("user_image").equals("") ? "user.png" : c.getString("user_image"));
                     map.put("member_name", c.getString("member_name"));
                     map.put("member_mobile", c.getString("member_mobile"));
+                    map.put("police", c.getString("police"));
                     ArrListFriend.add(map);
                 }
             }
