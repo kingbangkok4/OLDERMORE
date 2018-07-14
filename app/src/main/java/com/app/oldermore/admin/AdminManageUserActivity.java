@@ -178,7 +178,7 @@ public class AdminManageUserActivity extends Activity {
         user_id = ArrListFriend.get(position).get("user_id");
         name[0] = ArrListFriend.get(position).get("member_name");
         mobile[0] = ArrListFriend.get(position).get("member_mobile");
-        final String police = MyArrList.get(position).get("police");
+        final String police = ArrListFriend.get(position).get("police");
 
         String photo_url_str = getString(R.string.url_images);
         if (!"".equals(ArrListFriend.get(position).get("user_image")) && ArrListFriend.get(position).get("user_image") != null) {
